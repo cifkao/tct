@@ -1,6 +1,7 @@
 /app/tmp/*
 /app/Config/database.php
 /app/Config/mail.php
+/app/Config/twitter.php
 !empty
 /.htaccess
 /app/webroot/.htaccess
