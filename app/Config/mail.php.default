@@ -1,0 +1,12 @@
+<?php
+$config = array(
+  'Mail' => array(
+    'address' => '***@gmail.com',
+    'name' => 'Twitter Crowd Translation',
+    'username' => '***',
+	  'password' => '***',
+    'smtp_server' => 'smtp.gmail.com',
+    'smtp_port' => 587,
+    'smtp_auth' => 'tls'
+  )
+);

@@ -1,0 +1,6 @@
+[submodule "cakephp"]
+	path = cakephp
+	url = git://github.com/cakephp/cakephp.git
+[submodule "app/Vendor/phpmailer"]
+	path = app/Vendor/phpmailer
+	url = https://github.com/PHPMailer/PHPMailer.git
