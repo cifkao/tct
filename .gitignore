@@ -2,6 +2,7 @@
 /app/Config/database.php
 /app/Config/mail.php
 /app/Config/twitter.php
+/app/Config/bootstrap.local.php
 !empty
 /.htaccess
 /app/webroot/.htaccess
