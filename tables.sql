@@ -2,10 +2,10 @@
 -- version 4.1.8
 -- http://www.phpmyadmin.net
 --
--- Počítač: localhost
--- Vytvořeno: Pát 01. srp 2014, 10:39
--- Verze serveru: 5.5.33-MariaDB
--- Verze PHP: 5.4.20
+-- Host: localhost
+-- Generation Time: Aug 11, 2014 at 08:09 AM
+-- Server version: 5.5.33-MariaDB
+-- PHP Version: 5.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databáze: `tct`
+-- Database: `tct`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `auth_tokens`
+-- Table structure for table `auth_tokens`
 --
 
 CREATE TABLE IF NOT EXISTS `auth_tokens` (
@@ -34,24 +34,40 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `translator_id` (`translator_id`),
   UNIQUE KEY `hash` (`hash`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Auth tokens for translator registration and settings changes' AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `langs`
+-- Table structure for table `langs`
 --
 
 CREATE TABLE IF NOT EXISTS `langs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` char(2) NOT NULL,
+  `code` varchar(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List of all languages' AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `translators`
+-- Table structure for table `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `src_lang_id` int(11) NOT NULL,
+  `tgt_lang_id` int(11) NOT NULL,
+  `hash` char(32) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Posts submitted for translation' AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `translators`
 --
 
 CREATE TABLE IF NOT EXISTS `translators` (
@@ -63,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `translators` (
   `vacation` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Translators' AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `translators_src_langs`
+-- Table structure for table `translators_src_langs`
 --
 
 CREATE TABLE IF NOT EXISTS `translators_src_langs` (
@@ -78,12 +94,12 @@ CREATE TABLE IF NOT EXISTS `translators_src_langs` (
   PRIMARY KEY (`id`),
   KEY `translator_id` (`translator_id`),
   KEY `lang_id` (`lang_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and source languages' AUTO_INCREMENT=106 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabulky `translators_tgt_langs`
+-- Table structure for table `translators_tgt_langs`
 --
 
 CREATE TABLE IF NOT EXISTS `translators_tgt_langs` (
@@ -93,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `translators_tgt_langs` (
   PRIMARY KEY (`id`),
   KEY `translator_id` (`translator_id`),
   KEY `lang_id` (`lang_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=91 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and target languages' AUTO_INCREMENT=96 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
