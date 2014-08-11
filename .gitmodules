@@ -4,3 +4,6 @@
 [submodule "app/Vendor/phpmailer"]
 	path = app/Vendor/phpmailer
 	url = https://github.com/PHPMailer/PHPMailer.git
+[submodule "app/Vendor/twitter"]
+	path = app/Vendor/twitter
+	url = https://github.com/J7mbo/twitter-api-php
