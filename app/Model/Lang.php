@@ -1,6 +1,8 @@
 <?php
 class Lang extends AppModel {
 
+  public $actsAs = array('Containable');
+
   public $hasAndBelongsToMany = array(
     'SrcTranslator' => array(
       'className' => 'Translator',
@@ -12,5 +14,5 @@ class Lang extends AppModel {
     )
   );
 
-  public $displayField = 'code';
+  public $displayField = 'name';
 }

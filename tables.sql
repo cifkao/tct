@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 11, 2014 at 09:20 PM
+-- Generation Time: Aug 11, 2014 at 11:19 PM
 -- Server version: 5.5.33-MariaDB
 -- PHP Version: 5.4.20
 
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
 CREATE TABLE IF NOT EXISTS `langs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(5) NOT NULL,
+  `name` varchar(20) NOT NULL COMMENT 'English name of the language',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List of all languages';
 
