@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 11, 2014 at 08:09 AM
+-- Generation Time: Aug 11, 2014 at 09:20 PM
 -- Server version: 5.5.33-MariaDB
 -- PHP Version: 5.4.20
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `translator_id` (`translator_id`),
   UNIQUE KEY `hash` (`hash`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Auth tokens for translator registration and settings changes' AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Auth tokens for translator registration and settings changes';
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `langs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List of all languages' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='List of all languages';
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,21 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `hash` char(32) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Posts submitted for translation' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Posts submitted for translation';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts_twitter`
+--
+
+CREATE TABLE IF NOT EXISTS `posts_twitter` (
+  `id` int(11) NOT NULL COMMENT 'Same as posts.id',
+  `tweet_id` bigint(20) NOT NULL COMMENT 'Twitter status id',
+  `author_id` bigint(20) NOT NULL COMMENT 'Twitter user id',
+  `author_screen_name` text NOT NULL COMMENT 'Twitter user screen_name',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Twitter-specific data for posts';
 
 -- --------------------------------------------------------
 
@@ -79,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `translators` (
   `vacation` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Translators' AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Translators';
 
 -- --------------------------------------------------------
 
@@ -94,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `translators_src_langs` (
   PRIMARY KEY (`id`),
   KEY `translator_id` (`translator_id`),
   KEY `lang_id` (`lang_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and source languages' AUTO_INCREMENT=106 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and source languages';
 
 -- --------------------------------------------------------
 
@@ -109,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `translators_tgt_langs` (
   PRIMARY KEY (`id`),
   KEY `translator_id` (`translator_id`),
   KEY `lang_id` (`lang_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and target languages' AUTO_INCREMENT=96 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Join table for translators and target languages';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
