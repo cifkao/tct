@@ -1,27 +1,27 @@
 <?php
 class Translator extends AppModel {
-  public $actsAs = ['Containable'];
+  public $actsAs = array('Containable');
 
-  public $hasMany = [
-    'AuthToken' =>[
+  public $hasMany = array(
+    'AuthToken' => array(
       'dependent' => true
-    ]
-  ];
+    )
+  );
 
-  public $hasAndBelongsToMany = [
-    'SrcLang' => [
+  public $hasAndBelongsToMany = array(
+    'SrcLang' => array(
       'className' => 'Lang',
       'joinTable' => 'translators_src_langs'
-    ],
-    'TgtLang' => [
+    ),
+    'TgtLang' => array(
       'className' => 'Lang',
       'joinTable' => 'translators_tgt_langs'
-    ]
-  ];
+    )
+  );
 
-  public $validate = [
-    'email' => ['rule' => 'email', 'required' => true]
-  ];
+  public $validate = array(
+    'email' => array('rule' => 'email', 'required' => true)
+  );
 
   public $displayField = 'email';
 
@@ -30,9 +30,9 @@ class Translator extends AppModel {
    * Finds out whether a Translator with the given e-mail is already registered.
    */
   public function existsWithEmail($email){
-    return $this->find('count', [
-      'conditions' => ['Translator.email' => $email]
-    ])>0;
+    return $this->find('count', array(
+      'conditions' => array('Translator.email' => $email)
+    ))>0;
   }
 
 }

@@ -1,14 +1,14 @@
 <?php
 class Post extends AppModel {
-  public $actsAs = ['Containable'];
+  public $actsAs = array('Containable');
 
-  public $belongsTo = [
-    'SrcLang' => [
+  public $belongsTo = array(
+    'SrcLang' => array(
       'className' => 'Lang',
-    ],
-    'TgtLang' => [
+    ),
+    'TgtLang' => array(
       'className' => 'Lang',
-    ]
-  ];
+    )
+  );
 
 }

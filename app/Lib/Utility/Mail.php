@@ -1,6 +1,6 @@
 <?php
 App::import('Vendor', 'PHPMailer',
-  ['file' => 'phpmailer'.DS.'class.phpmailer.php']);
+  array('file' => 'phpmailer'.DS.'class.phpmailer.php'));
 
 Configure::load("mail", "default");
 

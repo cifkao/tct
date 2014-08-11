@@ -4,8 +4,8 @@ App::uses('Mail', 'Utility');
 
 class TranslatorsController extends AppController {
   public $scaffold;
-  public $uses = ['Translator', 'AuthToken'];
-  public $components = ['RequestHandler', 'Paginator', 'Session'];
+  public $uses = array('Translator', 'AuthToken');
+  public $components = array('RequestHandler', 'Paginator', 'Session');
 
 
   public function register(){
@@ -17,9 +17,9 @@ class TranslatorsController extends AppController {
       }
 
       $this->Translator->create();
-      $success = $this->Translator->save($this->request->data, [
-        'fieldList' => ['email', 'name', 'description']
-      ]);
+      $success = $this->Translator->save($this->request->data, array(
+        'fieldList' => array('email', 'name', 'description')
+      ));
       if($success){
         $tokenData = $this->AuthToken->getByTranslator($this->Translator->id);
       }
@@ -35,7 +35,7 @@ class TranslatorsController extends AppController {
         __("Thank you for signing up as a translator on TCT. " .
         "Please confirm your registration by following this link:\n" .
         "%s",
-        Router::url(['action' => 'activate', $tokenData['AuthToken']['hash']], true)
+        Router::url(array('action' => 'activate', $tokenData['AuthToken']['hash']), true)
       ));
 
       if($error==null){
@@ -43,14 +43,14 @@ class TranslatorsController extends AppController {
       }else{
         $this->Session->setFlash(__("Sending e-mail failed: %s.", $error));
       }
-      return $this->redirect(['action' => 'index']);
+      return $this->redirect(array('action' => 'index'));
     }
   }
 
   public function activate($hash = null){
     if(!$hash){
       $this->Session->setFlash(__("Activation failed: missing token."));
-      return $this->redirect(['action' => 'index']);
+      return $this->redirect(array('action' => 'index'));
     }
     
     $this->AuthToken->contain('Translator');
@@ -59,13 +59,13 @@ class TranslatorsController extends AppController {
     if(!$data || !$data['Translator'] || $data['Translator']['activated']){
       $this->AuthToken->delete();
       $this->Session->setFlash(__("Activation failed: invalid token."));
-      return $this->redirect(['action' => 'index']);
+      return $this->redirect(array('action' => 'index'));
     }
 
     $this->Translator->id = $data['Translator']['id'];
     $this->Translator->saveField('activated', true);
     $this->Session->setFlash(__("Account activated."));
-    return $this->redirect(['action' => 'edit_settings', $hash]);
+    return $this->redirect(array('action' => 'edit_settings', $hash));
   }
 
   public function edit_settings($hash = null){
@@ -82,32 +82,32 @@ class TranslatorsController extends AppController {
     if(!$tokenData || !$tokenData['Translator']){
       $this->AuthToken->delete();
       $this->Session->setFlash(__("Request failed: invalid token."));
-      return $this->redirect(['action' => 'edit_settings']); // will render request_settings
+      return $this->redirect(array('action' => 'edit_settings')); // will render request_settings
     }
     if(!$tokenData['Translator']['activated'])
-      return $this->redirect(['action' => 'activate', $hash]);
+      return $this->redirect(array('action' => 'activate', $hash));
 
 
     // Data passed => save it, destroy token
-    if($this->request->is(['post', 'put'])){
-      $res = $this->Translator->save($this->request->data, [
-        'fieldList' => ['name', 'description', 'vacation', 'SrcLang', 'TgtLang']
-      ]);
+    if($this->request->is(array('post', 'put'))){
+      $res = $this->Translator->save($this->request->data, array(
+        'fieldList' => array('name', 'description', 'vacation', 'SrcLang', 'TgtLang')
+      ));
       if($res) {
         $this->AuthToken->delete();
 				$this->Session->setFlash(__("Your settings have been saved."));
-				return $this->redirect(['action' => 'view', $this->Translator->id]);
+				return $this->redirect(array('action' => 'view', $this->Translator->id));
 			} else {
 				$this->Session->setFlash(__("Your settings could not be saved. Please, try again."));
 			}
     }else{
-      $this->Translator->contain(['SrcLang', 'TgtLang']);
+      $this->Translator->contain(array('SrcLang', 'TgtLang'));
       $this->request->data = $this->Translator->findById($tokenData['Translator']['id']);
     }
 
     // generate list of available languages (needed by form)
     $langs = $this->Translator->SrcLang->find('list');
-    $this->set(['srcLangs' => $langs, 'tgtLangs' => $langs]);
+    $this->set(array('srcLangs' => $langs, 'tgtLangs' => $langs));
   }
 
   public function request_settings(){
@@ -131,7 +131,7 @@ class TranslatorsController extends AppController {
         __("TCT Settings Change"),
         __("To change your settings, follow this link:\n" .
         "%s",
-        Router::url(['action' => 'edit_settings', $tokenData['AuthToken']['hash']], true)
+        Router::url(array('action' => 'edit_settings', $tokenData['AuthToken']['hash']), true)
       ));
       if($error==null){
         $this->Session->setFlash(__("E-mail sent."));
@@ -139,7 +139,7 @@ class TranslatorsController extends AppController {
         $this->Session->setFlash(__("Sending e-mail failed: %s.", $error));
       }
     }
-    return $this->redirect(['action' => 'edit_settings']);
+    return $this->redirect(array('action' => 'edit_settings'));
   }
 
 }

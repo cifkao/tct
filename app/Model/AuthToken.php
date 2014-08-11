@@ -2,14 +2,14 @@
 App::uses('Security', 'Utility');
 
 class AuthToken extends AppModel {
-  public $actsAs = ['Containable'];
+  public $actsAs = array('Containable');
 
-  public $belongsTo = [
-    'Translator' => [
+  public $belongsTo = array(
+    'Translator' => array(
       'foreignKey' => false,
       'conditions' => array('Translator.id = AuthToken.translator_id')
-    ]
-  ];
+    )
+  );
 
 
   /**
@@ -19,10 +19,10 @@ class AuthToken extends AppModel {
     $data = $this->findByTranslatorId($translatorId);
     $this->log($data);
     if(!$data){
-      $this->create([
+      $this->create(array(
         'hash' => Security::generateAuthKey(),
         'translator_id' => $translatorId
-      ]);
+      ));
       $data = $this->save();
     }
     return $data;
