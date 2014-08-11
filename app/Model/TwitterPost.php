@@ -1,4 +1,6 @@
 <?php
+App::uses('Mail', 'Utility');
+
 class TwitterPost extends AppModel {
   public $useTable = 'posts_twitter';
   public $actsAs = array('Containable');
@@ -24,10 +26,13 @@ class TwitterPost extends AppModel {
     // filter hashtags
     $langHashtags = array_values(array_intersect($hashtags, array_keys($langs)));
 
+    $srcLangId = $langs[$tweet['lang']];
+    $tgtLangId = $langs[$langHashtags[0]];
+
     // add tweet to database
     $postData = null;
     if(!empty($langHashtags) && array_key_exists($tweet['lang'], $langs)){
-      $postData = $this->Post->add($tweet['text'], $langs[$tweet['lang']], $langs[$langHashtags[0]], $hash);
+      $postData = $this->Post->add($tweet['text'], $srcLangId, $tgtLangId, $hash);
       if($postData){
         $this->create(array(
           'id' => $this->Post->id,
@@ -36,15 +41,15 @@ class TwitterPost extends AppModel {
           'author_screen_name' => $tweet['user']['screen_name']
         ));
         $postData = array_merge($postData, $this->save());
+
+        // notify author
+        $twitter = new Twitter();
+        $twitter->sendPrivateMessage($tweet['user']['id_str'],
+          __("We have listed your request for translation.\n" .
+          "More at:\n%s",
+          Router::url(array('controller' => 'posts', 'action' => 'view', $this->Post->id), true)));
       }
     }
-
-    // notify author
-    $twitter = new Twitter();
-    $twitter->sendPrivateMessage($tweet['user']['id_str'],
-      __("We have listed your request for translation.\n" .
-      "More at:\n%s",
-      Router::url(array('controller' => 'posts', 'action' => 'view', $this->Post->id), true)));
 
     return $postData;
   }
