@@ -4,7 +4,7 @@
 /app/Config/database.php
 /app/Config/mail.php
 /app/Config/twitter.php
-/app/Config/bootstrap.local.php
+/app/Config/core.local.php
 !empty
 /.htaccess
 /app/webroot/.htaccess
