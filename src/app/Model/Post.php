@@ -15,6 +15,9 @@ class Post extends AppModel {
   );
 
   public $hasMany = array(
+    'Translation' => array(
+      'dependent' => true
+    ),
     'TwitterPost' => array(
       'foreignKey' => 'id',
       'dependent' => true
@@ -42,8 +45,9 @@ class Post extends AppModel {
       // notify translators
       $Translator = new Translator();
       $translators = $Translator->findByLangs($srcLangId, $tgtLangId);
+      $Mail = new Mail();
       foreach($translators as $data){
-        Mail::send(
+        $Mail->send(
           $data['Translator']['email'],
           __("TCT Request For Translation"),
           __("Please translate the following post to language: %s\n\n" .

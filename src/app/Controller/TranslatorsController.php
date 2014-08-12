@@ -29,7 +29,8 @@ class TranslatorsController extends AppController {
         return;
       }
 
-      $error = Mail::send(
+      $Mail = new Mail();
+      $error = $Mail->send(
         $email,
         __("TCT Registration"),
         __("Thank you for signing up as a translator on TCT. " .
@@ -126,7 +127,8 @@ class TranslatorsController extends AppController {
 
       $tokenData = $this->AuthToken->getByTranslator($data['Translator']['id']);
 
-      $error = Mail::send(
+      $Mail = new Mail();
+      $error = $Mail->send(
         $data['Translator']['email'],
         __("TCT Settings Change"),
         __("To change your settings, follow this link:\n" .

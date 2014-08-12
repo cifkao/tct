@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 11, 2014 at 11:19 PM
+-- Generation Time: Aug 12, 2014 at 06:39 PM
 -- Server version: 5.5.33-MariaDB
 -- PHP Version: 5.4.20
 
@@ -78,6 +78,22 @@ CREATE TABLE IF NOT EXISTS `posts_twitter` (
   `author_screen_name` text NOT NULL COMMENT 'Twitter user screen_name',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Twitter-specific data for posts';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `translations`
+--
+
+CREATE TABLE IF NOT EXISTS `translations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `text` text NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `translator_id` int(11) NOT NULL,
+  `score` int(11) NOT NULL DEFAULT '1400',
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='All submitted translations';
 
 -- --------------------------------------------------------
 

@@ -5,6 +5,9 @@ class Translator extends AppModel {
   public $hasMany = array(
     'AuthToken' => array(
       'dependent' => true
+    ),
+    'Translation' => array(
+      'dependent' => false
     )
   );
 
