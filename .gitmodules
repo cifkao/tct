@@ -1,9 +1,9 @@
 [submodule "src/app/Vendor/twitter"]
 	path = src/app/Vendor/twitter
-	url = https://github.com/J7mbo/twitter-api-php
+	url = https://github.com/J7mbo/twitter-api-php.git
 [submodule "src/app/Vendor/phpmailer"]
 	path = src/app/Vendor/phpmailer
 	url = https://github.com/PHPMailer/PHPMailer.git
 [submodule "src/cakephp"]
 	path = src/cakephp
-	url = /home/ondra/.submodule_cakephp/
+	url = https://github.com/cakephp/cakephp.git
