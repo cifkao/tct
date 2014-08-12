@@ -35,14 +35,23 @@ class Translator extends AppModel {
     ))>0;
   }
 
-  public function findByLangs($srcLangId, $tgtLangId) {
+  /**
+   * Finds all translators that can translate from $srcLangId to $tgtLangId.
+   */
+  public function findByLangs($srcLangId, $tgtLangId, $activeOnly = true) {
+    $conditions = array(
+      'TranslatorsSrcLang.lang_id' => $srcLangId,
+      'TranslatorsTgtLang.lang_id' => $tgtLangId,
+    );
+    if($activeOnly){
+      $conditions['Translator.activated'] = true;
+      $conditions['Translator.vacation'] = false;
+    }
+
     $this->bindModel(array('hasOne' => array('TranslatorsSrcLang', 'TranslatorsTgtLang')));
     return $this->find('all', array(
       'contain' => array('TranslatorsSrcLang', 'TranslatorsTgtLang'),
-      'conditions' => array(
-        'TranslatorsSrcLang.lang_id' => $srcLangId,
-        'TranslatorsTgtLang.lang_id' => $tgtLangId
-      )
+      'conditions' => $conditions
     ));
   }
 
