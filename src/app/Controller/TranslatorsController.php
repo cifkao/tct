@@ -52,7 +52,7 @@ class TranslatorsController extends AppController {
       $this->Session->setFlash(__("Activation failed: missing token."));
       return $this->redirect(array('action' => 'index'));
     }
-    
+
     $this->AuthToken->contain('Translator');
     $data = $this->AuthToken->findByHash($hash);
     pr($data);
@@ -95,11 +95,11 @@ class TranslatorsController extends AppController {
       ));
       if($res) {
         $this->AuthToken->delete();
-				$this->Session->setFlash(__("Your settings have been saved."));
-				return $this->redirect(array('action' => 'view', $this->Translator->id));
-			} else {
-				$this->Session->setFlash(__("Your settings could not be saved. Please, try again."));
-			}
+        $this->Session->setFlash(__("Your settings have been saved."));
+        return $this->redirect(array('action' => 'view', $this->Translator->id));
+      } else {
+        $this->Session->setFlash(__("Your settings could not be saved. Please, try again."));
+      }
     }else{
       $this->Translator->contain(array('SrcLang', 'TgtLang'));
       $this->request->data = $this->Translator->findById($tokenData['Translator']['id']);

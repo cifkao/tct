@@ -17,7 +17,7 @@ class TwitterPost extends AppModel {
     // build an array of hashtags
     $hashtags = array();
     foreach ($tweet["entities"]["hashtags"] as $hashtag){
-  		array_push($hashtags, strtolower($hashtag["text"]));
+      array_push($hashtags, strtolower($hashtag["text"]));
     }
     // get the list of all languages in the form [code] => id
     $langs = $this->Post->SrcLang->find('list', array(
