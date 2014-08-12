@@ -43,6 +43,7 @@ class Post extends AppModel {
       $Translator = new Translator();
       $translators = $Translator->findByLangs($srcLangId, $tgtLangId);
       foreach($translators as $data){
+        // TODO: vacation? activated?
         Mail::send(
           $data['Translator']['email'],
           __("TCT Request For Translation"),
