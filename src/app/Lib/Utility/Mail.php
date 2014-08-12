@@ -47,7 +47,8 @@ class Mail {
     if(!$this->imap)
       return array();
 
-    return imap_search($this->imap, 'UNSEEN');
+    $result = imap_search($this->imap, 'UNSEEN');
+    return $result ? $result : array(); // ensure array is returned
   }
 
   public function pullTranslation($id){
