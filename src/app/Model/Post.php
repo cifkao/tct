@@ -45,19 +45,22 @@ class Post extends AppModel {
       // notify translators
       $Translator = new Translator();
       $translators = $Translator->findByLangs($srcLangId, $tgtLangId);
-      $Mail = new Mail();
+      $to = array();
       foreach($translators as $data){
-        $Mail->send(
-          $data['Translator']['email'],
-          __("TCT Request For Translation"),
-          __("Please translate the following post to language: %s\n\n" .
-          "%s\n\n" .
-          "ID:%s",
-          __($tgtLang['Lang']['name']),
-          $text,
-          $hash
-        ));
+        array_push($to, $data['Translator']['email']);
       }
+
+      $Mail = new Mail();
+      $Mail->send(
+        $to,
+        __("TCT Request For Translation"),
+        __("Please translate the following post to language: %s\n\n" .
+        "%s\n\n" .
+        "ID:%s",
+        __($tgtLang['Lang']['name']),
+        $text,
+        $hash
+      ));
     }
 
     return $data;

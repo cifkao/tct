@@ -28,10 +28,25 @@ class Mail {
     $mail->Subject = $subject;
 
     $mail->Body = $message;
-    $mail->AddAddress($to, '');
 
-    if($mail->Send()) return null;
-    else return $mail->ErrorInfo;
+    if(!is_array($to))
+      $recipients = array($to);
+    else
+      $recipients = $to;
+
+    if(is_array($to)){
+      foreach($to as $a){
+        $mail->ClearAllRecipients();
+        $mail->AddAddress($a, '');
+        $mail->Send();
+      }
+    }else{
+      $mail->AddAddress($to, '');
+      if(!$mail->Send())
+        return $mail->ErrorInfo;
+    }
+
+    return null;
   }
 
 
