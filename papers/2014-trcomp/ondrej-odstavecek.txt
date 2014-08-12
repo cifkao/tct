@@ -1,0 +1,16 @@
+Ondřej Bojar graduated in computer science in 2003 and received his Ph.D. in computational linguistics in 2008 at the Faculty of Mathematics and Physics, Charles University in Prague. He now works as an assistant professor at the faculty. His main research interest is machine translation. He participated in the Johns Hopkins University Summer Engineering Workshop in 2006 as a member of the Moses team. Since then, he is regularly taking part in WMT shared translation tasks mainly with systems based on Moses and adapted for English-to-Czech translation. He was the main local organizer of MT Marathons 2009 and 2013 held in Prague.
+
+
+...v nouzi se da zahodit veta Since then...
+
+
+
+Nepouzit:
+
+
+Ondřej Bojar teaches a course on statistical machine translation and supervises many bachelor theses, some master theses and two PhD students.  He has been working on several national research projects and EU-funded STREP projects including EuroMatrix and EuroMatrixPlus, being the lead technical developer and manager at the institute for the latter one.
+
+
+Dlouha verze:
+
+Prof. Ondřej Bojar graduated in computer science in 2003 and received his Ph.D. in computational linguistics in 2008 at the Faculty of Mathematics and Physics, Charles University in Prague. He now works as an assistant professor at the faculty. His main research interest is machine translation but he is also involved in treebanking and lexicographic projects at the department. He participated in the Johns Hopkins University Summer Engineering Workshop in 2006 as a member of the Moses team. Since then, he is regularly taking part in WMT shared translation tasks mainly with systems based on Moses and adapted for English-to-Czech translation. He was the main local organizer of MT Marathons 2009 and 2013 held in Prague and he was co-organising WMT13 in Sofia, within the MosesCore CSA EU project.  Ondřej Bojar teaches a course on statistical machine translation and supervises many bachelor theses, some master theses and two PhD students.  He has been working on several national research projects and EU-funded STREP projects including EuroMatrix and EuroMatrixPlus, being the lead technical developer and manager at the institute for the latter one.

@@ -1,0 +1,30 @@
+DATABASE
+----------
+Table SOURCE
+	id, text, langSource, langTarget, author, timestamp
+	
+	lang - ISO 639-1 code
+	
+	
+Table TRANSLATION
+	id, idSource, text, timestamp, score, deleted, flag
+	
+	score   - http://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
+	deleted - [TRUE/FALSE] TRUE = unacceptable translation
+	flag    - [TRUE/FALSE] TRUE = unacceptable text
+	
+Table ACTION
+	id, idTran, author, timestamp, action
+	
+	action - BIT(2) b'01' deleted, b'10' flag
+	
+SCRIPT
+--------
+addSource, addTranslation
+flag, delete
+score
+
+twitter load
+email interaction
+
+interface

@@ -1,0 +1,76 @@
+#!/usr/bin/perl
+# The Missing Textutils, Ondrej Bojar, obo@cuni.cz
+# http://www.cuni.cz/~obo/textutils
+#
+# 'skipbetween' removes specified section(s) of stdin. The sections are
+# identified by a beginning regular expression and ending regular expression.
+# As an option, a specified file can be inserted at the place of the removed
+# section.
+#
+# Alternatively, skipbetween can be used to select only the marked sections.
+#
+# $Id: skipbetween,v 1.9 2011-04-29 13:32:43 bojar Exp $
+#
+
+use Getopt::Long;
+use strict;
+
+my $inverse = 0;
+my $until = 0;
+my $help = 0;
+my $insert = undef;
+my $utf8 = 0;
+my $exclude_markers = 0;
+GetOptions(
+  "inverse" => \$inverse,
+  "until" => \$until,
+  "insert=s" => \$insert,
+  "help" => \$help,
+  "utf8" => \$utf8,
+  "exclude-markers" => \$exclude_markers,
+) or exit(1);
+
+if ($utf8) {
+  binmode(STDIN, ":utf8");
+  binmode(STDOUT, ":utf8");
+  binmode(STDERR, ":utf8");
+  use encoding 'utf8'; # to interptet ARGV correctly
+}
+
+my $from = shift;
+my $to = shift;
+
+if ($help || !$from || !$to) {
+  print STDERR "Usage: skipbetween from_RE to_RE
+...will skip all lines from stdin, that are between lines matching
+   from_RE and to_RE (included)
+...can skip several such blocks
+--inverse   print only the lines between.
+--until     stop (and exit) right after the first found string
+--insert=filename ... replace the skipped section with the contents of the file
+                      (not really compatible with --inverse)
+--exclude-markers ... useful with --inverse
+";
+  exit 1;
+}
+
+# print STDERR "FROM: $from\nTO:   $to\n";
+
+my $print = 1;
+while (<>) {
+  if (/$from/) {
+    $print = 0;
+    if (defined $insert) {
+      open INF, $insert or die "Cannot open '$insert'";
+      binmode(INF, ":utf8") if $utf8;
+      print <INF>;
+      close INF;
+    }
+    exit if $until;
+  }
+  if ($print xor $inverse) {
+    print unless $exclude_markers && (/$from/ || /$to/);
+  }
+  $print = 1 if /$to/;
+}
+  
