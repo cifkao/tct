@@ -32,4 +32,18 @@ App::uses('Model', 'Model');
 class AppModel extends Model {
   public $recursive = -1;
 
+
+  /* Validation functions */
+
+  public function sameAs($data, $cmpField){
+    $val = array_values($data);
+    $val = $val[0];
+    
+    return ($val == $this->data[$this->alias][$cmpField]);
+  }
+
+  public function notSameAs($data, $cmpField){
+    return !$this->sameAs($data, $cmpField);
+  }
+
 }

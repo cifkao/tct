@@ -25,7 +25,10 @@ class Post extends AppModel {
   );
 
   public $validate = array(
-    'hash' => 'isUnique'
+    'hash' => 'isUnique',
+    'tgt_lang_id' => array(
+      'rule' => array('notSameAs', 'src_lang_id')
+    )
   );
 
   public function add($text, $srcLangId, $tgtLangId, $hash){
