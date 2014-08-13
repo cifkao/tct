@@ -1,4 +1,8 @@
 <?php
+/**
+ * A special model for settings (key/value pairs) that need
+ * to be changed at run time (unlike Cake's Config).
+ */
 class Setting extends AppModel {
 
   public function put($key, $value){
@@ -20,7 +24,9 @@ class Setting extends AppModel {
   }
 
   public function getNumber($key, $default=null){
-    return $this->getString($key, $default) + 0;
+    $str = $this->getString($key, $default);
+    if(is_null($str)) return null;
+    else return $str + 0;
   }
 
 }
