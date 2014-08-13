@@ -1,0 +1,32 @@
+Rank of posts
+--------------
+parameters: 
+time					(T) - older => less likely					(minutes)
+number of translations	(N) - more => more likely; ( < 2 ) never	(number)
+translation posted		(P) - posted => less likely					(0;1)
+already judged			(J) - less likely							(number)
+
+function rankPost( T, N, P, J ) {
+	if ( N < 2 ) {
+		return 0;
+	} else {
+		return log(N)/((T+100)/2)^(1/2) /(P+1)/(J+1);
+	}
+}
+(T,N) part cacheable
+(P,J) part is user specific
+
+plot: http://www.wolframalpha.com/input/?i=plot+log%28y%29%2F%28%28x%2B100%29%2F2%29%5E%281%2F2%29+x+%3D+0+to+1000+y+%3D+0+to+1000
+
+Rank of translations
+---------------------
+parameters:
+time			(T) - older => less likely					(minutes)
+score			(S) - higher => more likely					(start: 1400)
+already judged	(J) - less likely							(number)
+
+function rankTranslation( T, S, J ) {
+	return S/((T+100)/2)^(1/2) /(J+1);
+}
+
+plot: http://www.wolframalpha.com/input/?i=plot+y%2F%28%28x%2B100%29%2F2%29%5E%281%2F2%29+x+%3D+0+to+1000+y+%3D+1300+to+1400
