@@ -61,17 +61,7 @@ class DATABASE_CONFIG {
 		'password' => 'password',
 		'database' => 'database_name',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8mb4', // This is important! Otherwise 4-byte UTF-8 characters will cause errors.
 	);
 
-	public $test = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'test_database_name',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
 }
