@@ -15,4 +15,10 @@ class Lang extends AppModel {
   );
 
   public $displayField = 'name';
+
+
+  public function findId($idOrCode){
+    $data = $this->findByIdOrCode($idOrCode, $idOrCode);
+    return $data ? $data[$this->alias]['id'] : null;
+  }
 }

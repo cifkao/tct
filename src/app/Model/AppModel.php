@@ -32,6 +32,12 @@ App::uses('Model', 'Model');
 class AppModel extends Model {
   public $recursive = -1;
 
+  public function onError() {
+    $db = ConnectionManager::getDataSource('default');
+    $err = $db->lastError();
+    $this->log($err);
+    $this->log($this->data);
+  }
 
   /* Validation functions */
 

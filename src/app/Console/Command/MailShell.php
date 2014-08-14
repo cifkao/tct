@@ -2,7 +2,7 @@
 App::uses('Mail', 'Utility');
 class MailShell extends AppShell {
 
-  public $uses = array('Translation', 'Translator', 'Post');
+  public $uses = array('Translation', 'Translator', 'TranslationRequest', 'Post');
 
   protected $Mail;
 
@@ -17,10 +17,12 @@ class MailShell extends AppShell {
       if(!$data) continue;
 
       $translator = $this->Translator->findByEmail($data['email']);
-      $post = $this->Post->findByHash($data['hash']);
-      if(!$translator || !$post) continue;
+      $this->TranslationRequest->contain(array('Post'));
+      $postData = $this->TranslationRequest->findByHash($data['hash']);
+      if(!$translator || !$data) continue;
 
-      $this->Translation->add($data['text'], $post['Post']['id'], $translator['Translator']['id']);
+      $this->Translation->add($data['text'], $postData['Post']['id'],
+        $translator['Translator']['id'], $postData['TranslationRequest']['tgt_lang_id']);
     }
   }
 

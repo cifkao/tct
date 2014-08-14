@@ -1,5 +1,6 @@
 <?php
 App::uses('Mail', 'Utility');
+App::uses('TranslationRequest', 'Model');
 
 class TwitterPost extends AppModel {
   public $useTable = 'posts_twitter';
@@ -11,24 +12,17 @@ class TwitterPost extends AppModel {
     )
   );
 
+  public $validate = array(
+    'tweet_id' => 'isUnique'
+  );
+
   /**
    * Submit the given tweet for translation. If no target language is
    * given, try to find a hashtag with the target language.
    */
-  public function add($tweet, $notifyTranslators=true, $tgtLang=null){
-    $isTctrq = is_null($tgtLang);
-
-    $hash = md5($tweet['text'] . $tweet['id_str']);
-
-    $tgtLangId = null;
-    if($tgtLang){
-      if($data = $this->Post->TgtLang->findByCodeOrId($tgtLang, $tgtLang))
-        $tgtLangId = $data['TgtLang']['id'];
-      else return null;
-    }
-
+  public function add($tweet, $isTctrq=false, $notifyTranslators=true){
     // get the list of all languages in the form [code] => id
-    $langs = $this->Post->TgtLang->find('list', array(
+    $langs = $this->Post->Lang->find('list', array(
       'fields' => array('code', 'id')
     ));
 
@@ -43,6 +37,7 @@ class TwitterPost extends AppModel {
       if(!empty($langHashtags))
         $tgtLangId = $langs[$langHashtags[0]];
       else return null;
+      // TODO: remove #tctrq and lang hashtags from the post?
     }
 
     // check if src language known
@@ -52,8 +47,8 @@ class TwitterPost extends AppModel {
 
     // add tweet to database
     $data = null;
-    if($srcLangId && $tgtLangId){
-      $data = $this->Post->add($tweet['text'], $srcLangId, $tgtLangId, $hash, $notifyTranslators);
+    if($srcLangId){
+      $data = $this->Post->add($tweet['text'], $srcLangId);
       if($data){
         $this->create(array(
           'id' => $this->Post->id,
@@ -61,9 +56,18 @@ class TwitterPost extends AppModel {
           'author_id' => $tweet['user']['id_str'],
           'author_screen_name' => $tweet['user']['screen_name']
         ));
-        $data = array_merge($data, $this->save());
+        $tweetData = $this->save();
+        if(!$tweetData){
+          $this->Post->delete();
+          return null;
+        }
+
+        $data = array_merge($data, $tweetData);
 
         if($isTctrq){
+          $TrRequest = new TranslationRequest();
+          $TrRequest->add($this->Post->id, $tgtLangId, $notifyTranslators);
+
           // notify author
           $twitter = new Twitter();
           $twitter->sendPrivateMessage($tweet['user']['id_str'],

@@ -2,7 +2,7 @@
 App::uses('Twitter', 'Utility');
 class TwitterShell extends AppShell {
 
-  public $uses = array('Setting', 'TwitterPost');
+  public $uses = array('Setting', 'TwitterPost', 'TranslationRequest');
 
   protected $Twitter;
 
@@ -11,8 +11,8 @@ class TwitterShell extends AppShell {
   }
 
   public function addTweet(){
-    $id = $this->args[0];
     $notifyTranslators = !$this->params['no-spam'];
+    $id = $this->args[0];
     $tweet = $this->Twitter->getTweet($id);
 
     if(!$tweet || array_key_exists('errors', $tweet)){
@@ -20,42 +20,51 @@ class TwitterShell extends AppShell {
       return;
     }
 
-    if(count($this->args)>1){
-      $data = $this->TwitterPost->add($tweet, $notifyTranslators, $this->args[1]);
+    $data = $this->TwitterPost->add($tweet, $this->params['tctrq'], $notifyTranslators);
+    if($data){
+      $this->out("<info>OK:</info> Added Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) " .
+          "as Post #{$data['TwitterPost']['id']}.");
     }else{
-      $data = $this->TwitterPost->add($tweet, $notifyTranslators);
-    }
-
-    if(!$data)
       $this->out('<error>Error:</error> Failed to add tweet.');
+    }
   }
 
   public function pull(){
-    $tgtLang = $this->args[0];
     $notifyTranslators = !$this->params['no-spam'];
     $sinceId = $this->Setting->getString('Twitter.timeline.newest_seen', null);
 
     $tweets = $this->Twitter->getTimeline(200, $sinceId);
-    if(!$tweets || array_key_exists('errors', $tweets)){
-      $this->out('<error>Error:</error> ' . $tweets['errors'][0]['message']);
+    if(is_null($tweets) || array_key_exists('errors', $tweets)){
+      if(array_key_exists('errors', $tweets))
+        $this->out('<error>Error:</error> ' . $tweets['errors'][0]['message']);
+      else
+        $this->out('<error>Error:</error> Failed to retrieve Tweets.');
       return;
     }
+
+    if(count($tweets)>0)
+      $this->Setting->put('Twitter.timeline.newest_seen', $tweets[0]['id_str']);
 
     $myUserId = Configure::read('Twitter.user_id_str');
     foreach($tweets as $tweet){
       if($tweet['user']['id_str']==$myUserId)
         continue;
 
-      $data = $this->TwitterPost->add($tweet, $notifyTranslators, $tgtLang);
-      if($data)
-        $this->out("<info>Added</info> Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}).");
-      else
+      $data = $this->TwitterPost->add($tweet, false, $notifyTranslators);
+      if($data){
+        if(count($this->args)>0){
+          $langs = explode(',', $this->args[0]);
+          foreach($langs as $lang){
+            $this->TranslationRequest->add($data['TwitterPost']['id'], $lang, $notifyTranslators);
+          }
+        }
+        $this->out("<info>OK:</info> Added Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) " .
+          "as Post #{$data['TwitterPost']['id']}.");
+      }else{
         $this->out("<warning>Warning:</warning> " .
           "Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) has not been added.");
+      }
     }
-
-    if(count($tweets)>0)
-      $this->Setting->put('Twitter.timeline.newest_seen', $tweets[0]['id_str']);
   }
 
 
@@ -70,24 +79,24 @@ class TwitterShell extends AppShell {
 
   public function getOptionParser() {
     $parser = parent::getOptionParser();
-    $parser->addSubcommand('addTweet', array(
-      'help' => 'Submit the tweet with the given id for translation.',
-      'parser' => array(
-        'arguments' => array(
-          'id' => array('help' => 'The id of the tweet.', 'required' => true),
-          'lang' => array('help'=> 'The target language.')
-        ),
-        'options' => array(
-          'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true),
-        )
-      )
-    ))->addSubcommand('pull', array(
+    $parser->addSubcommand('pull', array(
       'help' => 'Get new tweets from everyone we follow and submit them for translation.',
       'parser' => array(
         'arguments' => array(
-          'lang' => array('help'=> 'The target language.', 'required' => true)
+          'langs' => array('help'=> 'A comma-separated list of target languages.')
         ),
         'options' => array(
+          'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true)
+        )
+      )
+    ))->addSubcommand('addTweet', array(
+      'help' => 'Add the tweet with the given id.',
+      'parser' => array(
+        'arguments' => array(
+          'id' => array('help' => 'The id of the tweet.', 'required' => true)
+        ),
+        'options' => array(
+          'tctrq' => array('short' => 'h', 'help' => 'Use hashtags to determine the target language.', 'boolean' => true),
           'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true)
         )
       )

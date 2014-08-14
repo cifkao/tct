@@ -23,7 +23,15 @@ class Translator extends AppModel {
   );
 
   public $validate = array(
-    'email' => array('rule' => 'email', 'required' => true)
+    'email' => array(
+      'isUnique' => array(
+        'rule' => 'isUnique',
+        'required' => true
+      ),
+      'email' => array(
+        'rule' => 'email'
+      )
+    )
   );
 
   public $displayField = 'email';
