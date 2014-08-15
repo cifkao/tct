@@ -1,5 +1,6 @@
 <?php
 App::uses('Mail', 'Utility');
+App::uses('MT', 'Utility');
 App::uses('Translator', 'Model');
 class TranslationRequest extends AppModel {
   public $actsAs = array('Containable');
@@ -19,43 +20,58 @@ class TranslationRequest extends AppModel {
   );
 
   public function add($postId, $tgtLangId, $notifyTranslators=true){
-    $tgtLangId = $this->TgtLang->findId($tgtLangId);
+    $tgtLang = $this->TgtLang->findByIdOrCode($tgtLangId, $tgtLangId);
 
-    if($this->findByPostIdAndTgtLangId($postId, $tgtLangId))
+    if(!$tgtLang || $this->findByPostIdAndTgtLangId($postId, $tgtLang['TgtLang']['id']))
       return null;
 
+    $this->Post->contain('Lang');
     $post = $this->Post->findById($postId);
 
-    $hash = md5($post['Post']['text'] . $tgtLangId . mt_rand());
+    $hash = md5($post['Post']['text'] . $tgtLang['TgtLang']['id'] . mt_rand());
 
     $this->create();
     $data = $this->save(array(
       'post_id' => $postId,
-      'tgt_lang_id' => $tgtLangId,
+      'tgt_lang_id' => $tgtLang['TgtLang']['id'],
       'hash' => $hash
     ));
 
-    if($data && $notifyTranslators){
-      $tgtLang = $this->TgtLang->findById($tgtLangId);
+    if($data){
+      // human translation
+      if($notifyTranslators){
+        $Translator = new Translator();
+        $translators = $Translator->findByLangs($post['Post']['lang_id'], $tgtLang['TgtLang']['id']);
+        $to = array();
+        foreach($translators as $t){
+          array_push($to, $t['Translator']['email']);
+        }
 
-      $Translator = new Translator();
-      $translators = $Translator->findByLangs($post['Post']['lang_id'], $tgtLangId);
-      $to = array();
-      foreach($translators as $t){
-        array_push($to, $t['Translator']['email']);
+        $Mail = new Mail();
+        $Mail->send(
+          $to,
+          __("TCT Request For Translation"),
+          __("Please translate the following post to language: %s\n\n" .
+          "%s\n\n" .
+          "ID:%s",
+          __($tgtLang['TgtLang']['name']),
+          $post['Post']['text'],
+          $hash
+        ));
       }
 
-      $Mail = new Mail();
-      $Mail->send(
-        $to,
-        __("TCT Request For Translation"),
-        __("Please translate the following post to language: %s\n\n" .
-        "%s\n\n" .
-        "ID:%s",
-        __($tgtLang['TgtLang']['name']),
-        $post['Post']['text'],
-        $hash
-      ));
+      // machine translation
+      $mtText = MT::translate($post['Lang']['code'], $tgtLang['TgtLang']['code'], $post['Post']['text']);
+      if($mtText){
+        $mt = $Translator->findByEmail(Configure::read('MT.Translator.email'));
+        if(!$mt){
+          $Translator->create(Configure::read('MT.Translator'));
+          $mt = $Translator->save();
+        }
+        if($mt){
+          $this->Post->Translation->add($mtText, $post['Post']['id'], $mt['Translator']['id'], $tgtLang['TgtLang']['id']);
+        }
+      }
     }
 
     return $data;

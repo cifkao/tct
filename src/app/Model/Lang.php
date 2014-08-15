@@ -17,8 +17,14 @@ class Lang extends AppModel {
   public $displayField = 'name';
 
 
-  public function findId($idOrCode){
+  public function toId($idOrCode){
     $data = $this->findByIdOrCode($idOrCode, $idOrCode);
     return $data ? $data[$this->alias]['id'] : null;
   }
+
+  public function toCode($idOrCode){
+    $data = $this->findByIdOrCode($idOrCode, $idOrCode);
+    return $data ? $data[$this->alias]['code'] : null;
+  }
+
 }

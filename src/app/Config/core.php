@@ -9,6 +9,8 @@
  * @since         CakePHP(tm) v 0.2.9
  */
 
+Configure::load("tct", "default");
+
 /**
  * CakePHP Debug Level:
  *
