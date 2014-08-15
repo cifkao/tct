@@ -26,6 +26,13 @@ class TwitterPost extends AppModel {
       'fields' => array('code', 'id')
     ));
 
+    // add original tweet instead of retweet
+    $retweet = null;
+    if(array_key_exists('retweeted_status', $tweet) && !is_null($tweet['retweeted_status'])){
+      $retweet = $tweet;
+      $tweet = $tweet['retweeted_status'];
+    }
+
     if($isTctrq){
       // build an array of hashtags
       $hashtags = array();
@@ -56,6 +63,8 @@ class TwitterPost extends AppModel {
           'author_id' => $tweet['user']['id_str'],
           'author_screen_name' => $tweet['user']['screen_name']
         ));
+        if(!is_null($retweet))
+          $this->data[$this->alias]['retweet_id'] = $retweet['id_str'];
         $tweetData = $this->save();
         if(!$tweetData){
           $this->Post->delete();

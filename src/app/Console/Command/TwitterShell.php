@@ -22,7 +22,8 @@ class TwitterShell extends AppShell {
 
     $data = $this->TwitterPost->add($tweet, $this->params['tctrq'], $notifyTranslators);
     if($data){
-      $this->out("<info>OK:</info> Added Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) " .
+      $this->out("<info>OK:</info> Added Tweet {$data['TwitterPost']['tweet_id']} " .
+        "(lang:$tweet[lang],user:{$data['TwitterPost']['author_screen_name']}) " .
           "as Post #{$data['TwitterPost']['id']}.");
     }else{
       $this->out('<error>Error:</error> Failed to add tweet.');
