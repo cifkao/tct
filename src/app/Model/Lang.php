@@ -14,6 +14,10 @@ class Lang extends AppModel {
     )
   );
 
+  public $hasMany = array(
+    'Post'
+  );
+
   public $displayField = 'name';
 
 
