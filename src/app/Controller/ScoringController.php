@@ -25,9 +25,11 @@ class ScoringController extends AppController {
 
   public function index(){
     $data = $this->getScoringData();
-    $scoring = $this->Scoring->add($data);
-    $this->set('data', $data);
-    $this->set('hash', $scoring['Scoring']['hash']);
+    if($data){
+      $scoring = $this->Scoring->add($data);
+      $this->set('data', $data);
+      $this->set('hash', $scoring['Scoring']['hash']);
+    }
   }
 
   private function getScoringData(){
