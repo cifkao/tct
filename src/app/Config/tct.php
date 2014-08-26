@@ -13,5 +13,8 @@ $config = array(
       'name' => 'MTMonkey',
       'activated' => true
     )
+  ),
+  'Scoring' => array(
+    'accept_threshold' => 1500
   )
 );

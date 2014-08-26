@@ -10,6 +10,7 @@
  */
 
 Configure::load("tct", "default");
+Configure::load("twitter", "default");
 
 /**
  * CakePHP Debug Level:

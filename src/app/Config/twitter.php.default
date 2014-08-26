@@ -6,6 +6,8 @@ $config = array(
       'consumer_secret' => '***',
       'oauth_access_token' => '***',
       'oauth_access_token_secret' => '***'
-    )
+    ),
+    'user_id_str' => '2528512406',
+    'user_screen_name' => 'tctranslation'
   )
 );

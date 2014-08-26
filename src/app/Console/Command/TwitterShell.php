@@ -36,7 +36,7 @@ class TwitterShell extends AppShell {
 
     $tweets = $this->Twitter->getTimeline(200, $sinceId);
     if(is_null($tweets) || array_key_exists('errors', $tweets)){
-      if(array_key_exists('errors', $tweets))
+      if(!is_null($tweets))
         $this->out('<error>Error:</error> ' . $tweets['errors'][0]['message']);
       else
         $this->out('<error>Error:</error> Failed to retrieve Tweets.');

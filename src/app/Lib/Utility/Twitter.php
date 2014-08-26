@@ -1,7 +1,6 @@
 <?php
 App::import('Vendor', 'TwitterAPIExchange',
   array('file' => 'twitter'.DS.'TwitterAPIExchange.php'));
-Configure::load("twitter", "default");
 
 class Twitter {
 
@@ -49,13 +48,35 @@ class Twitter {
     return json_decode($res, $assoc=true);
   }
 
+  /**
+   * Updates the authenticating user's current status, also known as tweeting.
+   */
+  public function tweet($text, $inReplyTo=null){
+    $url = $this->apiUrl . "statuses/update.json";
+    $res = $this->API->setPostFields(array('status' => $text, 'in_reply_to_status_id' => $inReplyTo))
+                     ->buildOauth($url, 'POST')
+                     ->performRequest();
+    return json_decode($res, $assoc=true);
+  }
+
+  /**
+   * Retweets a tweet.
+   */
+  public function retweet($id){
+    $url = $this->apiUrl . "statuses/retweet/{$id}.json";
+    $res = $this->API->setPostFields(array('id' => $id))
+                     ->buildOauth($url, 'POST')
+                     ->performRequest();
+    return json_decode($res, $assoc=true);
+  }
+  
 
   public function get($url, $getfield=null){
     if($getfield)
       $res = $this->API->setGetfield($getfield);
     $res = $this->API->buildOauth($this->apiUrl . $url, 'GET')
                      ->performRequest();
-    return json_decode($res, $assoc = true);
+    return json_decode($res, $assoc=true);
   }
 
 }
