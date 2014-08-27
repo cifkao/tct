@@ -48,6 +48,7 @@ class AppSchema extends CakeSchema {
 		'author_id' => array('type' => 'biginteger', 'null' => false, 'default' => null, 'unsigned' => false, 'comment' => 'Twitter user id'),
 		'author_screen_name' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'Twitter user screen_name', 'charset' => 'utf8mb4'),
 		'retweet_id' => array('type' => 'biginteger', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Twitter status id of retweet'),
+		'my_retweet_id' => array('type' => 'biginteger', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Twitter status id of TCT retweet'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -84,6 +85,7 @@ class AppSchema extends CakeSchema {
 		'post_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'tgt_lang_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 32, 'key' => 'index', 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
+		'done' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
