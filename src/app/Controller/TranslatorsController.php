@@ -3,10 +3,24 @@ App::uses('AppController', 'Controller');
 App::uses('Mail', 'Utility');
 
 class TranslatorsController extends AppController {
-  public $scaffold;
+
   public $uses = array('Translator', 'AuthToken');
   public $components = array('RequestHandler', 'Paginator', 'Session');
 
+
+  public function index() {
+    $this->Translator->recursive = 0;
+    $this->set('translators', $this->Paginator->paginate());
+  }
+
+  public function view($id = null) {
+    if (!$this->Translator->exists($id)) {
+      throw new NotFoundException(__('Invalid translator'));
+    }
+    $this->Translator->recursive = 1;
+    $options = array('conditions' => array('Translator.' . $this->Translator->primaryKey => $id));
+    $this->set('translator', $this->Translator->find('first', $options));
+  }
 
   public function register(){
     if($this->request->is('post')){
