@@ -1,24 +1,10 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.View.Layouts
- * @since         CakePHP(tm) v 0.10.0.1076
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
@@ -26,38 +12,79 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
-		echo $this->Html->meta('icon');
+		echo $this->Html->meta('icon')."\n";
+		echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0'));
 
-		echo $this->Html->css('cake.generic');
-
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
+		echo $this->Html->css('foundation')."\n";
+		echo $this->Html->css('foundation-icons')."\n";
+		echo $this->Html->css('tct')."\n";
+		
+		echo $this->Html->script("vendor/modernizr")."\n";
+		
+		echo $this->fetch('meta')."\n";
+		echo $this->fetch('css')."\n";
+		echo $this->fetch('script')."\n";
 	?>
 </head>
-<body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
-		<div id="content">
-
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $this->fetch('content'); ?>
-		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-				);
-			?>
-			<p>
-				<?php echo $cakeVersion; ?>
-			</p>
+<?php
+    if (isset($bodyId)) {
+        $bodyId = "$bodyId";
+    } else {
+        $bodyId = null;
+    }
+?>
+<body id=<?php echo $bodyId; ?>>
+	<div class="row">
+		<div class="large-12 columns">
+			
+			<div class="icon-bar six-up" id="nav-bar">
+				<?php echo $this->Html->link( '<img src="/img/logo.svg" id="nav-home"/>', '/', array( 'class' => 'item', 'id' => 'logo', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-list-bullet" id="nav-phrases"></i><label for="nav-phrases">Tweets</label>', array( 'controller' => 'Posts', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-phrases', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'Scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'Translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-info" id="nav-about"></i><label for="nav-about">About</label>', '/about', array( 'class' => 'item', 'id' => 'nav-bar-about', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranlation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+			</div>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	
+	<div class="row">
+		<?php echo $this->Session->flash(); ?>
+
+		<?php echo $this->fetch('content'); ?>
+	</div>
+	
+	<footer class="row">
+		<div class="large-12 columns">
+			<hr/>
+			<div class="large-2 columns text-center">
+				<?php echo $this->Html->link(
+						$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
+						'http://www.cakephp.org/',
+						array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
+					);
+				?>
+				<br/>
+				<a href="http://foundation.zurb.com" target="_blanc" class="round label">foundation 5 | power</a>
+			</div>
+			<div class="large-4 columns">
+				
+			</div>
+			<div class="large-3 columns">
+			</div>
+			<div class="large-3 columns text-right">
+				<p>© Copyright Reserved</p>
+			</div>
+		</div>
+	</footer>
+
+	
+	<?php
+	echo $this->Html->script("vendor/jquery")."\n";
+	echo $this->Html->script("foundation.min")."\n";
+	?>
+	<script>
+		$(document).foundation();
+	</script>
 </body>
 </html>

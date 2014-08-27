@@ -1,0 +1,41 @@
+body
+{
+	background-image: url('/img/bg.svg');
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+}
+blockquote > a
+{
+	color: #222222;
+}
+
+blockquote cite a.label
+{
+	color: #ffffff;
+}
+
+a#logo
+{
+	padding: 0.38rem;
+}
+a#logo img
+{
+	width: 5rem;
+	height: 5rem;
+}
+
+div#nav-bar
+{
+	margin-bottom: 1.5rem;
+}
+
+div.columns
+{
+	background-color: #ffffff;
+}
+
+body#translators div#nav-bar a#nav-bar-translators, body#phrases div#nav-bar a#nav-bar-phrases, body#score div#nav-bar a#nav-bar-score, body#about div#nav-bar a#nav-bar-about
+{
+	background-color: #2b6aa6;
+}
+

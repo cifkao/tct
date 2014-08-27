@@ -1,58 +1,30 @@
-<div class="posts index">
-	<h2><?php echo __('Posts'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('text'); ?></th>
-			<th><?php echo $this->Paginator->sort('lang_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
+<?php $this->set('bodyId', 'phrases'); ?>
+
+<div class="large-12 columns">
+	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ($posts as $post): ?>
-	<tr>
-		<td><?php echo h($post['Post']['id']); ?>&nbsp;</td>
-		<td><?php echo h($post['Post']['text']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($post['Lang']['name'], array('controller' => 'langs', 'action' => 'view', $post['Lang']['id'])); ?>
-		</td>
-		<td><?php echo h($post['Post']['created']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $post['Post']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $post['Post']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $post['Post']['id']), array(), __('Are you sure you want to delete # %s?', $post['Post']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Post'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Langs'), array('controller' => 'langs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Lang'), array('controller' => 'langs', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Translation Requests'), array('controller' => 'translation_requests', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Translation Request'), array('controller' => 'translation_requests', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Twitter Posts'), array('controller' => 'twitter_posts', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Twitter Post'), array('controller' => 'twitter_posts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Translations'), array('controller' => 'translations', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Translation'), array('controller' => 'translations', 'action' => 'add')); ?> </li>
+		<li>
+			<blockquote>
+				<?php echo $this->Html->link( $post['Post']['text'], array('action' => 'view', $post['Post']['id'])); ?>
+				
+				<cite>
+					<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
+					<span class="secondary label"><?php echo h($post['Post']['created']); ?></span>
+					<span class="label"><?php echo h($post['Lang']['name']); ?></span>
+				</cite>
+				<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('In translation to'); ?>">&raquo;</span>
+				<?php foreach ( $post['TranslationRequest'] as $request ): ?>
+					<span class="label"><?php echo h($request['TgtLang']['name']); ?></span>
+				<?php endforeach; ?>
+			</blockquote>
+		</li>
+	<?php endforeach; ?>
 	</ul>
+	<div class="pagination-centered">
+		<ul class="pagination">
+			<?php echo $this->Paginator->prev('&laquo; ' . __('previous'), array( 'tag' => 'li', 'class' => 'arrow', 'escape' => false ), null, array( 'tag' => 'li', 'class' => 'arrow unavailable', 'escape' => false, 'disabledTag' => 'a' )); ?>
+			<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'ellipsis' => '<li class="unavailable"><a href="">&hellip;</a></li>')); ?>
+			<?php echo $this->Paginator->next(__('next') . ' &raquo;', array( 'tag' => 'li', 'class' => 'arrow', 'escape' => false ), null, array( 'tag' => 'li', 'class' => 'arrow unavailable', 'escape' => false, 'disabledTag' => 'a' )); ?>
+		</ul>
+	</div>
 </div>
