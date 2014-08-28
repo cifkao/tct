@@ -6,7 +6,7 @@ class PostsController extends AppController {
   public $components = array('Paginator');
 
   public function index() {
-    $this->Post->recursive = 0;
+    $this->Post->recursive = 2;
     $this->set('posts', $this->Paginator->paginate());
   }
 
@@ -17,7 +17,7 @@ class PostsController extends AppController {
     $options = array(
       'conditions' => array('Post.' . $this->Post->primaryKey => $id)
     );
-    $this->Post->recursive = 1;
+    $this->Post->recursive = 2;
     $this->set('post', $this->Post->find('first', $options));
   }
 

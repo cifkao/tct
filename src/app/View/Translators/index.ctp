@@ -1,58 +1,37 @@
-<div class="translators index">
-	<h2><?php echo __('Translators'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('email'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('description'); ?></th>
-			<th><?php echo $this->Paginator->sort('activated'); ?></th>
-			<th><?php echo $this->Paginator->sort('vacation'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
+<?php $this->set('bodyId', 'translators'); ?>
+
+<div class="large-12 columns">
+	<?php echo $this->Html->link( '<strong>' . __('Edit settings') . '</strong>', array( 'controller' => 'Translators', 'action' => 'edit_settings' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ($translators as $translator): ?>
-	<tr>
-		<td><?php echo h($translator['Translator']['id']); ?>&nbsp;</td>
-		<td><?php echo h($translator['Translator']['email']); ?>&nbsp;</td>
-		<td><?php echo h($translator['Translator']['name']); ?>&nbsp;</td>
-		<td><?php echo h($translator['Translator']['description']); ?>&nbsp;</td>
-		<td><?php echo h($translator['Translator']['activated']); ?>&nbsp;</td>
-		<td><?php echo h($translator['Translator']['vacation']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $translator['Translator']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $translator['Translator']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $translator['Translator']['id']), array(), __('Are you sure you want to delete # %s?', $translator['Translator']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Translator'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Auth Tokens'), array('controller' => 'auth_tokens', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Auth Token'), array('controller' => 'auth_tokens', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Translations'), array('controller' => 'translations', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Translation'), array('controller' => 'translations', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Langs'), array('controller' => 'langs', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Src Lang'), array('controller' => 'langs', 'action' => 'add')); ?> </li>
+		<li>
+			<h2><?php echo $this->Html->link( h($translator['Translator']['name']), array('action' => 'view', $translator['Translator']['id'])); ?></h2>
+			<p><?php echo h($translator['Translator']['description']); ?></p>
+			<div class="row">
+				<div class="small-4 large-5 columns text-center">
+					<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('Languages translator translates from.'); ?>" ><i class="fi-info"></i></span>
+					<?php foreach ($translator['SrcLang'] as $srcLang): ?>
+						<span class="label"><?php echo $srcLang['name']; ?></span>
+					<?php endforeach; ?>
+				</div>
+				<div class="small-4 large-2 columns text-center">
+					<span class="secondary label">&raquo;</span>
+				</div>
+				<div class="small-4 large-5 columns text-center">
+					<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('Languages translator translates to.'); ?>" ><i class="fi-info"></i></span>
+					<?php foreach ($translator['TgtLang'] as $srcLang): ?>
+						<span class="label"><?php echo $srcLang['name']; ?></span>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</li>
+	<?php endforeach; ?>
 	</ul>
+	<div class="pagination-centered">
+		<ul class="pagination">
+			<?php echo $this->Paginator->prev('&laquo; ' . __('previous'), array( 'tag' => 'li', 'class' => 'arrow', 'escape' => false ), null, array( 'tag' => 'li', 'class' => 'arrow unavailable', 'escape' => false, 'disabledTag' => 'a' )); ?>
+			<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'ellipsis' => '<li class="unavailable"><a href="">&hellip;</a></li>')); ?>
+			<?php echo $this->Paginator->next(__('next') . ' &raquo;', array( 'tag' => 'li', 'class' => 'arrow', 'escape' => false ), null, array( 'tag' => 'li', 'class' => 'arrow unavailable', 'escape' => false, 'disabledTag' => 'a' )); ?>
+		</ul>
+	</div>
 </div>

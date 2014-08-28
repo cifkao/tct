@@ -35,7 +35,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array( 'Post', 'Translator', 'Translation' );
 
 /**
  * Displays a view
@@ -73,5 +73,17 @@ class PagesController extends AppController {
 			}
 			throw new NotFoundException();
 		}
+	}
+	
+	public function about() {
+		$this->set( 'title_for_layout', 'About' );
+	}
+	
+	public function home() {
+		$countTranslator = $this->Translator->find( 'count' );
+		$countTranslation = $this->Translation->find( 'count' );
+		$countPost = $this->Post->find( 'count' );
+		
+		$this->set( compact( 'countTranslator', 'countTranslation', 'countPost' ) );
 	}
 }

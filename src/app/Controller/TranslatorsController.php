@@ -4,12 +4,12 @@ App::uses('Mail', 'Utility');
 
 class TranslatorsController extends AppController {
 
-  public $uses = array('Translator', 'AuthToken');
+  public $uses = array('Translator', 'AuthToken', 'Translation');
   public $components = array('RequestHandler', 'Paginator', 'Session');
 
 
   public function index() {
-    $this->Translator->recursive = 0;
+    $this->Translator->recursive = 1;
     $this->set('translators', $this->Paginator->paginate());
   }
 
@@ -17,9 +17,14 @@ class TranslatorsController extends AppController {
     if (!$this->Translator->exists($id)) {
       throw new NotFoundException(__('Invalid translator'));
     }
+    
     $this->Translator->recursive = 1;
     $options = array('conditions' => array('Translator.' . $this->Translator->primaryKey => $id));
-    $this->set('translator', $this->Translator->find('first', $options));
+    
+    $this->Translation->recursive = 1;
+    $this->Paginator->settings = array('conditions' => array('translator_id' => $id), 'limit' => 6);
+    
+    $this->set( array( 'translator' => $this->Translator->find('first', $options), 'translations' => $this->Paginator->paginate('Translation') ));
   }
 
   public function register(){
@@ -121,7 +126,7 @@ class TranslatorsController extends AppController {
     }
 
     // generate list of available languages (needed by form)
-    $langs = $this->Translator->SrcLang->find('list');
+    $langs = $this->Translator->SrcLang->find('list', array('order' => array('name' => 'asc')));
     $this->set(array('srcLangs' => $langs, 'tgtLangs' => $langs));
   }
 

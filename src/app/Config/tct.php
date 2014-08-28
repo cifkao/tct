@@ -15,6 +15,11 @@ $config = array(
     )
   ),
   'Scoring' => array(
-    'accept_threshold' => 1500
+    'accept_threshold' => 1500,
+    'default' => 1400
+  ),
+  'Design' => array(
+    'score_alert' => 90,
+    'score_secondary' => 50
   )
 );

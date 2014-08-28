@@ -27,11 +27,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	?>
 </head>
 <?php
-    if (isset($bodyId)) {
-        $bodyId = "$bodyId";
-    } else {
-        $bodyId = null;
-    }
+		if (isset($bodyId)) {
+				$bodyId = "$bodyId";
+		} else {
+				$bodyId = null;
+		}
 ?>
 <body id=<?php echo $bodyId; ?>>
 	<div class="row">
@@ -43,21 +43,24 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'Scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'Translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-info" id="nav-about"></i><label for="nav-about">About</label>', '/about', array( 'class' => 'item', 'id' => 'nav-bar-about', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranlation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranslation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 			</div>
 		</div>
 	</div>
 	
 	<div class="row">
-		<?php echo $this->Session->flash(); ?>
-
+		<?php echo $this->Session->flash('flash', array( 'element' => 'tctFlash' ) ); ?>
+		
 		<?php echo $this->fetch('content'); ?>
 	</div>
 	
 	<footer class="row">
 		<div class="large-12 columns">
 			<hr/>
-			<div class="large-2 columns text-center">
+			<div class="large-2 columns">
+				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranlation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+			</div>
+			<div class="large-2 columns">
 				<?php echo $this->Html->link(
 						$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 						'http://www.cakephp.org/',
@@ -67,10 +70,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<br/>
 				<a href="http://foundation.zurb.com" target="_blanc" class="round label">foundation 5 | power</a>
 			</div>
-			<div class="large-4 columns">
-				
-			</div>
-			<div class="large-3 columns">
+			<div class="large-5 columns">
 			</div>
 			<div class="large-3 columns text-right">
 				<p>© Copyright Reserved</p>
@@ -80,11 +80,17 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 	
 	<?php
-	echo $this->Html->script("vendor/jquery")."\n";
 	echo $this->Html->script("foundation.min")."\n";
+	echo $this->Html->script("vendor/jquery")."\n";
+	echo $this->Html->script("foundation/foundation")."\n";
+	echo $this->Html->script("foundation/foundation.alert")."\n";
+	echo $this->Html->script("foundation/foundation.tooltip")."\n";
+	echo $this->Html->script("foundation/foundation.joyride")."\n";
+	echo $this->Html->script("vendor/jquery.cookie")."\n";
 	?>
 	<script>
 		$(document).foundation();
+		$(document).foundation().foundation('alert', 'event');
 	</script>
 </body>
 </html>

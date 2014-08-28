@@ -39,3 +39,7 @@ body#translators div#nav-bar a#nav-bar-translators, body#phrases div#nav-bar a#n
 	background-color: #2b6aa6;
 }
 
+form select#SrcLangSrcLang, form select#TgtLangTgtLang
+{
+	height: 30rem;
+}

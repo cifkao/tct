@@ -17,7 +17,8 @@
 				<?php array_push( $requestLang, $request['TgtLang']['id'] ); endif;
 			endforeach; ?>
 	</blockquote>
-	
+</div>
+<div class="large-12 columns">	
 	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ( $post['Translation'] as $translation ): ?>
 		<li>
@@ -30,8 +31,16 @@
 					<span class="label"><?php echo h($translation['Lang']['name']); ?></span>
 				</cite>
 			</blockquote>
-			<?php $score = ($translation['score']-1400)/(1500-1400)*100; ?>
-			<?php if ( $score < 85 ): ?>
+			<?php $score = ($translation['score']-Configure::read('Scoring.default'))/(Configure::read('Scoring.accept_threshold')-Configure::read('Scoring.default'))*50+50; ?>
+			<?php if ( $score < 0 ): ?>
+				<div class="progress secondary round">
+					<span class="meter" style="width: 0%"></span>
+				</div>
+			<?php elseif ( $score < Configure::read('Design.score_secondary') ): ?>
+				<div class="progress secondary round">
+					<span class="meter" style="width: <?php echo $score; ?>%"></span>
+				</div>
+			<?php elseif ( $score < Configure::read('Design.score_alert') ): ?>
 				<div class="progress round">
 					<span class="meter" style="width: <?php echo $score; ?>%"></span>
 				</div>
