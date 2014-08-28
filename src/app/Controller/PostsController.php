@@ -6,7 +6,7 @@ class PostsController extends AppController {
   public $components = array('Paginator');
 
   public function index() {
-    $this->Post->recursive = 0;
+    $this->Post->contain(array('TwitterPost', 'Lang', 'TranslationRequest' => array('TgtLang')));
     $this->set('posts', $this->Paginator->paginate());
   }
 
@@ -15,9 +15,9 @@ class PostsController extends AppController {
       throw new NotFoundException(__('Invalid post'));
     }
     $options = array(
-      'conditions' => array('Post.' . $this->Post->primaryKey => $id)
+      'conditions' => array('Post.' . $this->Post->primaryKey => $id),
+      'contain' => array('TwitterPost', 'Lang', 'TranslationRequest' => array('TgtLang'), 'Translation')
     );
-    $this->Post->recursive = 1;
     $this->set('post', $this->Post->find('first', $options));
   }
 
