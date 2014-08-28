@@ -3,7 +3,7 @@
 <div class="large-6 columns">
   <?php echo $this->Html->image('logo_about.svg', array('id' => 'logo-about', 'alt' => __('TCT logo'))); ?>
 	
-	<p>The world is built  of communities of shared interests. (People seeking freedom for Ukraine, football fans following their favourite clubs, ...)</p>
+	<p>The world is built  of communities of shared interests. (People seeking peace in Ukraine, football fans following their favourite clubs, ...)</p>
 	
 	<p>But languages come in the way.</p>
 	
@@ -12,17 +12,18 @@
 	<p>Twitter Crowd Translation (tct) is an infrastructure for fast translation of twitter content with the help of you, members of these communities.</p>
 </div>
 <div class="large-6 columns">
+	<p>You can help us and yourself in any of these roles:</p>
 	<dl>
 		<dt>Author</dt>
-			<dd>author producing tweets in source language</dd>
-			<dd>gains bigger audience and visibility</dd>
+			<dd>Authors produce tweets in source language.</dd>
+			<dd>Through TCT, they gain bigger audience and visibility.</dd>
 		<dt>Translator</dt>
-			<dd>bilingual person providing translation from source to target language</dd>
-			<dd>language practice</dd>
+			<dd>People speaking more languages provide translation for tweets.</dd>
+			<dd>Through TCT, they gain language practice.</dd>
 		<dt>Judge</dt>
-			<dd>bilingual person comparing the quality of translations</dd>
-			<dd>language practice</dd>
+			<dd>People learning or speaking more languages select preferred translations from more candidates.</dd>
+			<dd>Through TCT, they gain language practice -- even for a language they are afraid of speaking yet.</dd>
 		<dt>Consumer</dt>
-			<dd>gains direct access to forein content</dd>
+			<dd>People following TCT on Twitter gain direct access to foreign content.</dd>
 	</dl>
 </div>

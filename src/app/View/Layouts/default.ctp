@@ -8,7 +8,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
+		<!-- ?php echo $cakeDescription ?>: -->TCT:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -59,7 +59,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div class="large-12 columns">
 			<hr/>
 			<div class="large-2 columns">
-				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranlation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranslation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 			</div>
 			<div class="large-2 columns">
 				<?php echo $this->Html->link(
@@ -74,7 +74,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<div class="large-5 columns">
 			</div>
 			<div class="large-3 columns text-right">
-				<p>© Copyright Reserved</p>
+				<p>© Charles University in Prague, <a href="http://ufal.mff.cuni.cz/" target="_blank">ÚFAL</a></p>
 			</div>
 		</div>
 	</footer>
