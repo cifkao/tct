@@ -3,5 +3,5 @@
 	
 	<p class="text-center panel"><?php echo __('Already %d translators provided %d translations to %d tweets in out database.', $countTranslator, $countTranslation, $countPost ); ?></p>
 	
-	<?php echo $this->Html->link( '<strong>' . __('Register as translator') . '</strong>', array( 'controller' => 'Translators', 'action' => 'register' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+	<?php echo $this->Html->link( '<strong>' . __('Register as translator') . '</strong>', array( 'controller' => 'translators', 'action' => 'register' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 </div>

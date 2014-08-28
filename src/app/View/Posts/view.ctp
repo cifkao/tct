@@ -26,7 +26,7 @@
 				<?php echo $translation["text"]; ?>
 				
 				<cite>
-					<?php echo $this->Html->link( h($translation['Translator']['name']), array('controller' => 'Translators', 'action' => 'view', $translation['Translator']['id']), array( 'class' => 'label' )); ?>
+					<?php echo $this->Html->link( h($translation['Translator']['name']), array('controller' => 'translators', 'action' => 'view', $translation['Translator']['id']), array( 'class' => 'label' )); ?>
 					<span class="secondary label"><?php echo h($translation['created']); ?></span>
 					<span class="label"><?php echo h($translation['Lang']['name']); ?></span>
 				</cite>
