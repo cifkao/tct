@@ -28,6 +28,9 @@ class TranslationRequest extends AppModel {
     $this->Post->contain('Lang');
     $post = $this->Post->findById($postId);
 
+    if($postId['Lang']['id'] == $tgtLang['TgtLang']['id'])
+      return null;
+
     $hash = md5($post['Post']['text'] . $tgtLang['TgtLang']['id'] . mt_rand());
 
     $this->create();

@@ -8,6 +8,11 @@ class PostsController extends AppController {
   public function index() {
     $this->Post->recursive = 2;
     $this->Post->contain(array('TwitterPost', 'Lang', 'TranslationRequest' => array('TgtLang')));
+    $this->Paginator->settings = array(
+      'order' => array(
+        'Post.created' => 'desc'
+      )
+    );
     $this->set('posts', $this->Paginator->paginate());
   }
 

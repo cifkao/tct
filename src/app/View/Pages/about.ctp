@@ -1,7 +1,7 @@
 <?php $this->set('bodyId', 'about'); ?>
 
 <div class="large-6 columns">
-	<img src="img/logo_about.svg" id="logo-about"/>
+  <?php echo $this->Html->image('logo_about.svg', array('id' => 'logo-about', 'alt' => __('TCT logo'))); ?>
 	
 	<p>The world is built  of communities of shared interests. (People seeking freedom for Ukraine, football fans following their favourite clubs, ...)</p>
 	
