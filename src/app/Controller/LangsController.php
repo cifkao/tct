@@ -2,6 +2,6 @@
 App::uses('AppController', 'Controller');
 
 class LangsController extends AppController {
-  public $scaffold;
+  public $scaffold = 'admin';
 
 }

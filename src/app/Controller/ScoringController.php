@@ -2,6 +2,9 @@
 App::uses('AppController', 'Controller');
 
 class ScoringController extends AppController {
+
+  public $scaffold = 'admin';
+
   public $uses = array('Scoring', 'Translation', 'Post');
 
   public function score($hash, $result){

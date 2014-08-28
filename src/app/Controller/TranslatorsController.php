@@ -3,6 +3,7 @@ App::uses('AppController', 'Controller');
 App::uses('Mail', 'Utility');
 
 class TranslatorsController extends AppController {
+  public $scaffold = 'admin';
 
   public $uses = array('Translator', 'AuthToken', 'Translation');
   public $components = array('RequestHandler', 'Paginator', 'Session');
