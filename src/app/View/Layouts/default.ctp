@@ -38,7 +38,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div class="large-12 columns">
 			
 			<div class="icon-bar six-up" id="nav-bar">
-				<?php echo $this->Html->link( '<img src="/img/logo.svg" id="nav-home"/>', '/', array( 'class' => 'item', 'id' => 'logo', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<img src="img/logo.svg" id="nav-home"/>', '/', array( 'class' => 'item', 'id' => 'logo', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-list-bullet" id="nav-phrases"></i><label for="nav-phrases">Tweets</label>', array( 'controller' => 'Posts', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-phrases', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'Scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'Translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>

@@ -1,6 +1,6 @@
 body
 {
-	background-image: url('/img/bg.svg');
+	background-image: url('../img/bg.svg');
 	background-attachment: fixed;
 	background-repeat: repeat-x;
 }
