@@ -15,7 +15,7 @@ if(isset($data) && $data){
 		</div>
 		
 		<div class="large-6 columns">
-			<?php echo $this->Html->link( $data['TranslationA']['text'], array('action' => 'score', $hash, 'b'), array( 'class' => 'button' ) ); ?>
+			<?php echo $this->Html->link( $data['TranslationA']['text'], array('action' => 'score', $hash, 'a'), array( 'class' => 'button' ) ); ?>
 		</div>
 		<div class="large-6 columns">
 			<?php echo $this->Html->link( $data['TranslationB']['text'], array('action' => 'score', $hash, 'b'), array( 'class' => 'button' ) ); ?>
