@@ -18,33 +18,47 @@
 			<div class="large-6 columns">
 				<fieldset>
 					<legend id="SrcLang"><?php echo __('Source languages'); ?></legend>
-					<?php echo $this->Form->input('SrcLang', array('type' => 'select', 'multiple' => 'multiple')); ?>
-<!--
 					<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
-					<?php foreach ( $srcLangs as $key => $lang ): ?>
+<?php
+$checked = $this->Form->value('SrcLang.SrcLang');
+foreach ( $tgtLangs as $id=>$label ){ 
+?>
 						<li>
-							<?php echo $this->Form->checkbox($lang, array('name' => 'data[SrcLang][SrcLang]['.$key.']')); ?>
-							<?php echo $this->Form->label($lang, $lang); ?>
+<?php
+echo $this->Form->input("SrcLang.checkbox.$id", array(
+  'label'=>$label,
+  'type'=>'checkbox',
+  'checked'=>(isset($checked[$id])?'checked':false),
+));
+?>
 						</li>
-					<?php endforeach; ?>
+<?php
+}
+?>
 					</ul>
--->
 				</fieldset>
 			</div>
 			<div class="large-6 columns">
 				<fieldset>
 					<legend id="TgtLang"><?php echo __('Target languages'); ?></legend>
-					<?php echo $this->Form->input('TgtLang', array('type' => 'select', 'multiple' => 'multiple')); ?>
-<!--
 					<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
-					<?php foreach ( $tgtLangs as $lang ): ?>
+<?php
+$checked = $this->Form->value('TgtLang.TgtLang');
+foreach ( $tgtLangs as $id=>$label ){ 
+?>
 						<li>
-							<?php echo $this->Form->checkbox($lang); ?>
-							<?php echo $this->Form->label($lang, $lang); ?>
+<?php
+echo $this->Form->input("TgtLang.checkbox.$id", array(
+  'label'=>$label,
+  'type'=>'checkbox',
+  'checked'=>(isset($checked[$id])?'checked':false),
+));
+?>
 						</li>
-					<?php endforeach; ?>
+<?php
+}
+?>
 					</ul>
--->
 				</fieldset>
 			</div>
 		</div>
@@ -67,11 +81,11 @@
 	</li>
 	<li data-id="SrcLang" data-button="Next" data-prev-text="Prev" data-options="tip_location:bottom; modal: false">
 		<h4>Languages you translate FROM</h4>
-		<p>Select languages you are capable of translating from. (use CTRL+Click for multiple selection)</p>
+		<p>Select languages you are capable of translating from.</p>
 	</li>
 	<li data-id="TgtLang" data-button="Next" data-prev-text="Prev" data-options="tip_location:bottom; modal: false">
 		<h4>Languages you translate TO</h4>
-		<p>Select languages you are capable of translating to. (use CTRL+Click for multiple selection)</p>
+		<p>Select languages you are capable of translating to.</p>
 	</li>
 	<li data-button="End" data-prev-text="Prev">
 		<h4>That is all</h4>

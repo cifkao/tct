@@ -119,6 +119,15 @@ class TranslatorsController extends AppController {
     if($this->request->is(array('post', 'put'))){
       $this->request->data['Translator']['activated'] = true;
       $this->Translator->id = $tokenData['AuthToken']['translator_id'];
+
+      // read the single checkbox data
+      foreach(array('SrcLang', 'TgtLang') as $key){
+        $this->request->data[$key][$key] = array();
+        foreach($this->request->data[$key]['checkbox'] as $k=>$v) {
+          if ($v) $this->request->data[$key][$key][] = $k;
+        }
+      }
+
       $res = $this->Translator->save($this->request->data, array(
         'fieldList' => array('name', 'description', 'vacation', 'activated', 'SrcLang', 'TgtLang')
       ));
