@@ -10,7 +10,7 @@ $config = array(
     ),
     'Translator' => array(
       'email' => 'twittercrowdtranslation@gmail.com',
-      'name' => 'MTMonkey',
+      'name' => 'Moses',
       'activated' => true
     )
   ),
