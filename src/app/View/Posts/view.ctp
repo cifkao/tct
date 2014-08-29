@@ -2,7 +2,7 @@
 
 <div class="large-12 columns">
 	<blockquote>
-		<?php echo $post['Post']['text'] ?>
+		<?php echo h($post['Post']['text']); ?>
 		
 		<cite>
 			<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
