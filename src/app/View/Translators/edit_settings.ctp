@@ -2,7 +2,7 @@
 <?php echo $this->Form->create('Translator'); ?>
 	<a id="start-jr" name="start-jr" onclick="$(document).foundation('joyride', 'start');" class="button tiny secondary"><?php echo __('click for Joyride'); ?></a>
 	<fieldset>
-		<legend><?php echo __('Edit your settings as translator'); ?></legend>
+		<legend><?php echo __('Edit your settings as a translator'); ?></legend>
 		
 		<?php echo $this->Form->input('id'); ?>
 		

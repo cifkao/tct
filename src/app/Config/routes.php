@@ -23,6 +23,11 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'about'));
 
+/**
+ * Other routing.
+ */
+	Router::connect('/translators/settings', array('controller' => 'translators', 'action' => 'edit_settings'));
+	Router::connect('/translators/settings/*', array('controller' => 'translators', 'action' => 'edit_settings'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

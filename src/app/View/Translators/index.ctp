@@ -1,7 +1,7 @@
 <?php $this->set('bodyId', 'translators'); ?>
 
 <div class="large-12 columns">
-	<?php echo $this->Html->link( '<strong>' . __('Edit settings') . '</strong>', array( 'controller' => 'translators', 'action' => 'edit_settings' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+	<?php echo $this->Html->link( '<strong>' . __('Edit your settings as a translator') . '</strong>', array( 'controller' => 'translators', 'action' => 'edit_settings' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ($translators as $translator): ?>
 		<li>
