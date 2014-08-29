@@ -61,17 +61,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<div class="large-2 columns">
 				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranslation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 			</div>
-			<div class="large-2 columns">
-				<?php echo $this->Html->link(
-						$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-						'http://www.cakephp.org/',
-						array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-					);
-				?>
-				<br/>
-				<a href="http://foundation.zurb.com" target="_blanc" class="round label">foundation 5 | power</a>
-			</div>
-			<div class="large-5 columns">
+			<div class="large-7 columns">
+				powered by: 
+				<?php echo $this->Html->link( 'CakePHP 2.5.3', 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')); ?>,&nbsp;
+				<?php echo $this->Html->link( 'Zurb Foundation 5', 'http://www.foundation.zurb.com/', array('target' => '_blank', 'escape' => false)); ?>&nbsp;and&nbsp;
+				<?php echo $this->Html->link( 'Moses Decoder', 'http://www.statmt.org/moses/', array('target' => '_blank', 'escape' => false)); ?>
 			</div>
 			<div class="large-3 columns text-right">
 				<p>© Charles University in Prague, <a href="http://ufal.mff.cuni.cz/" target="_blank">ÚFAL</a></p>

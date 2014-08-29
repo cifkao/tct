@@ -8,6 +8,7 @@
 				<?php echo $this->Html->link( $post['Post']['text'], array('action' => 'view', $post['Post']['id'])); ?>
 				
 				<cite>
+					<?php echo $this->Html->link( '<i class="fi-social-twitter secondary label has-tip" data-tooltip aria-haspopup="true" title="'.__('View tweet on twitter.').'"></i>' , 'https://twitter.com/'.$post['TwitterPost'][0]['author_screen_name'].'/status/'.$post['TwitterPost'][0]['tweet_id'], array('target' => '_blank', 'escape' => false)); ?>
 					<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
 					<span class="secondary label"><?php echo h($post['Post']['created']); ?></span>
 					<span class="label"><?php echo h($post['Lang']['name']); ?></span>

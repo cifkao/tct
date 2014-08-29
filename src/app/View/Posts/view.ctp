@@ -2,10 +2,10 @@
 
 <div class="large-12 columns">
 	<blockquote>
-		<?php echo $this->Html->link( $post['Post']['text'], array('action' => 'view', $post['Post']['id'])); ?>
+		<?php echo $post['Post']['text'] ?>
 		
 		<cite>
-			<a href="#" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
+			<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
 			<span class="secondary label"><?php echo h($post['Post']['created']); ?></span>
 			<span class="label"><?php echo h($post['Lang']['name']); ?></span>
 		</cite>
