@@ -1,5 +1,6 @@
 <?php
 App::uses('Mail', 'Utility');
+App::uses('CakeTime', 'Utility');
 App::uses('TranslationRequest', 'Model');
 
 class TwitterPost extends AppModel {
@@ -61,7 +62,8 @@ class TwitterPost extends AppModel {
           'id' => $this->Post->id,
           'tweet_id' => $tweet['id_str'],
           'author_id' => $tweet['user']['id_str'],
-          'author_screen_name' => $tweet['user']['screen_name']
+          'author_screen_name' => $tweet['user']['screen_name'],
+          'created' => CakeTime::format(CakeTime::fromString($tweet['created_at']), "%Y-%m-%d %H:%M:%S")
         ));
         if(!is_null($retweet))
           $this->data[$this->alias]['retweet_id'] = $retweet['id_str'];

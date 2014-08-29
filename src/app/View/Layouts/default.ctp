@@ -44,7 +44,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 				<?php echo $this->Html->link( '<i class="fi-info" id="nav-about"></i><label for="nav-about">About</label>', '/about', array( 'class' => 'item', 'id' => 'nav-bar-about', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranslation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranslation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blank', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 			</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div class="large-12 columns">
 			<hr/>
 			<div class="large-2 columns">
-				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranslation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blanc', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;<span>@tctranslation</span>', 'http://twitter.com/tctranslation', array( 'target' => '_blank', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 			</div>
 			<div class="large-7 columns">
 				powered by: 

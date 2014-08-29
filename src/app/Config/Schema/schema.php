@@ -49,6 +49,7 @@ class AppSchema extends CakeSchema {
 		'author_screen_name' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => 'Twitter user screen_name', 'charset' => 'utf8mb4'),
 		'retweet_id' => array('type' => 'biginteger', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Twitter status id of retweet'),
 		'my_retweet_id' => array('type' => 'biginteger', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Twitter status id of TCT retweet'),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => null, 'comment' => 'Twitter created_at'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
