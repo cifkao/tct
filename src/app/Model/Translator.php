@@ -26,25 +26,22 @@ class Translator extends AppModel {
     'email' => array(
       'isUnique' => array(
         'rule' => 'isUnique',
-        'required' => true
       ),
       'email' => array(
-        'rule' => 'email'
+        'rule' => 'email',
+        'required' => true
+      ),
+    ),
+    'name' => array(
+      'notEmpty' => array(
+        'rule' => 'notEmpty',
+        'required' => true
       )
     )
   );
 
   public $displayField = 'email';
 
-  
-  /**
-   * Finds out whether a Translator with the given e-mail is already registered.
-   */
-  public function existsWithEmail($email) {
-    return $this->find('count', array(
-      'conditions' => array('Translator.email' => $email)
-    ))>0;
-  }
 
   /**
    * Finds all translators that can translate from $srcLangId to $tgtLangId.

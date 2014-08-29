@@ -11,6 +11,11 @@ class TranslatorsController extends AppController {
 
   public function index() {
     $this->Translator->recursive = 1;
+    $this->Paginator->settings = array(
+      'conditions' => array(
+        'activated' => true
+      )
+    );
     $this->set('translators', $this->Paginator->paginate());
   }
 
@@ -31,15 +36,22 @@ class TranslatorsController extends AppController {
   public function register(){
     if($this->request->is('post')){
       $email = $this->request->data['Translator']['email'];
-      if($this->Translator->existsWithEmail($email)){
+      $tr = $this->Translator->findByEmail($email);
+      if($tr && $tr['Translator']['activated']){
         $this->Session->setFlash(__("E-mail already registered."));
         return;
       }
 
-      $this->Translator->create();
-      $success = $this->Translator->save($this->request->data, array(
-        'fieldList' => array('email', 'name', 'description')
-      ));
+      $success = true;
+      if(!$tr && !$tr['Translator']['activated']){
+        $this->Translator->create();
+        $this->Translator->validator()->remove('name');
+        $success = $this->Translator->save($this->request->data, array(
+          'fieldList' => array('email')
+        ));
+      }else{
+        $this->Translator->id = $tr['Translator']['id'];
+      }
       if($success){
         $tokenData = $this->AuthToken->getByTranslator($this->Translator->id);
       }
@@ -76,16 +88,13 @@ class TranslatorsController extends AppController {
 
     $this->AuthToken->contain('Translator');
     $data = $this->AuthToken->findByHash($hash);
-    pr($data);
     if(!$data || !$data['Translator'] || $data['Translator']['activated']){
       $this->AuthToken->delete();
       $this->Session->setFlash(__("Activation failed: invalid token."));
       return $this->redirect(array('action' => 'index'));
     }
 
-    $this->Translator->id = $data['Translator']['id'];
-    $this->Translator->saveField('activated', true);
-    $this->Session->setFlash(__("Account activated."));
+    $this->Session->setFlash(__("To activate your account, please enter your details below."));
     return $this->redirect(array('action' => 'edit_settings', $hash));
   }
 
@@ -105,14 +114,13 @@ class TranslatorsController extends AppController {
       $this->Session->setFlash(__("Request failed: invalid token."));
       return $this->redirect(array('action' => 'edit_settings')); // will render request_settings
     }
-    if(!$tokenData['Translator']['activated'])
-      return $this->redirect(array('action' => 'activate', $hash));
 
-
-    // Data passed => save it, destroy token
+    // Data passed => save it, activate translator, destroy token
     if($this->request->is(array('post', 'put'))){
+      $this->request->data['Translator']['activated'] = true;
+      $this->Translator->id = $tokenData['AuthToken']['translator_id'];
       $res = $this->Translator->save($this->request->data, array(
-        'fieldList' => array('name', 'description', 'vacation', 'SrcLang', 'TgtLang')
+        'fieldList' => array('name', 'description', 'vacation', 'activated', 'SrcLang', 'TgtLang')
       ));
       if($res) {
         $this->AuthToken->delete();
