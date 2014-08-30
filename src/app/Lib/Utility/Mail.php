@@ -72,17 +72,28 @@ class Mail {
       return null;
 
     $overview = imap_fetch_overview($this->imap, $id);
-    $text = imap_fetchbody($this->imap, $id, 2);
+    $structure = imap_fetchstructure($this->imap, $id);
+
+    if($structure->type == 1) 
+    {
+        $text = imap_fetchbody($this->imap,$id,"1"); 
+    }
+    else
+    {
+        $text = imap_body($this->imap, $id);
+    }
+    if(!$text) {$text = '[NO TEXT ENTERED INTO THE MESSAGE]\n\n';}
     
     $match = explode("ID:", $text );			
     preg_match("/[0-9a-f]*/", $match[count($match)-1], $hash);
     $hash = $hash[0];
-
+    
     $lines = array_map( "strip_tags", explode( "<br>", nl2br( quoted_printable_decode( $text ), FALSE ) ) );
     $o = 0;
     while (strlen( $lines[$o] ) == 0){
       ++$o;
     }
+    
     $email = imap_rfc822_parse_adrlist( $overview[0]->from, "gmail.com" );
     $email = $email[0]->mailbox."@".$email[0]->host;
 
