@@ -71,7 +71,7 @@ class TwitterShell extends AppShell {
   public function dump(){
     $data = $this->TwitterPost->find('all', array('contain' => array('Post' => array('Lang'))));
     foreach($data as $d){
-      $this->out($d['Post']['Lang']['code'] . " " . $d['TwitterPost']['tweet_id'] . " " . str_replace('\n', '', $d['Post']['text']));
+      $this->out($d['Post']['Lang']['code'] . " " . $d['TwitterPost']['tweet_id'] . " " . preg_replace('/\s+/', ' ', $d['Post']['text']));
     }
   }
 
