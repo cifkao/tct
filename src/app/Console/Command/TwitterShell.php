@@ -2,7 +2,7 @@
 App::uses('Twitter', 'Utility');
 class TwitterShell extends AppShell {
 
-  public $uses = array('Setting', 'TwitterPost', 'TranslationRequest');
+  public $uses = array('Setting', 'TwitterPost', 'Post', 'TranslationRequest');
 
   protected $Twitter;
 
@@ -65,6 +65,13 @@ class TwitterShell extends AppShell {
         $this->out("<warning>Warning:</warning> " .
           "Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) has not been added.");
       }
+    }
+  }
+
+  public function dump(){
+    $data = $this->TwitterPost->find('all', array('contain' => array('Post' => array('Lang'))));
+    foreach($data as $d){
+      $this->out($d['Post']['Lang']['code'] . " " . $d['TwitterPost']['tweet_id'] . " " . str_replace('\n', '', $d['Post']['text']));
     }
   }
 
