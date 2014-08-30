@@ -108,6 +108,8 @@ class TwitterShell extends AppShell {
           'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true)
         )
       )
+    ))->addSubcommand('dump', array(
+      'help' => 'Dumps all the tweets in the database.',
     ))->addSubcommand('get', array(
       'help' => 'Send an arbitrary GET request and show the result.',
     ));

@@ -18,4 +18,10 @@ App::uses('Shell', 'Console');
  */
 class AppShell extends Shell {
 
+  /**
+   * Don't display a welcome message.
+   */
+  protected function _welcome(){
+  }
+
 }
