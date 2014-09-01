@@ -30,6 +30,12 @@
 	Router::connect('/translators/settings/*', array('controller' => 'translators', 'action' => 'edit_settings'));
 
 /**
+ * Redirects.
+ */
+
+  Router::redirect('/admin', array('controller' => 'admins', 'action' => 'login', 'admin' => 'true'));
+
+/**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
