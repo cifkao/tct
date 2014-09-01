@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * Application Controller
@@ -31,9 +32,28 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+  public $components = array(
+    'Session',
+    'Auth' => array(
+      'authenticate' => array(
+        AuthComponent::ALL => array('userModel' => 'Admin'),
+        'Basic',
+        'Form' => array(
+          'passwordHasher' => 'Blowfish'
+        )
+      ),
+      'loginAction' => array(
+        'controller' => 'admins',
+        'action' => 'login'
+      )
+    )
+  );
+
   public function beforeFilter() {
     if ($this->request->prefix == 'admin') {
       $this->layout = 'admin';
-    } 
+    }else{
+      $this->Auth->allow();
+    }
   }
 }
