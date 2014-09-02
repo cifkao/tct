@@ -22,7 +22,7 @@ if(isset($data) && $data){
 		</div>
 	</div>
   <div class="row">
-    <div class="small-3 small-centered columns">
+    <div class="small-6 medium-3 small-centered columns">
       <?php echo $this->Html->link(__("Skip"), array('action' => 'skip', $hash), array('class' => 'button expand')); ?>
     </div>
   </div>

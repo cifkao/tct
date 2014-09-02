@@ -12,11 +12,13 @@
 					<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
 					<span class="secondary label"><?php echo h($post['TwitterPost'][0]['created']); ?></span>
 					<span class="label"><?php echo h($post['Lang']['name']); ?></span>
-				</cite>
-				<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('In translation to'); ?>">&raquo;</span>
-				<?php foreach ( $post['TranslationRequest'] as $request ): ?>
-					<span class="label"><?php echo h($request['TgtLang']['name']); ?></span>
-				<?php endforeach; ?>
+        </cite>
+        <?php if( $post['TranslationRequest'] ){ ?>
+          <span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('In translation to'); ?>">&raquo;</span>
+          <?php foreach ( $post['TranslationRequest'] as $request ){ ?>
+            <span class="label"><?php echo h($request['TgtLang']['name']); ?></span>
+          <?php } ?>
+        <?php } ?>
 			</blockquote>
 		</li>
 	<?php endforeach; ?>
