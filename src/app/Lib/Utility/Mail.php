@@ -94,12 +94,15 @@ class Mail {
         $text = imap_body($this->imap, $id);
     }
     if(!$text) return null;
-    
-    $match = explode("ID:", $text );			
-    preg_match("/[0-9a-f]*/", $match[count($match)-1], $hash);
-    $hash = $hash[0];
 
-    $text = EmailReplyParser\EmailReplyParser::parseReply(quoted_printable_decode($text));
+    $text = quoted_printable_decode($text);
+    
+    // find the hash
+    preg_match("/ID:([0-9a-f]+)/", $text, $matches);
+    $hash = $matches[1];
+
+    // get the actual translation text
+    $text = trim(EmailReplyParser\EmailReplyParser::parseReply($text));
     
     $email = imap_rfc822_parse_adrlist( $overview[0]->from, "gmail.com" );
     $email = $email[0]->mailbox."@".$email[0]->host;

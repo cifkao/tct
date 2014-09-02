@@ -6,8 +6,20 @@ class Translation extends AppModel {
 
 
   public function add($text, $postId, $translatorId, $langId){
+    $post = $this->Post->findById($postId);
+    if(!$post) return null;
+
+    // Reject outright garbage (too short or too long)
+    $len = strlen($text);
+    $postLen = strlen($post['Post']['text']);
+    if($len<$postLen/3 || $len>3*($postLen+3)){
+      $tr = $this->Translator->findById($translatorId);
+      $this->log('Rejecting translation of Post ' . $postId . ' by ' . ($tr ? $tr['Translator']['email'] : $translatorId) . '.', 'debug');
+      return null;
+    }
+
     $this->create();
-    $this->save(array(
+    return $this->save(array(
       'text' => $text,
       'post_id' => $postId,
       'translator_id' => $translatorId,
