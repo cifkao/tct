@@ -2,6 +2,17 @@
 App::import('Vendor', 'PHPMailer',
   array('file' => 'phpmailer'.DS.'class.phpmailer.php'));
 
+App::import('Vendor', 'EmailReplyParser\EmailReplyParser',
+  array('file' => 'EmailReplyParser'.DS.'src'.DS.'EmailReplyParser'.DS.'EmailReplyParser.php'));
+App::import('Vendor', 'EmailReplyParser\Email',
+  array('file' => 'EmailReplyParser'.DS.'src'.DS.'EmailReplyParser'.DS.'Email.php'));
+App::import('Vendor', 'EmailReplyParser\Fragment',
+  array('file' => 'EmailReplyParser'.DS.'src'.DS.'EmailReplyParser'.DS.'Fragment.php'));
+App::import('Vendor', 'EmailReplyParser\Parser\EmailParser',
+  array('file' => 'EmailReplyParser'.DS.'src'.DS.'EmailReplyParser'.DS.'Parser'.DS.'EmailParser.php'));
+App::import('Vendor', 'EmailReplyParser\Parser\FragmentDTO',
+  array('file' => 'EmailReplyParser'.DS.'src'.DS.'EmailReplyParser'.DS.'Parser'.DS.'FragmentDTO.php'));
+
 Configure::load("mail", "default");
 
 class Mail {
@@ -82,22 +93,18 @@ class Mail {
     {
         $text = imap_body($this->imap, $id);
     }
-    if(!$text) {$text = '[NO TEXT ENTERED INTO THE MESSAGE]\n\n';}
+    if(!$text) return null;
     
     $match = explode("ID:", $text );			
     preg_match("/[0-9a-f]*/", $match[count($match)-1], $hash);
     $hash = $hash[0];
-    
-    $lines = array_map( "strip_tags", explode( "<br>", nl2br( quoted_printable_decode( $text ), FALSE ) ) );
-    $o = 0;
-    while (strlen( $lines[$o] ) == 0){
-      ++$o;
-    }
+
+    $text = EmailReplyParser\EmailReplyParser::parseReply(quoted_printable_decode($text));
     
     $email = imap_rfc822_parse_adrlist( $overview[0]->from, "gmail.com" );
     $email = $email[0]->mailbox."@".$email[0]->host;
 
-    return array("hash" => $hash, "text" => $lines[$o], "email" => $email);
+    return array("hash" => $hash, "text" => $text, "email" => $email);
   }
 
   public function finish(){

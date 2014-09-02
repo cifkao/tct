@@ -106,10 +106,3 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
-
-/**
- * Configures default constants
- */
-Configure::write('Score.default', 1400);
-Configure::write('Score.limit', 1500);
-Configure::write('Score.changeBar', 85);

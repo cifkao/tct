@@ -7,3 +7,6 @@
 [submodule "src/cakephp"]
 	path = src/cakephp
 	url = https://github.com/cakephp/cakephp.git
+[submodule "src/app/Vendor/EmailReplyParser"]
+	path = src/app/Vendor/EmailReplyParser
+	url = https://github.com/willdurand/EmailReplyParser
