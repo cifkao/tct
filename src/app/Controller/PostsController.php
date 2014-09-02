@@ -24,7 +24,7 @@ class PostsController extends AppController {
     }
     $options = array(
       'conditions' => array('Post.' . $this->Post->primaryKey => $id),
-      'contain' => array('TwitterPost', 'Lang', 'TranslationRequest' => array('TgtLang'), 'Translation')
+      'contain' => array('TwitterPost', 'Lang', 'TranslationRequest' => array('TgtLang'), 'Translation' => array('Translator', 'Lang'))
     );
     $this->Post->recursive = 2;
     $this->set('post', $this->Post->find('first', $options));
