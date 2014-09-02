@@ -28,7 +28,11 @@ class TranslatorsController extends AppController {
     $options = array('conditions' => array('Translator.' . $this->Translator->primaryKey => $id));
     
     $this->Translation->recursive = 1;
-    $this->Paginator->settings = array('conditions' => array('translator_id' => $id), 'limit' => 6);
+    $this->Paginator->settings = array(
+      'conditions' => array('translator_id' => $id),
+      'limit' => 6,
+      'order' => 'Translation.created DESC'
+    );
     
     $this->set( array( 'translator' => $this->Translator->find('first', $options), 'translations' => $this->Paginator->paginate('Translation') ));
   }
