@@ -9,22 +9,18 @@ class ShutterController extends AppController {
 
   public function admin_index() {
     // find translation requests with at least two scorings
-    $this->Translation->recursive = 2;
-    $this->Translation->bindModel(array('belongsTo' => array(
-      'TranslationRequest' => array(
-        'foreignKey' => false,
-        'conditions' => array(
-          'Translation.post_id = TranslationRequest.post_id',
-          'Translation.lang_id = TranslationRequest.tgt_lang_id'
-        )
-      )
-    )));
     $this->Paginator->settings = array(
-      'contain' => array(
-        'TranslationRequest' => array(
-          'fields' => array('id')
-        )),
-      'fields' => array('id', 'wins', 'losses'),
+      'joins' => array(
+        array(
+          'table' => 'translation_requests',
+          'alias' => 'TranslationRequest',
+          'conditions' => array(
+            'Translation.post_id = TranslationRequest.post_id',
+            'Translation.lang_id = TranslationRequest.tgt_lang_id'
+          )
+        )
+      ),
+      'fields' => array('id', 'wins', 'losses', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
       'group' => 'TranslationRequest.id HAVING SUM(Translation.wins + Translation.losses) >= 1'
     );
     $reqIds = array_map(function($value){
