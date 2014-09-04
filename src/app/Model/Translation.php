@@ -39,9 +39,15 @@ class Translation extends AppModel {
     $lScore += 32*(0 - 1/(1 + pow(10, ($wScore  - $lScore)/400)));
 
     $this->id = $wData['Translation']['id'];
-    $this->saveField('score', $wScore);
+    $this->save(array(
+      'score' => $wScore,
+      'wins' => $wData['Translation']['wins']+1
+    ));
     $this->id = $lData['Translation']['id'];
-    $this->saveField('score', $lScore);
+    $this->save(array(
+      'score' => $lScore,
+      'losses' => $lData['Translation']['losses']+1
+    ));
   }
 
 }
