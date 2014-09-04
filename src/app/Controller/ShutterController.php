@@ -21,7 +21,7 @@ class ShutterController extends AppController {
         )
       ),
       'fields' => array('id', 'wins', 'losses', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
-      'group' => 'TranslationRequest.id HAVING SUM(Translation.wins + Translation.losses) >= 1'
+      'group' => 'TranslationRequest.id HAVING SUM(Translation.wins + Translation.losses) >= 2*2'
     );
     $reqIds = array_map(function($value){
       return $value['TranslationRequest']['id'];
