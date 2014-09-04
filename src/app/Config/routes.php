@@ -33,7 +33,7 @@
  * Redirects.
  */
 
-  Router::redirect('/admin', array('controller' => 'admins', 'action' => 'login', 'admin' => 'true'));
+  Router::redirect('/admin', array('admin' => true, 'controller' => 'admins', 'action' => 'login'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on
