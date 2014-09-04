@@ -6,6 +6,7 @@ class TranslationsController extends AppController {
 
   public $components = array('Paginator');
 
+  /*
   public function index() {
     $this->Translation->recursive = 0;
     $this->set('translations', $this->Paginator->paginate());
@@ -19,5 +20,6 @@ class TranslationsController extends AppController {
     $options = array('conditions' => array('Translation.' . $this->Translation->primaryKey => $id));
     $this->set('translation', $this->Translation->find('first', $options));
   }
+  */
 
 }
