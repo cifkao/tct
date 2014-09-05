@@ -17,7 +17,7 @@
 	<tbody>
 	<?php foreach ($reqs as $req): ?>
 	<tr>
-		<td><?php echo h($req['TranslationRequest']['id']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link($req['TranslationRequest']['id'], array('controller' => 'translation_requests', 'action' => 'view', $req['TranslationRequest']['id'])); ?>&nbsp;</td>
 		<td><?php echo $this->Html->link($req['Post']['id'], array('controller' => 'posts', 'action' => 'view', $req['Post']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($req['Post']['text']); ?>&nbsp;</td>
 		<td><?php echo h($req['Post']['Lang']['name']); ?>&nbsp;</td>

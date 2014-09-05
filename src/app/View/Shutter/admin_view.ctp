@@ -1,10 +1,14 @@
 <h2><?php echo __('Candidate Selection'); ?></h2>
 <div class="manualShutter">
-<h3><?php echo __('Post'); ?></h3>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
+		<dt><?php echo __('Request Id'); ?></dt>
 		<dd>
-			<?php echo h($req['Post']['id']); ?>
+			<?php echo $this->Html->link($req['TranslationRequest']['id'], array('controller' => 'translation_requests', 'action' => 'view', $req['TranslationRequest']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Post Id'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($req['Post']['id'], array('controller' => 'posts', 'action' => 'view', $req['Post']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Text'); ?></dt>
