@@ -20,6 +20,7 @@ class ShutterController extends AppController {
           )
         )
       ),
+      'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'fields' => array('id', 'wins', 'losses', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
       'group' => 'TranslationRequest.id HAVING SUM(Translation.wins + Translation.losses) >= 2*2'
     );
@@ -81,6 +82,10 @@ class ShutterController extends AppController {
     ));
     $this->set('req', $req);
     $this->set('translations', $translations);
+  }
+
+  public function admin_publish($id){
+    
   }
 
 }

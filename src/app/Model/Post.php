@@ -10,7 +10,9 @@ class Post extends AppModel {
     'TranslationRequest' => array(
       'dependent' => true
     ),
-    'Translation',
+    'Translation' => array(
+      'dependent' => true
+    ),
     'TwitterPost' => array(
       'foreignKey' => 'id',
       'dependent' => true

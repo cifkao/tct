@@ -2,7 +2,7 @@
 class Translation extends AppModel {
   public $actsAs = array('Containable');
 
-  public $belongsTo = array('Post', 'TranslationRequest', 'Translator', 'Lang');
+  public $belongsTo = array('Post', 'TranslationRequest' => array('type' => 'INNER'), 'Translator', 'Lang');
 
 
   public function add($text, $postId, $translatorId, $langId){
