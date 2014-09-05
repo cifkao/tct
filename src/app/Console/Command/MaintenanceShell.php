@@ -1,7 +1,7 @@
 <?php
 class MaintenanceShell extends AppShell {
 
-  public $uses = array('Translation', 'TranslationRequest', 'Scoring');
+  public $uses = array('Translation', 'TranslationRequest', 'Scoring', 'TwitterPost', 'TwitterTranslation');
 
   public function updateCounters(){
     // Translation.wins, Translation.losses, Translation.bad_marks
@@ -51,6 +51,27 @@ class MaintenanceShell extends AppShell {
         $this->Translation->id = $tr['Translation']['id'];
         $this->Translation->saveField('translation_request_id', $req['TranslationRequest']['id']);
       }
+    }
+  }
+
+  public function unpublish(){
+    $data = $this->Translation->find('first', array(
+      'conditions' => array('Translation.id' => $this->args[0]),
+      'contain' => array('TranslationRequest', 'TwitterTranslation', 'Post' => array('TwitterPost'))
+    ));
+
+    if($data['TranslationRequest']){
+      $this->TranslationRequest->id = $data['TranslationRequest']['id'];
+      $this->TranslationRequest->saveField('accepted_translation_id', null);
+    }
+
+    if($data['TwitterTranslation']){
+      $this->TwitterTranslation->delete($data['TwitterTranslation'][0]['id']);
+    }
+ 
+    if($data['Post']['TwitterPost']){
+      $this->TwitterPost->id = $data['Post']['TwitterPost'][0]['id'];
+      $this->TwitterPost->saveField('my_retweet_id', null);
     }
   }
 

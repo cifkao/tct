@@ -28,7 +28,6 @@ class TwitterTranslation extends AppModel {
     ));
     if(!$data || !$data['Post'] || !$data['Post']['TwitterPost']) return false;
 
-    $this->log($data, 'debug');
     $Setting = new Setting();
     if($Setting->getBoolean('Twitter.tweeting_enabled', true)){
       $twitter = new Twitter();
@@ -39,7 +38,10 @@ class TwitterTranslation extends AppModel {
         if(!$retweet){
           $this->log('Retweet failed.');
         }else if(array_key_exists('errors', $retweet)){
-          $this->log('Retweet failed: ' . $retweet['errors'][0]['message']);
+          $this->log('Retweet failed: ' . $retweet['errors']);
+        }else{
+          $this->Translation->Post->TwitterPost->id = $data['Post']['TwitterPost'][0]['id'];
+          $this->Translation->Post->TwitterPost->saveField('my_retweet_id', $retweet['id_str']);
         }
       }
 
@@ -53,6 +55,13 @@ class TwitterTranslation extends AppModel {
         $this->log('Tweeting failed: ' . $tweet['errors'][0]['message']);
         return false;
       }
+
+      // save
+      $this->create(array(
+        'id' => $data['Translation']['id'],
+        'tweet_id' => $tweet['id_str']
+      ));
+      $this->save();
     }
     
     return true;

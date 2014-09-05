@@ -87,7 +87,6 @@ class Translation extends AppModel {
       'conditions' => array('Translation.id' => $id),
       'contain' => array('TranslationRequest')
     ));
-    $this->log($data, 'debug');
     if(!$data || !$data['TranslationRequest'] || $data['TranslationRequest']['accepted_translation_id'] != null) return false;
 
     if(!$this->TwitterTranslation->post($id))
