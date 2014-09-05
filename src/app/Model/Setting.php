@@ -31,7 +31,9 @@ class Setting extends AppModel {
 
   public function getBoolean($key, $default=false){
     $bool = $this->getString($key, $default);
-    return ($bool=='0' || $bool=='false') ? false : true;
+    if($bool===$default) return $default;
+    else if(strtolower($bool)==='true') return true;
+    else return false;
   }
 
 }
