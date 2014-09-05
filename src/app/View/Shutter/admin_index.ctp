@@ -10,6 +10,7 @@
 			<th><?php echo h(__('Tgt Lang')); ?></th>
 			<th><?php echo h(__('Created')); ?></th>
 			<th><?php echo h(__('Translations Scored')); ?></th>
+			<th><?php echo h(__('High Score')); ?></th>
 			<th class="actions"><?php echo h(__('Actions')); ?></th>
 	</tr>
 	</thead>
@@ -23,6 +24,7 @@
 		<td><?php echo h($req['TgtLang']['name']); ?>&nbsp;</td>
 		<td><?php echo h($req['Post']['created']); ?>&nbsp;</td>
 		<td><?php echo h($req['TranslationRequest']['translations_scored']) . " / " . h($req['TranslationRequest']['translations']); ?>&nbsp;</td>
+		<td><?php echo h($req['TranslationRequest']['best_score']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $req['TranslationRequest']['id'])); ?>
 		</td>

@@ -52,7 +52,13 @@ class ShutterController extends AppController {
           'Translation.wins + Translation.losses > 0'
         )
       ));
-;
+      $req['TranslationRequest']['best_score'] = $this->Translation->find('first', array(
+        'conditions' => array(
+          'Translation.post_id' => $req['TranslationRequest']['post_id'],
+          'Translation.lang_id' => $req['TranslationRequest']['tgt_lang_id'],
+        ),
+        'order' => array('Translation.score' => 'DESC')
+      ))['Translation']['score'];
     }
     $this->set('reqs', $reqs);
   }
