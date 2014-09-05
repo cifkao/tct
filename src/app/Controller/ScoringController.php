@@ -18,8 +18,10 @@ class ScoringController extends AppController {
 
       if($result=='a'){
         $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-      }else{
+      }else if($result=='b'){
         $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
+      }else if($result=='x'){
+        $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
       }
     }
 

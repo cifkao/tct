@@ -38,15 +38,39 @@ class Translation extends AppModel {
     $wScore += 32*(1 - 1/(1 + pow(10, ($lScore -  $wScore)/400)));
     $lScore += 32*(0 - 1/(1 + pow(10, ($wScore  - $lScore)/400)));
 
-    $this->id = $wData['Translation']['id'];
+    $this->id = $winId;
     $this->save(array(
       'score' => $wScore,
       'wins' => $wData['Translation']['wins']+1
     ));
-    $this->id = $lData['Translation']['id'];
+    $this->id = $loseId;
     $this->save(array(
       'score' => $lScore,
       'losses' => $lData['Translation']['losses']+1
+    ));
+  }
+
+  public function bothBad($id1, $id2){
+    $data1 = $this->findById($id1);
+    $data2 = $this->findById($id2);
+
+    $wScore = Configure::read('Scoring.both_bad_winner_score');
+    $score1 = $data1['Translation']['score'];
+    $score2 = $data2['Translation']['score'];
+
+    // Elo rating against a notional winner
+    $score1 += 32*(0 - 1/(1 + pow(10, ($wScore  - $score1)/400)));
+    $score2 += 32*(0 - 1/(1 + pow(10, ($wScore  - $score2)/400)));
+
+    $this->id = $id1;
+    $this->save(array(
+      'score' => $score1,
+      'bad_marks' => $data1['Translation']['bad_marks']+1
+    ));
+    $this->id = $id2;
+    $this->save(array(
+      'score' => $score2,
+      'bad_marks' => $data2['Translation']['bad_marks']+1
     ));
   }
 

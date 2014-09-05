@@ -16,7 +16,8 @@ $config = array(
   ),
   'Scoring' => array(
     'accept_threshold' => 1500,
-    'default' => 1400
+    'default' => 1400,
+    'both_bad_winner_score' => 1400
   ),
   'Design' => array(
     'score_alert' => 90,

@@ -13,7 +13,7 @@ class Scoring extends AppModel {
 
   public $validate = array(
     'result' => array(
-      'rule' => array('inList', array('a', 'b'))
+      'rule' => array('inList', array('a', 'b', 'x'))
     )
   );
 
