@@ -96,7 +96,7 @@ class AppSchema extends CakeSchema {
 		'post_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'tgt_lang_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 32, 'key' => 'index', 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
-		'done' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+		'accepted_translation_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
@@ -111,6 +111,7 @@ class AppSchema extends CakeSchema {
 		'post_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'translator_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'lang_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'translation_request_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'score' => array('type' => 'integer', 'null' => false, 'default' => '1400', 'unsigned' => false),
 		'wins' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'losses' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),

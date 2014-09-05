@@ -12,7 +12,14 @@ class TranslationRequest extends AppModel {
     'TgtLang' => array(
       'className' => 'Lang',
       'dependent' => true
+    ),
+    'AcceptedTranslation' => array(
+      'className' => 'Translation'
     )
+  );
+
+  public $hasMany = array(
+    'Translation'
   );
 
   public $validate = array(

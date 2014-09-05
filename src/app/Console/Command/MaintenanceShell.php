@@ -1,9 +1,10 @@
 <?php
 class MaintenanceShell extends AppShell {
 
-  public $uses = array('Translation', 'Scoring');
+  public $uses = array('Translation', 'TranslationRequest', 'Scoring');
 
   public function updateCounters(){
+    // Translation.wins, Translation.losses, Translation.bad_marks
     $translations = $this->Translation->find('all');
     foreach($translations as $tr){
       $this->Translation->id = $tr['Translation']['id'];
@@ -38,6 +39,18 @@ class MaintenanceShell extends AppShell {
         'losses' => $losses,
         'bad_marks' => $badMarks
       ));
+    }
+  }
+
+  public function updateAssociations(){
+    // TranslationRequest hasMany Translation, Translation belongsTo TranslationRequest
+    $translations = $this->Translation->find('all', array('fields' => array('id', 'post_id', 'lang_id')));
+    foreach($translations as $tr){
+      $req = $this->TranslationRequest->findByPostIdAndTgtLangId($tr['Translation']['post_id'], $tr['Translation']['lang_id']);
+      if($req){
+        $this->Translation->id = $tr['Translation']['id'];
+        $this->Translation->saveField('translation_request_id', $req['TranslationRequest']['id']);
+      }
     }
   }
 
