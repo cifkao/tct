@@ -47,11 +47,11 @@ class ScoringController extends AppController {
   }
 
   private function getScoringData(){
-    // find a random post with at least two translations in the same lang
+    // find a random post with at least two distinct translations in the same lang
     $data = $this->Translation->find('first', array(
       'order' => 'rand()',
       'fields' => array('Translation.post_id', 'Translation.lang_id'),
-      'group' => 'Translation.post_id, Translation.lang_id HAVING COUNT(*)>=2'
+      'group' => 'Translation.post_id, Translation.lang_id HAVING COUNT(DISTINCT Translation.text)>=2'
     ));
     if(!$data) return null;
 
