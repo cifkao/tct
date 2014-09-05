@@ -25,7 +25,7 @@ if(isset($data) && $data){
     <div class="small-6 medium-4 small-centered columns">
       <div class="row">
         <div class="small-12 medium-6 columns">
-        <?php echo $this->Html->link(__("Both wrong"), array('action' => 'score', $hash, 'x'), array('class' => 'button small expand alert')); ?>
+        <?php echo $this->Html->link(__("Both junk"), array('action' => 'score', $hash, 'x'), array('class' => 'button small expand alert')); ?>
         </div>
         <div class="small-12 medium-6 columns">
         <?php echo $this->Html->link(__("Skip"), array('action' => 'skip', $hash), array('class' => 'button small expand secondary')); ?>
