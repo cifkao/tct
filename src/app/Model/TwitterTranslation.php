@@ -34,7 +34,7 @@ class TwitterTranslation extends AppModel {
 
       $text = '@' . $data['Post']['TwitterPost'][0]['author_screen_name'] .' '. $data['Translation']['text'];
       if(mb_strlen($text)>140)
-        $text = mb_substr($str, 0, 140-1) . '…';
+        $text = mb_substr($text, 0, 140-1) . '…';
 
       // retweet
       if($data['Post']['TwitterPost'][0]['my_retweet_id'] == null){
