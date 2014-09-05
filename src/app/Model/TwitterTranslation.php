@@ -32,6 +32,10 @@ class TwitterTranslation extends AppModel {
     if($Setting->getBoolean('Twitter.tweeting_enabled', true)){
       $twitter = new Twitter();
 
+      $text = '@' . $data['Post']['TwitterPost'][0]['author_screen_name'] .' '. $data['Translation']['text'];
+      if(mb_strlen($text)>140)
+        $text = mb_substr($str, 0, 140-1) . '…';
+
       // retweet
       if($data['Post']['TwitterPost'][0]['my_retweet_id'] == null){
         $retweet = $twitter->retweet($data['Post']['TwitterPost'][0]['tweet_id']);
@@ -46,8 +50,7 @@ class TwitterTranslation extends AppModel {
       }
 
       // reply
-      $tweet = $twitter->tweet('@' . $data['Post']['TwitterPost'][0]['author_screen_name'] .' '. $data['Translation']['text'],
-        $data['Post']['TwitterPost'][0]['tweet_id']);
+      $tweet = $twitter->tweet($text, $data['Post']['TwitterPost'][0]['tweet_id']);
       if(!$tweet){
         $this->log('Tweeting failed.');
         return false;
