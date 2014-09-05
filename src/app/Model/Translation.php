@@ -4,6 +4,12 @@ class Translation extends AppModel {
 
   public $belongsTo = array('Post', 'TranslationRequest' => array('type' => 'INNER'), 'Translator', 'Lang');
 
+  public $hasMany = array(
+    'TwitterTranslation' => array(
+      'foreignKey' => 'id'
+    )
+  );
+
 
   public function add($text, $postId, $translatorId, $langId){
     $post = $this->Post->findById($postId);
@@ -26,6 +32,7 @@ class Translation extends AppModel {
       'lang_id' => $langId
     ));
   }
+
 
   public function score($winId, $loseId){
     $wData = $this->findById($winId);
@@ -72,6 +79,24 @@ class Translation extends AppModel {
       'score' => $score2,
       'bad_marks' => $data2['Translation']['bad_marks']+1
     ));
+  }
+
+
+  public function publish($id){
+    $data = $this->find('first', array(
+      'conditions' => array('Translation.id' => $id),
+      'contain' => array('TranslationRequest')
+    ));
+    $this->log($data, 'debug');
+    if(!$data || !$data['TranslationRequest'] || $data['TranslationRequest']['accepted_translation_id'] != null) return false;
+
+    if(!$this->TwitterTranslation->post($id))
+      return false;
+
+    $this->TranslationRequest->id = $data['TranslationRequest']['id'];
+    $this->TranslationRequest->saveField('accepted_translation_id', $id);
+
+    return true;
   }
 
 }

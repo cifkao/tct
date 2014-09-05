@@ -29,4 +29,9 @@ class Setting extends AppModel {
     else return $str + 0;
   }
 
+  public function getBoolean($key, $default=false){
+    $bool = $this->getString($key, $default);
+    return ($bool=='0' || $bool=='false') ? false : true;
+  }
+
 }

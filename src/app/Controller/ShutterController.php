@@ -85,7 +85,12 @@ class ShutterController extends AppController {
   }
 
   public function admin_publish($id){
-    
+    if($this->Translation->publish($id)){
+      $this->Session->setFlash(__("Post published."));
+    }else{
+      $this->Session->setFlash(__("Failed to publish post."));
+    }
+    return $this->redirect($this->referer());
   }
 
 }

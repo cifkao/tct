@@ -15,7 +15,10 @@ class TwitterShell extends AppShell {
     $id = $this->args[0];
     $tweet = $this->Twitter->getTweet($id);
 
-    if(!$tweet || array_key_exists('errors', $tweet)){
+    if(!$tweet){
+      $this->out('<error>Error:</error> Failed to fetch tweet.');
+      return;
+    }else if(array_key_exists('errors', $tweet)){
       $this->out('<error>Error:</error> ' . $tweet['errors'][0]['message']);
       return;
     }
