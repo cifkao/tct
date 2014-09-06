@@ -90,7 +90,7 @@ class ShutterController extends AppController {
     }else{
       $this->Session->setFlash(__("Failed to publish post."));
     }
-    return $this->redirect($this->referer());
+    return $this->redirect(array('action' => 'admin_index'));
   }
 
 }
