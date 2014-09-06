@@ -21,8 +21,8 @@ class MailShell extends AppShell {
       $postData = $this->TranslationRequest->findByHash($data['hash']);
       if(!$translator || !$postData) continue;
 
-      $this->Translation->add($data['text'], $postData['Post']['id'],
-        $translator['Translator']['id'], $postData['TranslationRequest']['tgt_lang_id']);
+      $this->Translation->add($data['text'], $postData['TranslationRequest']['id'],
+        $translator['Translator']['id']);
     }
   }
 

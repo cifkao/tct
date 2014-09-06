@@ -11,25 +11,27 @@ class Translation extends AppModel {
   );
 
 
-  public function add($text, $postId, $translatorId, $langId){
-    $post = $this->Post->findById($postId);
-    if(!$post) return null;
+  public function add($text, $reqId, $translatorId){
+    $this->TranslationRequest->contain('Post');
+    $req = $this->TranslationRequest->findById($reqId);
+    if(!$req || !$req['Post']) return null;
 
     // Reject outright garbage (too short or too long)
     $len = strlen($text);
-    $postLen = strlen($post['Post']['text']);
+    $postLen = strlen($req['Post']['text']);
     if($len<$postLen/3 || $len>3*($postLen+3)){
       $tr = $this->Translator->findById($translatorId);
-      $this->log('Rejecting translation of Post ' . $postId . ' by ' . ($tr ? $tr['Translator']['email'] : $translatorId) . '.', 'debug');
+      $this->log('Rejecting translation of Post ' . $req['Post']['id'] . ' by ' . ($tr ? $tr['Translator']['email'] : $translatorId) . '.', 'debug');
       return null;
     }
 
     $this->create();
     return $this->save(array(
       'text' => $text,
-      'post_id' => $postId,
+      'post_id' => $req['Post']['id'],
       'translator_id' => $translatorId,
-      'lang_id' => $langId
+      'lang_id' => $req['TranslationRequest']['tgt_lang_id'],
+      'translation_request_id' => $reqId
     ));
   }
 
