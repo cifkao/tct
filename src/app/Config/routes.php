@@ -22,6 +22,7 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	Router::connect('/about', array('controller' => 'pages', 'action' => 'about'));
+	Router::connect('/admin', array('admin' => true, 'controller' => 'pages', 'action' => 'home'));
 
 /**
  * Other routing.
@@ -29,11 +30,6 @@
 	Router::connect('/translators/settings', array('controller' => 'translators', 'action' => 'edit_settings'));
 	Router::connect('/translators/settings/*', array('controller' => 'translators', 'action' => 'edit_settings'));
 
-/**
- * Redirects.
- */
-
-  Router::redirect('/admin', array('admin' => true, 'controller' => 'admins', 'action' => 'login'));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

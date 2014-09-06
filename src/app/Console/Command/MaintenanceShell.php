@@ -69,10 +69,10 @@ class MaintenanceShell extends AppShell {
       $this->TwitterTranslation->delete($data['TwitterTranslation'][0]['id']);
     }
  
-    if($data['Post']['TwitterPost']){
+    /*if($data['Post']['TwitterPost']){
       $this->TwitterPost->id = $data['Post']['TwitterPost'][0]['id'];
       $this->TwitterPost->saveField('my_retweet_id', null);
-    }
+    }*/
   }
 
 }

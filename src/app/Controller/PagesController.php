@@ -86,4 +86,8 @@ class PagesController extends AppController {
 		
 		$this->set( compact( 'countTranslator', 'countTranslation', 'countPost' ) );
 	}
+
+  public function admin_home(){
+  
+  }
 }
