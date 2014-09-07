@@ -37,6 +37,7 @@ class TwitterTranslationsController extends AppController {
 		if (!$this->TwitterTranslation->exists($id)) {
 			throw new NotFoundException(__('Invalid twitter translation'));
 		}
+		$this->TwitterTranslation->recursive = 1;
 		$options = array('conditions' => array('TwitterTranslation.' . $this->TwitterTranslation->primaryKey => $id));
 		$this->set('twitterTranslation', $this->TwitterTranslation->find('first', $options));
 	}
