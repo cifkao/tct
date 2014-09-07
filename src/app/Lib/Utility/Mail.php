@@ -83,27 +83,30 @@ class Mail {
       return null;
 
     $overview = imap_fetch_overview($this->imap, $id);
-    $structure = imap_fetchstructure($this->imap, $id);
+    $struct = imap_fetchstructure($this->imap, $id);
 
-    if($structure->type == 1) 
-    {
-        $text = imap_fetchbody($this->imap,$id,"1"); 
-    }
-    else
-    {
-        $text = imap_body($this->imap, $id);
+    if($struct->type == 1){ // multipart
+      $text = imap_fetchbody($this->imap, $id, "1"); 
+      $bodyStruct = imap_bodystruct($this->imap, $id, "1");
+      $enc = $bodyStruct->encoding;
+    }else{
+      $text = imap_body($this->imap, $id);
+      $enc = $struct->encoding;
     }
     if(!$text) return null;
 
-    $text = quoted_printable_decode($text);
-    
+    if($enc == 4) // QUOTED_PRINTABLE
+      $text = quoted_printable_decode($text);
+    else if($enc == 3) // BASE64
+      $text = imap_base64($text);
+
     // find the hash
     preg_match("/ID:([0-9a-f]+)/", $text, $matches);
     $hash = $matches[1];
 
     // get the actual translation text
     $text = trim(EmailReplyParser\EmailReplyParser::parseReply($text));
-    
+
     $email = imap_rfc822_parse_adrlist( $overview[0]->from, "gmail.com" );
     $email = $email[0]->mailbox."@".$email[0]->host;
 
