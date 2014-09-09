@@ -79,7 +79,7 @@ class TranslationRequest extends AppModel {
           $mt = $Translator->save();
         }
         if($mt){
-          $this->Post->Translation->add($mtText, $post['Post']['id'], $mt['Translator']['id'], $tgtLang['TgtLang']['id']);
+          $this->Post->Translation->add($mtText, $data['TranslationRequest']['id'], $mt['Translator']['id']);
         }
       }
     }
