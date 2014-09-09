@@ -33,7 +33,7 @@ class ShutterController extends AppController {
     $this->TranslationRequest->recursive = 2;
     $reqs = $this->TranslationRequest->find('all',
       array(
-        'contain' => array('Post' => array('Lang'), 'TgtLang'),
+        'contain' => array('Post' => array('Lang', 'TwitterPost'), 'TgtLang'),
         'conditions' => array('TranslationRequest.id' => $reqIds),
         'order' => array('TranslationRequest.created' => 'DESC')
       )
