@@ -11,17 +11,16 @@ class ScoringController extends AppController {
     $data = $this->Scoring->findByHash($hash);
     if($data && is_null($data['Scoring']['result'])){
       $this->Scoring->id = $data['Scoring']['id'];
-      if(!$this->Scoring->saveField('result', $result))
-        break;
+      if($this->Scoring->saveField('result', $result)){
+        $data = $this->Scoring->read();
 
-      $data = $this->Scoring->read();
-
-      if($result=='a'){
-        $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-      }else if($result=='b'){
-        $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
-      }else if($result=='x'){
-        $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
+        if($result=='a'){
+          $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
+        }else if($result=='b'){
+          $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
+        }else if($result=='x'){
+          $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
+        }
       }
     }
 
