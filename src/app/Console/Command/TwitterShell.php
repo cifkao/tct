@@ -71,13 +71,6 @@ class TwitterShell extends AppShell {
     }
   }
 
-  public function dump(){
-    $data = $this->TwitterPost->find('all', array('contain' => array('Post' => array('Lang'))));
-    foreach($data as $d){
-      $this->out($d['Post']['Lang']['code'] . " " . $d['TwitterPost']['tweet_id'] . " " . preg_replace('/\s+/', ' ', $d['Post']['text']));
-    }
-  }
-
 
   public function get(){
     $data = explode('?', $this->args[0], 2);
@@ -111,8 +104,6 @@ class TwitterShell extends AppShell {
           'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true)
         )
       )
-    ))->addSubcommand('dump', array(
-      'help' => 'Dumps all the tweets in the database.',
     ))->addSubcommand('get', array(
       'help' => 'Send an arbitrary GET request and show the result.',
     ));
