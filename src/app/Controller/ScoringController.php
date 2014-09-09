@@ -2,25 +2,29 @@
 App::uses('AppController', 'Controller');
 
 class ScoringController extends AppController {
-
   public $scaffold = 'admin';
 
   public $uses = array('Scoring', 'Translation', 'Post');
 
+  const STAR_MAX = 5;
+
+  private function check_result($result){
+    return is_float($result) && $result <= 1 && $result >= 0;
+  }
   public function score($hash, $result){
     $data = $this->Scoring->findByHash($hash);
-    if($data && is_null($data['Scoring']['result'])){
+    if($data && is_null($data['Scoring']['result']) && $this->check_result($result)){
       $this->Scoring->id = $data['Scoring']['id'];
       if($this->Scoring->saveField('result', $result)){
-        $data = $this->Scoring->read();
+      // $data = $this->Scoring->read();
 
-        if($result=='a'){
-          $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-        }else if($result=='b'){
-          $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
-        }else if($result=='x'){
-          $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-        }
+//        if($result=='a'){
+//          $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
+//        }else if($result=='b'){
+//          $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
+//        }else if($result=='x'){
+//          $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
+//        }
       }
     }
 
@@ -42,6 +46,7 @@ class ScoringController extends AppController {
       $scoring = $this->Scoring->add($data);
       $this->set('data', $data);
       $this->set('hash', $scoring['Scoring']['hash']);
+      $this->set('star_max', self::STAR_MAX);
     }
   }
 
@@ -71,28 +76,22 @@ class ScoringController extends AppController {
         'Translation.translation_request_id' => $data['Translation']['translation_request_id']
       ),
       'group' => 'Translation.text',
-      'limit' => 2
+      'limit' => 1
     )));
+
     unset($this->Translation->virtualFields['ids']);
 
     // from each list of ids with the same translation text, choose one randomly
-    $translationA = $this->Translation->find('first', array(
+    $translation = $this->Translation->find('first', array(
       'conditions' => array(
         'Translation.id' => explode(',', $translationIds[0])
-      ),
-      'order' => 'rand()'
-    ));
-    $translationB = $this->Translation->find('first', array(
-      'conditions' => array(
-        'Translation.id' => explode(',', $translationIds[1])
       ),
       'order' => 'rand()'
     ));
 
     return array(
       'Post' => $post['Post'],
-      'TranslationA' => $translationA['Translation'],
-      'TranslationB' => $translationB['Translation']
+      'Translation' => $translation['Translation']
     );
   }
 

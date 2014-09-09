@@ -1,3 +1,12 @@
+<script type="text/javascript">
+	$("a.score-star").hover(function(){
+		$(this).find("i").addClass("highlighted");
+	});
+</script>
+<?php
+	
+	echo $this->Js->writeBuffer();
+?>
 <?php $this->set('bodyId', 'score'); ?>
 
 <div class="large-12 columns">
@@ -14,24 +23,31 @@ if(isset($data) && $data){
 			</blockquote>
 		</div>
 		
-		<div class="large-6 columns">
-			<?php echo $this->Html->link( $data['TranslationA']['text'], array('action' => 'score', $hash, 'a'), array( 'class' => 'button expand' ) ); ?>
-		</div>
-		<div class="large-6 columns">
-			<?php echo $this->Html->link( $data['TranslationB']['text'], array('action' => 'score', $hash, 'b'), array( 'class' => 'button expand' ) ); ?>
+		<div class="large-12 columns">
+			<div class="panel text-center">
+				<?php echo $this->Html->para(null, $data['Translation']['text']); ?>
+			</div>
 		</div>
 	</div>
   <div class="row">
-    <div class="small-6 medium-4 small-centered columns">
-      <div class="row">
-        <div class="small-12 medium-6 columns">
-        <?php echo $this->Html->link(__("Skip"), array('action' => 'skip', $hash), array('class' => 'button small expand secondary')); ?>
-        </div>
-        <div class="small-12 medium-6 columns">
-        <?php echo $this->Html->link(__("Both junk"), array('action' => 'score', $hash, 'x'), array('class' => 'button small expand alert')); ?>
-        </div>
-      </div>
-    </div>
+	<div class="large-12 columns">
+		<div class="small-6 medium-2 columns">
+			<?php echo $this->Html->link(__("Skip"), array('action' => 'skip', $hash), array('class' => 'button small expand secondary')); ?>
+		</div>
+		<div class="small-6 medium-2 columns right panel">
+			<?php for($i=1; $i <= $star_max; $i++){
+				echo $this->Html->link('<i class="fi-star score-star"></i>', array('action' => 'score', $hash, $i/$star_max),array('escape'=>false, 'id'=>"score-star-$i", 'class'=>'score-star'));
+			}
+			?>
+			<!--
+			<i class="fi-star score-star highlighted"></i>
+			<i class="fi-star score-star highlighted"></i>
+			<i class="fi-star score-star highlighted"></i>
+
+			<i class="fi-star score-star"></i>
+			-->
+		</div>
+	</div>
   </div>
 <?php
 }else{
