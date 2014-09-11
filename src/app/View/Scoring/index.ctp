@@ -1,12 +1,3 @@
-<script type="text/javascript">
-	$("a.score-star").hover(function(){
-		$(this).find("i").addClass("highlighted");
-	});
-</script>
-<?php
-	
-	echo $this->Js->writeBuffer();
-?>
 <?php $this->set('bodyId', 'score'); ?>
 
 <div class="large-12 columns">
@@ -19,13 +10,13 @@ if(isset($data) && $data){
 		</div>
 		<div class="large-11 columns">
 			<blockquote>
-				<?php echo $this->Html->para(null, $data['Post']['text']); ?>
+				<?php echo h($data['Post']['text']); ?>
 			</blockquote>
 		</div>
 		
 		<div class="large-12 columns">
 			<div class="panel text-center">
-				<?php echo $this->Html->para(null, $data['Translation']['text']); ?>
+				<?php echo h($data['Translation']['text']); ?>
 			</div>
 		</div>
 	</div>
@@ -39,13 +30,6 @@ if(isset($data) && $data){
 				echo $this->Html->link('<i class="fi-star score-star"></i>', array('action' => 'score', $hash, $i/$star_max),array('escape'=>false, 'id'=>"score-star-$i", 'class'=>'score-star'));
 			}
 			?>
-			<!--
-			<i class="fi-star score-star highlighted"></i>
-			<i class="fi-star score-star highlighted"></i>
-			<i class="fi-star score-star highlighted"></i>
-
-			<i class="fi-star score-star"></i>
-			-->
 		</div>
 	</div>
   </div>

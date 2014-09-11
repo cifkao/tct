@@ -23,7 +23,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		
 		echo $this->fetch('meta')."\n";
 		echo $this->fetch('css')."\n";
-		echo $this->fetch('script')."\n";
 	?>
 </head>
 <?php
@@ -75,14 +74,15 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 	
 	<?php
-	echo $this->Html->script("foundation.min")."\n";
-	echo $this->Html->script("vendor/jquery")."\n";
-	echo $this->Html->script("foundation/foundation")."\n";
-	echo $this->Html->script("foundation/foundation.alert")."\n";
-	echo $this->Html->script("foundation/foundation.tooltip")."\n";
-	echo $this->Html->script("foundation/foundation.joyride")."\n";
-	echo $this->Html->script("vendor/jquery.cookie")."\n";
-	echo $this->Js->writeBuffer();
+  echo $this->Html->script("vendor/jquery")."\n";
+  echo $this->Html->script("foundation.min")."\n";
+  echo $this->Html->script("foundation/foundation")."\n";
+  echo $this->Html->script("foundation/foundation.alert")."\n";
+  echo $this->Html->script("foundation/foundation.tooltip")."\n";
+  echo $this->Html->script("foundation/foundation.joyride")."\n";
+  echo $this->Html->script("vendor/jquery.cookie")."\n";
+  echo $this->fetch('script')."\n";
+  echo $this->Js->writeBuffer();
 	?>
 	<script>
 		$(document).foundation();

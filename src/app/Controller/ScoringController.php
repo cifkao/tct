@@ -8,24 +8,12 @@ class ScoringController extends AppController {
 
   const STAR_MAX = 5;
 
-  private function check_result($result){
-    return is_float($result) && $result <= 1 && $result >= 0;
-  }
   public function score($hash, $result){
     $data = $this->Scoring->findByHash($hash);
-    if($data && is_null($data['Scoring']['result']) && $this->check_result($result)){
+    if($data && is_null($data['Scoring']['result'])){
       $this->Scoring->id = $data['Scoring']['id'];
-      if($this->Scoring->saveField('result', $result)){
-      // $data = $this->Scoring->read();
-
-//        if($result=='a'){
-//          $this->Translation->score($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-//        }else if($result=='b'){
-//          $this->Translation->score($data['Scoring']['translation_b_id'], $data['Scoring']['translation_a_id']);
-//        }else if($result=='x'){
-//          $this->Translation->bothBad($data['Scoring']['translation_a_id'], $data['Scoring']['translation_b_id']);
-//        }
-      }
+      $this->Scoring->save(array('result' => $result));
+      $this->log( $this->Scoring->validationErrors );
     }
 
     return $this->redirect(array('action' => 'index'));

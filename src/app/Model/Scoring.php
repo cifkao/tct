@@ -1,10 +1,16 @@
 <?php
+App::uses('AppModel', 'Model');
+
 class Scoring extends AppModel {
   public $actsAs = array('Containable');
 
   public $belongsTo = array(
-    'Translation' => array(
-      'className' => 'Translation'
+    'Translation'
+  );
+
+  public $validate = array(
+    'result' => array(
+      'rule' => array('inclusiveRange', 0, 1)
     )
   );
 
@@ -18,7 +24,7 @@ class Scoring extends AppModel {
       'hash' => $hash,
       'user_hash' => $userHash
     ));
-    return $this->save();
+    return $this->save(null, false);
   }
 
 }

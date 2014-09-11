@@ -1,5 +1,6 @@
 *~
 *.swp
+/.idea/*
 /app/tmp/*
 /app/Config/database.php
 /app/Config/mail.php
@@ -8,4 +9,3 @@
 !empty
 /.htaccess
 /app/webroot/.htaccess
-.idea
