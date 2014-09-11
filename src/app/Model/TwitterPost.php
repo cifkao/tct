@@ -56,7 +56,7 @@ class TwitterPost extends AppModel {
     // add tweet to database
     $data = null;
     if($srcLangId){
-      $data = $this->Post->add($tweet['text'], $srcLangId);
+      $data = $this->Post->add(html_entity_decode($tweet['text']), $srcLangId);
       if($data){
         $this->create(array(
           'id' => $this->Post->id,
