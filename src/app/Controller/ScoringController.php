@@ -45,36 +45,25 @@ class ScoringController extends AppController {
       'contain' => array('TranslationRequest' => array('fields' => array('accepted_translation_id'))),
       'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'group' => 'Translation.translation_request_id HAVING COUNT(DISTINCT Translation.text)>=2',
-      'order' => 'rand()*1/(
+      'order' => 'rand()*(1/(
                     TO_SECONDS(NOW())
                     -0.5*(TO_SECONDS(TranslationRequest.created)+MAX(TO_SECONDS(Translation.created)))
-                  ) DESC'
+                  )) DESC'
     ));
     if(!$data) return null;
 
     // fetch the post
     $post = $this->Post->findById($data['Translation']['post_id']);
 
-    // get the ids of two random translations, group by translation text
-    $this->Translation->virtualFields['ids'] = 'GROUP_CONCAT(Translation.id)';
-    $translationIds = array_values($this->Translation->find('list', array(
-      'fields' => array('ids'),
-      'order' => 'rand()',
-      'conditions' => array(
-        'Translation.translation_request_id' => $data['Translation']['translation_request_id']
-      ),
-      'group' => 'Translation.text',
-      'limit' => 1
-    )));
-
-    unset($this->Translation->virtualFields['ids']);
-
-    // from each list of ids with the same translation text, choose one randomly
+    // get one random translation
     $translation = $this->Translation->find('first', array(
+      'order' => 'rand()*(1/(
+                    TO_SECONDS(NOW())
+                    -TO_SECONDS(Translation.created)
+                  )) DESC',
       'conditions' => array(
-        'Translation.id' => explode(',', $translationIds[0])
-      ),
-      'order' => 'rand()'
+        'Translation.translation_request_id' => $data['Translation']['translation_request_id'],
+      )
     ));
 
     return array(
