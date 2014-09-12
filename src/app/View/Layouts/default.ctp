@@ -37,14 +37,51 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<div class="row">
 		<div class="large-12 columns">
 			
-			<div class="icon-bar six-up" id="nav-bar">
-        <?php echo $this->Html->link($this->Html->image('logo.svg', array('id' => 'nav-home', 'alt' => __('TCT'))),
-                array('controller' => 'pages', 'action' => 'home'), array( 'class' => 'item', 'id' => 'logo', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-list-bullet" id="nav-phrases"></i><label for="nav-phrases">Tweets</label>', array( 'controller' => 'posts', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-phrases', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-info" id="nav-about"></i><label for="nav-about">About</label>', '/about', array( 'class' => 'item', 'id' => 'nav-bar-about', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
-				<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranslation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blank', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+			<!-- navigation for mobile -->
+			<div class="hide-for-large-up">
+				<nav class="top-bar" data-topbar role="navigation">
+					<ul class="title-area">
+						<li class="name">
+							<h1>
+								<?php echo $this->Html->link(__('tct'),
+								array('controller' => 'pages', 'action' => 'home'), array( 'tabindex' => '0', 'escape' => false ) ); ?>
+							</h1>
+						</li>
+						<li class="toggle-topbar menu-icon"><a href="#"><span><?php echo __('Menu');?></span></a></li>
+					</ul>
+					<section class="top-bar-section">
+						<ul class="left">
+							<li>
+								<?php echo $this->Html->link( '<i class="fi-list-bullet"></i>&nbsp;Tweets', array( 'controller' => 'posts', 'action' => 'index' ), array( 'id' => 'nav-bar-phrases', 'tabindex' => '0', 'escape' => false ) ); ?>
+							</li>
+							<li>
+								<?php echo $this->Html->link( '<i class="fi-heart"></i>&nbsp;Score', array( 'controller' => 'scoring', 'action' => 'index' ), array( 'id' => 'nav-bar-score', 'tabindex' => '0', 'escape' => false ) ); ?>
+							</li>
+							<li>
+								<?php echo $this->Html->link( '<i class="fi-torsos-all"></i>&nbsp;Translators', array( 'controller' => 'translators', 'action' => 'index' ), array( 'id' => 'nav-bar-translators', 'tabindex' => '0', 'escape' => false ) ); ?>
+							</li>
+							<li>
+								<?php echo $this->Html->link( '<i class="fi-info"></i>&nbsp;About', '/about', array('id' => 'nav-bar-about', 'tabindex' => '0', 'escape' => false ) ); ?>
+							</li>
+							<li>
+								<?php echo $this->Html->link( '<i class="fi-social-twitter"></i>&nbsp;@tctranslation', 'http://twitter.com/tctranslation', array( 'target' => '_blank', 'id' => 'nav-bar-twitter', 'tabindex' => '0', 'escape' => false ) ); ?>
+							</li>
+						</ul>
+					</section>
+				</nav>
+			</div>
+			
+			<!-- navigation for desktop -->
+			<div class="show-for-large-up">
+				<div class="icon-bar six-up" id="nav-bar">
+					<?php echo $this->Html->link($this->Html->image('logo.svg', array('id' => 'nav-home', 'alt' => __('TCT'))),
+					array('controller' => 'pages', 'action' => 'home'), array( 'class' => 'item', 'id' => 'logo', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+					<?php echo $this->Html->link( '<i class="fi-list-bullet" id="nav-phrases"></i><label for="nav-phrases">Tweets</label>', array( 'controller' => 'posts', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-phrases', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+					<?php echo $this->Html->link( '<i class="fi-heart" id="nav-score"></i><label for="nav-phrases">Score</label>', array( 'controller' => 'scoring', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-score', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+					<?php echo $this->Html->link( '<i class="fi-torsos-all" id="nav-translators"></i><label for="nav-translators">Translators</label>', array( 'controller' => 'translators', 'action' => 'index' ), array( 'class' => 'item', 'id' => 'nav-bar-translators', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+					<?php echo $this->Html->link( '<i class="fi-info" id="nav-about"></i><label for="nav-about">About</label>', '/about', array( 'class' => 'item', 'id' => 'nav-bar-about', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+					<?php echo $this->Html->link( '<i class="fi-social-twitter" id="nav-twitter"></i><label for="nav-twitter">@tctranslation</label>', 'http://twitter.com/tctranslation', array( 'target' => '_blank', 'class' => 'item', 'id' => 'nav-bar-twitter', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -81,12 +118,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	echo $this->Html->script("foundation/foundation.alert")."\n";
 	echo $this->Html->script("foundation/foundation.tooltip")."\n";
 	echo $this->Html->script("foundation/foundation.joyride")."\n";
+	echo $this->Html->script("foundation/foundation.topbar")."\n";
 	echo $this->Html->script("vendor/jquery.cookie")."\n";
 	?>
 	<script>
 		$(document).foundation();
 		$(document).foundation().foundation('alert', 'event');
 	</script>
-  <?php /*echo $this->element('sql_dump');*/ ?>
+	<?php /*echo $this->element('sql_dump');*/ ?>
 </body>
 </html>
