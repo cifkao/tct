@@ -43,3 +43,28 @@ form select#SrcLangSrcLang, form select#TgtLangTgtLang
 {
 	height: 30rem;
 }
+
+
+i.score-star{
+    color: white;
+    font-size: 18px;
+    text-shadow: 0 0 2px #26318B;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #26318B;
+}
+
+i.score-star.highlighted{
+    font-size: 20px;
+    -webkit-text-fill-color: #26318B;
+    -webkit-text-stroke-width: 0px;
+    color: #26318B;
+    text-shadow: 0 0 10px #26318B;
+}
+
+i.score-star.highlighted:before{
+}
+
+a.score-star{
+    margin: 0 2px;
+}

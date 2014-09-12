@@ -52,4 +52,11 @@ class AppModel extends Model {
     return !$this->sameAs($data, $cmpField);
   }
 
+  public function inclusiveRange($data, $lower, $upper){
+    $val = array_values($data);
+    $val = $val[0];
+    
+    return (is_numeric($val) && $lower<=$val && $val<=$upper);
+  }
+
 }

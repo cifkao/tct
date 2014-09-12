@@ -1,5 +1,6 @@
 *~
 *.swp
+/.idea/*
 /app/tmp/*
 /app/Config/database.php
 /app/Config/mail.php
