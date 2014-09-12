@@ -68,3 +68,13 @@ i.score-star.highlighted:before{
 a.score-star{
     margin: 0 2px;
 }
+
+ul.score li
+{
+	width: 20%;
+}
+
+ul.score li a
+{
+	width: 100%;
+}
