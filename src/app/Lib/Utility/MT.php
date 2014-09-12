@@ -5,7 +5,12 @@ class MT {
     if(!Configure::read("MT.lang_pairs.$sourceLang.$targetLang"))
       return false;
 
-    $url = Configure::read('MT.url');
+    if($sourceLang=='uk' || $sourceLang=='ru') $sourceLang = 'ukru';
+
+    if($sourceLang=='ukru' || $sourceLang=='ar')
+      $url = 'http://192.168.0.46:10000/mtmonkey';
+    else
+      $url = 'http://cuni1-khresmoi.ms.mff.cuni.cz:8080/khresmoi';
 
     $params = array(
       "action" 		=> "translate",
@@ -41,7 +46,7 @@ class MT {
       }
       return $text;
     }else{
-      $this->log("MTMonkey response:\n" . $response);
+      CakeLog::write('error', "MTMonkey response:\n" . $response);
       return false;
     }
   }
