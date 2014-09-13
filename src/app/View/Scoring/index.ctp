@@ -24,24 +24,24 @@ if(isset($data) && $data){
 		<div class="large-8 large-centered medium-12 small-12 columns text-center">
 			<ul class="button-group score">
 				<li>
-					<?php echo $this->Html->link('hate it', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-1", 'class' => 'button alert show-for-medium-up')); ?>
-					<?php echo $this->Html->link('<i class="fi-skull"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-1", 'class' => 'button alert hide-for-medium-up')); ?>
+					<?php echo $this->Html->link('hate it', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-1", 'class' => 'button show-for-medium-up')); ?>
+					<?php echo $this->Html->link('<i class="fi-skull"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-1", 'class' => 'button hide-for-medium-up')); ?>
 				</li>
 				<li>
-					<?php echo $this->Html->link('dislike it', array('action' => 'score', $hash, 2/$star_max),array('escape'=>false, 'id'=>"score-star-2", 'class' => 'button alert show-for-medium-up')); ?>
-					<?php echo $this->Html->link('<i class="fi-dislike"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-2", 'class' => 'button alert hide-for-medium-up')); ?>
+					<?php echo $this->Html->link('dislike it', array('action' => 'score', $hash, 2/$star_max),array('escape'=>false, 'id'=>"score-star-2", 'class' => 'button show-for-medium-up')); ?>
+					<?php echo $this->Html->link('<i class="fi-dislike"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-2", 'class' => 'button hide-for-medium-up')); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link("it's OK", array('action' => 'score', $hash, 3/$star_max),array('escape'=>false, 'id'=>"score-star-3", 'class' => 'button show-for-medium-up')); ?>
 					<?php echo $this->Html->link('<i class="fi-puzzle"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-3", 'class' => 'button hide-for-medium-up')); ?>
 				</li>
 				<li>
-					<?php echo $this->Html->link('like it', array('action' => 'score', $hash, 4/$star_max),array('escape'=>false, 'id'=>"score-star-4", 'class' => 'button success show-for-medium-up')); ?>
-					<?php echo $this->Html->link('<i class="fi-like"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-4", 'class' => 'button success hide-for-medium-up')); ?>
+					<?php echo $this->Html->link('like it', array('action' => 'score', $hash, 4/$star_max),array('escape'=>false, 'id'=>"score-star-4", 'class' => 'button show-for-medium-up')); ?>
+					<?php echo $this->Html->link('<i class="fi-like"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-4", 'class' => 'button hide-for-medium-up')); ?>
 				</li>
 				<li>
-					<?php echo $this->Html->link('love it', array('action' => 'score', $hash, 5/$star_max),array('escape'=>false, 'id'=>"score-star-5", 'class' => 'button success show-for-medium-up')); ?>
-					<?php echo $this->Html->link('<i class="fi-heart"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-5", 'class' => 'button success hide-for-medium-up')); ?>
+					<?php echo $this->Html->link('love it', array('action' => 'score', $hash, 5/$star_max),array('escape'=>false, 'id'=>"score-star-5", 'class' => 'button show-for-medium-up')); ?>
+					<?php echo $this->Html->link('<i class="fi-heart"></i>', array('action' => 'score', $hash, 1/$star_max),array('escape'=>false, 'id'=>"score-star-5", 'class' => 'button hide-for-medium-up')); ?>
 				</li>
 			</ul>
 		</div>
