@@ -6,10 +6,10 @@ class Scoring extends AppModel {
 
   public $belongsTo = array(
     'Translation' => array(
-      'conditions' => array(
+      'counterCache' => true,
+      'counterScope' => array(
         'NOT' => array('Scoring.result' => null)
-      ),
-      'counterCache' => true
+      )
     )
   );
 
