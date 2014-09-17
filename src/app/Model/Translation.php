@@ -7,6 +7,11 @@ class Translation extends AppModel {
   public $hasMany = array(
     'TwitterTranslation' => array(
       'foreignKey' => 'id'
+    ),
+    'Scoring' => array(
+      'conditions' => array(
+        'NOT' => array('Scoring.result' => null)
+      )
     )
   );
 
