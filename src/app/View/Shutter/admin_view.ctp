@@ -35,10 +35,7 @@
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Text'); ?></th>
-		<th><?php echo __('Score'); ?></th>
-		<th><?php echo __('Wins'); ?></th>
-		<th><?php echo __('Losses'); ?></th>
-		<th><?php echo __('Bad Marks'); ?></th>
+		<th><?php echo __('Avg Score'); ?></th>
 		<th><?php echo __('Created'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -46,10 +43,7 @@
 		<tr>
 			<td><?php echo $translation['Translation']['id']; ?></td>
 			<td><?php echo $translation['Translation']['text']; ?></td>
-			<td><?php echo $translation['Translation']['score']; ?></td>
-			<td><?php echo $translation['Translation']['wins']; ?></td>
-			<td><?php echo $translation['Translation']['losses']; ?></td>
-			<td><?php echo $translation['Translation']['bad_marks']; ?></td>
+			<td><?php echo $translation['Translation']['avg_score']; ?></td>
 			<td><?php echo $translation['Translation']['created']; ?></td>
 			<td class="actions">
         <?php echo $this->Html->link(__('Publish'), array('action' => 'publish', $translation['Translation']['id'])); ?>

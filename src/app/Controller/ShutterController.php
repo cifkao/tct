@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 
 class ShutterController extends AppController {
 
-  public $uses = array('Translation', 'TranslationRequest');
+  public $uses = array('Translation', 'TranslationRequest', 'Scoring');
 
   public $components = array('Paginator');
 
@@ -15,14 +15,14 @@ class ShutterController extends AppController {
           'table' => 'translation_requests',
           'alias' => 'TranslationRequest',
           'conditions' => array(
-            'Translation.post_id = TranslationRequest.post_id',
-            'Translation.lang_id = TranslationRequest.tgt_lang_id'
+            'Translation.translation_request_id = TranslationRequest.id',
           )
         )
       ),
       'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'fields' => array('id', 'wins', 'losses', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
-      'group' => 'TranslationRequest.id HAVING SUM(Translation.wins + Translation.losses) >= 2*2'
+      'order' => array('TranslationRequest.created' => 'DESC'),
+      'group' => 'TranslationRequest.id HAVING SUM(Translation.scoring_count) >= 2'
     );
     $reqIds = array_map(function($value){
       return $value['TranslationRequest']['id'];
@@ -38,28 +38,41 @@ class ShutterController extends AppController {
         'order' => array('TranslationRequest.created' => 'DESC')
       )
     );
-    // count scored translations
+    // count scored translations, calculate best score
     foreach($reqs as &$req){
       $req['TranslationRequest']['translations'] = $this->Translation->find('count', array(
         'conditions' => array(
-          'Translation.post_id' => $req['TranslationRequest']['post_id'],
-          'Translation.lang_id' => $req['TranslationRequest']['tgt_lang_id']
+          'Translation.translation_request_id' => $req['TranslationRequest']['id']
         )
       ));
       $req['TranslationRequest']['translations_scored'] = $this->Translation->find('count', array(
         'conditions' => array(
-          'Translation.post_id' => $req['TranslationRequest']['post_id'],
-          'Translation.lang_id' => $req['TranslationRequest']['tgt_lang_id'],
-          'Translation.wins + Translation.losses > 0'
+          'Translation.translation_request_id' => $req['TranslationRequest']['id'],
+          'Translation.scoring_count > 0'
         )
       ));
-      $req['TranslationRequest']['best_score'] = $this->Translation->find('first', array(
+
+      $req['TranslationRequest']['best_score'] = 0;
+      $translationIds = array_keys($this->Translation->find('list', array(
         'conditions' => array(
-          'Translation.post_id' => $req['TranslationRequest']['post_id'],
-          'Translation.lang_id' => $req['TranslationRequest']['tgt_lang_id'],
-        ),
-        'order' => array('Translation.score' => 'DESC')
-      ))['Translation']['score'];
+          'Translation.translation_request_id' => $req['TranslationRequest']['id'],
+          'Translation.scoring_count > 0'
+        )
+      )));
+      foreach($translationIds as $id){
+        $this->Scoring->virtualFields['avg_result'] = 'AVG(result)';
+        $scoring = $this->Scoring->find('first', array(
+          'fields' => array('avg_result'),
+          'conditions' => array(
+            'Scoring.translation_id' => $id,
+            'NOT' => array('Scoring.result' => null)
+          ),
+          'group' => 'Scoring.translation_id'
+        ));
+        if($scoring['Scoring']['avg_result'] > $req['TranslationRequest']['best_score']){
+          $req['TranslationRequest']['best_score'] = round($scoring['Scoring']['avg_result'], 1);
+        }
+      }
     }
     $this->set('reqs', $reqs);
   }
@@ -80,6 +93,20 @@ class ShutterController extends AppController {
       ),
       'order' => 'Translation.score DESC'
     ));
+    foreach($translations as &$tr){
+      $this->Scoring->virtualFields['avg_result'] = 'AVG(result)';
+      $scoring = $this->Scoring->find('first', array(
+        'conditions' => array(
+          'Scoring.translation_id' => $tr['Translation']['id'],
+          'NOT' => array('Scoring.result' => null)
+        ),
+        'group' => 'Scoring.translation_id'
+      ));
+      if($scoring && array_key_exists('Scoring', $scoring))
+        $tr['Translation']['avg_score'] = round($scoring['Scoring']['avg_result'], 1);
+      else
+        $tr['Translation']['avg_score'] = null;
+    }
     $this->set('req', $req);
     $this->set('translations', $translations);
   }
