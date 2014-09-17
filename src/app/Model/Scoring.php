@@ -5,7 +5,12 @@ class Scoring extends AppModel {
   public $actsAs = array('Containable');
 
   public $belongsTo = array(
-    'Translation'
+    'Translation' => array(
+      'conditions' => array(
+        'NOT' => array('Scoring.result' => null)
+      ),
+      'counterCache' => true
+    )
   );
 
   public $validate = array(
