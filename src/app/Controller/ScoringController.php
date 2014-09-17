@@ -39,37 +39,12 @@ class ScoringController extends AppController {
   }
 
   private function getScoringData(){
-    // find a random translation request with at least two distinct translations
     $data = $this->Translation->find('first', array(
-      'fields' => array('Translation.post_id', 'Translation.lang_id', 'Translation.translation_request_id'),
-      'contain' => array('TranslationRequest' => array('fields' => array('accepted_translation_id'))),
-      'conditions' => array('TranslationRequest.accepted_translation_id' => null),
-      'group' => 'Translation.translation_request_id HAVING COUNT(DISTINCT Translation.text)>=2',
-      'order' => 'rand()*(1/(
-                    TO_SECONDS(NOW())
-                    -0.5*(TO_SECONDS(TranslationRequest.created)+MAX(TO_SECONDS(Translation.created)))
-                  )) DESC'
-    ));
-    if(!$data) return null;
-
-    // fetch the post
-    $post = $this->Post->findById($data['Translation']['post_id']);
-
-    // get one random translation
-    $translation = $this->Translation->find('first', array(
-      'order' => 'rand()*(1/(
-                    TO_SECONDS(NOW())
-                    -TO_SECONDS(Translation.created)
-                  )) DESC',
-      'conditions' => array(
-        'Translation.translation_request_id' => $data['Translation']['translation_request_id'],
-      )
+      'contain' => array('Post'),
+      'order' => 'TO_SECONDS(Translation.created) - Translation.scoring_count*60*30 DESC'
     ));
 
-    return array(
-      'Post' => $post['Post'],
-      'Translation' => $translation['Translation']
-    );
+    return $data;
   }
 
 }
