@@ -87,11 +87,7 @@ class ShutterController extends AppController {
       'contain' => array('Post' => array('Lang'), 'TgtLang')
     ));
     $translations = $this->Translation->find('all', array(
-      'conditions' => array(
-        'Translation.post_id' => $req['Post']['id'],
-        'Translation.lang_id' => $req['TgtLang']['id'],
-      ),
-      'order' => 'Translation.score DESC'
+      'conditions' => array('Translation.translation_request_id' => $id),
     ));
     foreach($translations as &$tr){
       $this->Scoring->virtualFields['avg_result'] = 'AVG(result)';
@@ -107,6 +103,14 @@ class ShutterController extends AppController {
       else
         $tr['Translation']['avg_score'] = null;
     }
+
+    usort($translations, function($a, $b){
+      $sA = $a['Translation']['avg_score'];
+      $sB = $b['Translation']['avg_score'];
+      if($sA==$sB) return 0;
+      return $sA<$sB ? 1 : -1;
+    });
+
     $this->set('req', $req);
     $this->set('translations', $translations);
   }
