@@ -22,7 +22,10 @@ class ScoringController extends AppController {
   public function skip($hash){
     $data = $this->Scoring->findByHash($hash);
     if($data && is_null($data['Scoring']['result'])){
-      $this->Scoring->delete($data['Scoring']['id']);
+      $this->Scoring->save(array(
+        'id' => $data['Scoring']['id'],
+        'skipped' => true
+      ));
     }
 
     return $this->redirect(array('action' => 'index'));

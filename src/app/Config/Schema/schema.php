@@ -72,6 +72,7 @@ class AppSchema extends CakeSchema {
 		'hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 32, 'key' => 'index', 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
 		'user_hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 32, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
 		'result' => array('type' => 'float', 'null' => true, 'default' => null, 'unsigned' => false),
+		'skipped' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
