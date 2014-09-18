@@ -22,7 +22,7 @@ class Scoring extends AppModel {
 
   public function add($data){
     $hash = md5($data['Translation']['text'] . $data['Post']['id'] . mt_rand());
-    $userHash = md5(env('HTTP_USER_AGENT') . env('REMOTE_ADDR'));
+    $userHash = $this->getUserHash();
   
     $this->create(array(
       'translation_id' => $data['Translation']['id'],
@@ -30,6 +30,10 @@ class Scoring extends AppModel {
       'user_hash' => $userHash
     ));
     return $this->save(null, false);
+  }
+
+  public function getUserHash(){
+    return md5(env('HTTP_USER_AGENT') . env('REMOTE_ADDR'));
   }
 
 }

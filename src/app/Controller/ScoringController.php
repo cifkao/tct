@@ -42,9 +42,33 @@ class ScoringController extends AppController {
   }
 
   private function getScoringData(){
+    // get a translation that the current user hasn't rated yet
     $data = $this->Translation->find('first', array(
       'contain' => array('Post'),
-      'order' => 'TO_SECONDS(Translation.created) - Translation.scoring_count*60*30 DESC'
+      'order' => 'TO_SECONDS(Translation.created) - Translation.scoring_count*60*30 DESC',
+      'joins' => array(
+        array(
+          'type' => 'LEFT',
+          'table' => 'scorings',
+          'alias' => 'Scoring',
+          'conditions' => array(
+            'Scoring.translation_id = Translation.id'
+          )
+        )
+      ),
+      'group' =>
+        "Translation.id
+          HAVING SUM(CASE
+          WHEN
+            Scoring.user_hash = '{$this->Scoring->getUserHash()}'
+            AND (
+              Scoring.result IS NOT NULL
+              OR
+              Scoring.skipped = 1
+            )
+          THEN 1
+          ELSE 0
+          END) = 0"
     ));
 
     return $data;
