@@ -8,7 +8,7 @@ class ShutterController extends AppController {
   public $components = array('Paginator');
 
   public function admin_index() {
-    // find translation requests with at least two scorings
+    // find translation requests with at least two translations and at least two scorings
     $this->Paginator->settings = array(
       'joins' => array(
         array(
@@ -22,7 +22,7 @@ class ShutterController extends AppController {
       'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'fields' => array('id', 'wins', 'losses', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
       'order' => array('TranslationRequest.created' => 'DESC'),
-      'group' => 'TranslationRequest.id HAVING SUM(Translation.scoring_count) >= 2'
+      'group' => 'TranslationRequest.id HAVING SUM(Translation.scoring_count) >= 2 AND COUNT(Translation.id) >= 2'
     );
     $reqIds = array_map(function($value){
       return $value['TranslationRequest']['id'];
