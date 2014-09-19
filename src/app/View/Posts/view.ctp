@@ -5,11 +5,11 @@
 		<?php echo h($post['Post']['text']); ?>
 		
 		<cite>
-			<a href="http://twitter.com/<?php echo h($post['TwitterPost'][0]['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost'][0]['author_screen_name']); ?></a>
-			<span class="secondary label"><?php echo h($post['TwitterPost'][0]['created']); ?></span>
+			<a href="http://twitter.com/<?php echo h($post['TwitterPost']['author_screen_name']); ?>" target="_blank" class="label"><?php echo h($post['TwitterPost']['author_screen_name']); ?></a>
+			<span class="secondary label"><?php echo h($post['TwitterPost']['created']); ?></span>
 			<span class="label"><?php echo h($post['Lang']['name']); ?></span>
 		</cite>
-		<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('In translation to'); ?>">&raquo;</span>
+		<span class="secondary label has-tip" data-tooltip aria-haspopup="true" title="<?php echo __('In translation into'); ?>">&raquo;</span>
 			<?php $requestLang = array(); ?>
 			<?php foreach ( $post['TranslationRequest'] as $request ): 
 				if ( !in_array( $request['TgtLang']['id'], $requestLang ) ):?>
@@ -22,37 +22,13 @@
 	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ( $post['Translation'] as $translation ): ?>
 		<li>
-			<blockquote>
-				<?php echo $translation["text"]; ?>
-				
-				<cite>
-					<?php echo $this->Html->link($translation['Translator']['name'], array('controller' => 'translators', 'action' => 'view', $translation['Translator']['id']), array( 'class' => 'label' )); ?>
-					<span class="secondary label"><?php echo h($translation['created']); ?></span>
-					<span class="label"><?php echo h($translation['Lang']['name']); ?></span>
-				</cite>
-			</blockquote>
-			<?php $score = ($translation['score']-Configure::read('Scoring.default'))/(Configure::read('Scoring.accept_threshold')-Configure::read('Scoring.default'))*50+50; ?>
-			<?php if ( $score < 0 ): ?>
-				<div class="progress secondary round">
-					<span class="meter" style="width: 0%"></span>
-				</div>
-			<?php elseif ( $score < Configure::read('Design.score_secondary') ): ?>
-				<div class="progress secondary round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php elseif ( $score < Configure::read('Design.score_alert') ): ?>
-				<div class="progress round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php elseif ( $score < 100 ): ?>
-				<div class="progress alert round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php else: ?>
-				<div class="progress success round">
-					<span class="meter" style="width: 100%"></span>
-				</div>
-			<?php endif; ?>
+      <?php 
+        echo $this->element('translation', array(
+          'translation' => $translation,
+          'translator' => $translation['Translator'],
+          'lang' => $translation['Lang']
+        ));
+      ?>
 		</li>
 	<?php endforeach; ?>
 	</ul>

@@ -31,38 +31,14 @@
 	<h3><?php echo __('Translated by ') . h($translator['Translator']['name']); ?></h3>
 	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
 	<?php foreach ($translations as $translation): ?>
-		<li>
-			<blockquote>
-				<?php echo $translation['Translation']["text"]; ?>
-				
-				<cite>
-					<?php echo $this->Html->link( h($translator['Translator']['name']), array('controller' => 'translators', 'action' => 'view', $translator['Translator']['id']), array( 'class' => 'label' )); ?>
-					<span class="secondary label"><?php echo h($translation['Translation']['created']); ?></span>
-					<span class="label"><?php echo h($translation['Lang']['name']); ?></span>
-				</cite>
-			</blockquote>
-			<?php $score = ($translation['Translation']['score']-Configure::read('Scoring.default'))/(Configure::read('Scoring.accept_threshold')-Configure::read('Scoring.default'))*50+50; ?>
-			<?php if ( $score < 0 ): ?>
-				<div class="progress secondary round">
-					<span class="meter" style="width: 0%"></span>
-				</div>
-			<?php elseif ( $score < Configure::read('Design.score_secondary') ): ?>
-				<div class="progress secondary round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php elseif ( $score < Configure::read('Design.score_alert') ): ?>
-				<div class="progress round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php elseif ( $score < 100 ): ?>
-				<div class="progress alert round">
-					<span class="meter" style="width: <?php echo $score; ?>%"></span>
-				</div>
-			<?php else: ?>
-				<div class="progress success round">
-					<span class="meter" style="width: 100%"></span>
-				</div>
-			<?php endif; ?>
+    <li>
+      <?php 
+        echo $this->element('translation', array(
+          'translation' => $translation['Translation'],
+          'translator' => $translator['Translator'],
+          'lang' => $translation['Lang']
+        ));
+      ?>
 		</li>
 	<?php endforeach; ?>
 	</ul>

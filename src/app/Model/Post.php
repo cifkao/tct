@@ -12,7 +12,10 @@ class Post extends AppModel {
     ),
     'Translation' => array(
       'dependent' => true
-    ),
+    )
+  );
+
+  public $hasOne = array(
     'TwitterPost' => array(
       'foreignKey' => 'id',
       'dependent' => true

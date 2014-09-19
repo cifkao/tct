@@ -87,4 +87,12 @@ class TranslationRequest extends AppModel {
     return $data;
   }
 
+  public function listLangs(){
+    return $this->find('list', array(
+      'contain' => array('TgtLang'),
+      'fields' => array('TgtLang.code', 'TgtLang.name'),
+      'group' => 'tgt_lang_id'
+    ));
+  }
+
 }
