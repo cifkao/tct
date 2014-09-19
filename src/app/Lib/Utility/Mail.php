@@ -40,24 +40,21 @@ class Mail {
 
     $mail->Body = $message;
 
-    if(!is_array($to))
-      $recipients = array($to);
-    else
-      $recipients = $to;
-
+    $error = null;
     if(is_array($to)){
       foreach($to as $a){
         $mail->ClearAllRecipients();
         $mail->AddAddress($a, '');
-        $mail->Send();
+        if(!$mail->Send())
+          $error = $mail->ErrorInfo;
       }
     }else{
       $mail->AddAddress($to, '');
       if(!$mail->Send())
-        return $mail->ErrorInfo;
+        $error = $mail->ErrorInfo;
     }
 
-    return null;
+    return $error;
   }
 
 

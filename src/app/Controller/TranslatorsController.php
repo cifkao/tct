@@ -79,6 +79,7 @@ class TranslatorsController extends AppController {
         $this->Session->setFlash(__("Confirmation e-mail sent."));
       }else{
         $this->Session->setFlash(__("Sending e-mail failed: %s.", $error));
+        $this->log("Sending e-mail failed: " . $error);
       }
       return $this->redirect(array('action' => 'index'));
     }

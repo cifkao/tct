@@ -58,7 +58,7 @@ class TranslationRequest extends AppModel {
         }
 
         $Mail = new Mail();
-        $Mail->send(
+        $error = $Mail->send(
           $to,
           __("TCT Request For Translation"),
           __("Please translate the following post to language: %s\n\n" .
@@ -68,6 +68,8 @@ class TranslationRequest extends AppModel {
           $post['Post']['text'],
           $hash
         ));
+        if($error!=null)
+          $this->log("Sending e-mail failed: " . $error);
       }
 
       // machine translation
