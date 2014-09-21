@@ -19,10 +19,14 @@ $config = array(
   'Scoring' => array(
     'accept_threshold' => 1500,
     'default' => 1400,
-    'both_bad_winner_score' => 1400
+    'both_bad_winner_score' => 1400,
+    'timeout' => 10*60 /* 10 minutes */
   ),
   'Design' => array(
     'score_alert' => 90,
     'score_secondary' => 50
+  ),
+  'AuthToken' => array(
+    'timeout' => 24*60*60 /* 24 hours */
   )
 );
