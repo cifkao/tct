@@ -30,6 +30,22 @@ class Translation extends AppModel {
       return null;
     }
 
+    // Check for URL at the end of the post
+    if(preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/", $req['Post']['text'], $postUrl)){
+      preg_match_all("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $text, $textUrls);
+      $found = false;
+      foreach($textUrls as $url){
+        if($url && $url[0] == $postUrl[0]){
+          $found = true; break;
+        }
+      }
+
+      if(!$found){
+        $text .= " " . $postUrl[0];
+      }
+    }
+    
+
     $this->create();
     return $this->save(array(
       'text' => $text,

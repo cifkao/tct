@@ -48,9 +48,10 @@ class TranslationRequest extends AppModel {
     ));
 
     if($data){
+      $Translator = new Translator();
+
       // human translation
       if($notifyTranslators){
-        $Translator = new Translator();
         $translators = $Translator->findByLangs($post['Post']['lang_id'], $tgtLang['TgtLang']['id']);
         $to = array();
         foreach($translators as $t){
