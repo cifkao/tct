@@ -32,7 +32,7 @@ class TwitterTranslation extends AppModel {
     if($Setting->getBoolean('Twitter.tweeting_enabled', true)){
       $twitter = new Twitter();
 
-      $text = '@' . $data['Post']['TwitterPost']['author_screen_name'] .' '. $data['Translation']['text'];
+      $text = '.@' . $data['Post']['TwitterPost']['author_screen_name'] .' '. $data['Translation']['text'];
       if(mb_strlen($text)>140)
         $text = mb_substr($text, 0, 140-1) . '…';
 
