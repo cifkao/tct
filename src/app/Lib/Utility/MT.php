@@ -7,10 +7,13 @@ class MT {
 
     if($sourceLang=='uk' || $sourceLang=='ru') $sourceLang = 'ukru';
 
-    if($sourceLang=='ukru' || $sourceLang=='ar')
+    if($sourceLang=='ukru' || $sourceLang=='ar'){
       $url = 'http://192.168.0.46:10000/mtmonkey';
-    else
+      $oldMonkey = false;
+    }else{
       $url = 'http://cuni1-khresmoi.ms.mff.cuni.cz:8080/khresmoi';
+      $oldMonkey = true;
+    }
 
     $params = array(
       "action" 		=> "translate",
@@ -40,15 +43,25 @@ class MT {
       $data = json_decode($body, true);
       $text = "";
       $sep = "";
-      foreach($data['translation'][0]['translated'] as $tr){
-        $text .= $sep . $tr['text'];
-        $sep = " ";
+
+      if($data['errorCode']==0){
+        if($oldMonkey){ // khresmoi-style output
+          foreach($data['translation'][0]['translated'] as $tr){
+            $text .= $sep . $tr['text'];
+            $sep = " ";
+          }
+        }else{
+          foreach($data['translation'] as $tr){
+            $text .= $sep . $tr['translated'][0]['text'];
+            $sep = " ";
+          }
+        }
+        return $text;
       }
-      return $text;
-    }else{
-      CakeLog::write('error', "MTMonkey response:\n" . $response);
-      return false;
     }
+
+    CakeLog::write('error', "MTMonkey response:\n" . $response);
+    return false;
   }
 
 }
