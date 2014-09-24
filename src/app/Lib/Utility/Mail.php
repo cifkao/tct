@@ -25,14 +25,16 @@ class Mail {
     $mail->CharSet = 'UTF-8';
     $mail->IsSMTP();
 
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = Configure::read('Mail.smtp_auth');
+    if(Configure::read('Mail.smtp_auth')){
+      $mail->SMTPAuth = true;
+      $mail->SMTPSecure = Configure::read('Mail.smtp_auth');
+
+      $mail->Username = Configure::read('Mail.username');
+      $mail->Password = Configure::read('Mail.password');;
+    }
 
     $mail->Host = Configure::read('Mail.smtp_server');
     $mail->Port = Configure::read('Mail.smtp_port');
-
-    $mail->Username = Configure::read('Mail.username');
-    $mail->Password = Configure::read('Mail.password');;
 
     $mail->SetFrom(Configure::read('Mail.address'),
       Configure::read('Mail.name'));
