@@ -1,6 +1,7 @@
 <?php $this->set('bodyId', 'translators'); ?>
 
 <div class="large-12 columns">
+	<?php echo $this->Html->link( '<strong>' . __('Edit your settings as a translator') . '</strong>', array( 'controller' => 'translators', 'action' => 'edit_settings' ), array( 'class' => 'button expand', 'role' => 'button', 'tabindex' => '0', 'escape' => false ) ); ?>
 	<h2><?php echo h($translator['Translator']['name']); ?></h2>
 	
 	<p><?php echo h($translator['Translator']['description']); ?></p>
