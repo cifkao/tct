@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 
 class ShutterController extends AppController {
 
-  public $uses = array('Translation', 'TranslationRequest', 'Scoring');
+  public $uses = array('Translation', 'TranslationRequest', 'TwitterTranslation', 'Scoring');
 
   public $components = array('Paginator');
 
@@ -122,6 +122,32 @@ class ShutterController extends AppController {
       $this->Session->setFlash(__("Failed to publish post."));
     }
     return $this->redirect(array('action' => 'admin_index'));
+  }
+
+  public function admin_published(){
+    $this->Paginator->settings = array(
+      'contain' => array('Translation' => array('Lang', 'Post' => array('Lang'), 'TwitterTranslation')),
+      'order' => array('TwitterTranslation.created' => 'DESC')
+    );
+    $data = $this->Paginator->paginate("TwitterTranslation");
+
+
+    foreach($data as &$tr){
+      $this->Scoring->virtualFields['avg_result'] = 'AVG(result)';
+      $scoring = $this->Scoring->find('first', array(
+        'conditions' => array(
+          'Scoring.translation_id' => $tr['Translation']['id'],
+          'NOT' => array('Scoring.result' => null)
+        ),
+        'group' => 'Scoring.translation_id'
+      ));
+      if($scoring && array_key_exists('Scoring', $scoring))
+        $tr['Translation']['avg_score'] = round($scoring['Scoring']['avg_result'], 1);
+      else
+        $tr['Translation']['avg_score'] = null;
+    }
+
+    $this->set('data', $data);
   }
 
 }

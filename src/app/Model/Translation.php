@@ -4,10 +4,13 @@ class Translation extends AppModel {
 
   public $belongsTo = array('Post', 'TranslationRequest' => array('type' => 'INNER'), 'Translator', 'Lang');
 
-  public $hasMany = array(
+  public $hasOne = array(
     'TwitterTranslation' => array(
       'foreignKey' => 'id'
-    ),
+    )
+  );
+
+  public $hasMany = array(
     'Scoring' => array(
       'conditions' => array(
         'NOT' => array('Scoring.result' => null)
