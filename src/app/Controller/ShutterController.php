@@ -118,22 +118,6 @@ class ShutterController extends AppController {
     );
     $data = $this->Paginator->paginate("TwitterTranslation");
 
-
-    foreach($data as &$tr){
-      $this->Scoring->virtualFields['avg_result'] = 'AVG(result)';
-      $scoring = $this->Scoring->find('first', array(
-        'conditions' => array(
-          'Scoring.translation_id' => $tr['Translation']['id'],
-          'NOT' => array('Scoring.result' => null)
-        ),
-        'group' => 'Scoring.translation_id'
-      ));
-      if($scoring && array_key_exists('Scoring', $scoring))
-        $tr['Translation']['avg_score'] = round($scoring['Scoring']['avg_result'], 1);
-      else
-        $tr['Translation']['avg_score'] = null;
-    }
-
     $this->set('data', $data);
   }
 
