@@ -36,4 +36,29 @@ class Scoring extends AppModel {
     return md5(env('HTTP_USER_AGENT') . env('REMOTE_ADDR'));
   }
 
+
+  public function afterSave($created, $options = array()) {
+    parent::afterSave($created, $options);
+
+    if(array_key_exists('result', $this->data[$this->alias]) && !is_null($this->data[$this->alias]['result'])){
+      $scoring = $this->read();
+      if(!$scoring[$this->alias]['skipped']){
+        $this->virtualFields['avg_result'] = 'AVG(result)';
+        $scoring = $this->find('all', array(
+          'conditions' => array(
+            'translation_id' => $scoring[$this->alias]['translation_id'],
+            'skipped' => false,
+            'NOT' => array('result' => null)
+          ),
+          'group' => 'translation_id'
+        ));
+        $this->Translation->save(array(
+          'id' => $scoring[0][$this->alias]['translation_id'],
+          'avg_score' => $scoring[0][$this->alias]['avg_result']
+        ));
+        unset($this->virtualFields['avg_result']);
+      }
+    }
+  }
+
 }

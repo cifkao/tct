@@ -112,10 +112,7 @@ class AppSchema extends CakeSchema {
 		'translator_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'lang_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'translation_request_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'score' => array('type' => 'integer', 'null' => false, 'default' => '1400', 'unsigned' => false),
-		'wins' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
-		'losses' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
-		'bad_marks' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
+		'avg_score' => array('type' => 'float', 'null' => true, 'default' => null, 'unsigned' => false),
 		'scoring_count' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'indexes' => array(

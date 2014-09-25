@@ -44,7 +44,6 @@ class PostsController extends AppController {
       'order' => 'Post.created DESC'
     ));
 
-    $this->Translation->virtualFields['avg_score'] = 'AVG(Scoring.result)';
     foreach($data as &$post){
       $translations = $this->Translation->find('all', array(
         'limit' => 2,
@@ -54,14 +53,6 @@ class PostsController extends AppController {
           'Translation.lang_id' => $tgtLang['Lang']['id']
         ),
         'order' => 'avg_score DESC',
-        'joins' => array(
-          array(
-            'table' => 'scorings',
-            'alias' => 'Scoring',
-            'type' => 'LEFT',
-            'conditions' => array('Scoring.translation_id = Translation.id')
-          )
-        ),
         'group' => 'Translation.id'
       ));
       $post['Translation'] = array_map(function($val){

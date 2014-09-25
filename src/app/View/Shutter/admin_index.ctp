@@ -24,7 +24,7 @@
 		<td><?php echo h($req['TgtLang']['name']); ?>&nbsp;</td>
 		<td><?php if($req['Post']['TwitterPost'] && !is_null($req['Post']['TwitterPost']['id'])) { echo h($req['Post']['TwitterPost']['created']); } else { echo h($req['Post']['created']);} ?>&nbsp;</td>
 		<td><?php echo h($req['TranslationRequest']['translations_scored']) . " / " . h($req['TranslationRequest']['translations']); ?>&nbsp;</td>
-		<td><?php echo h($req['TranslationRequest']['best_score']); ?>&nbsp;</td>
+		<td><?php echo h(round($req['TranslationRequest']['best_score'], 1)); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $req['TranslationRequest']['id'])); ?>
 		</td>

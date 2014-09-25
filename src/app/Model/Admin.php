@@ -20,6 +20,8 @@ class Admin extends AppModel {
   );
 
   public function beforeSave($options = array()) {
+    if(!parent::beforeSave($options)) return false;
+
     if (isset($this->data[$this->alias]['password'])) {
       $passwordHasher = new BlowfishPasswordHasher();
       $this->data[$this->alias]['password'] = $passwordHasher->hash(
