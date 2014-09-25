@@ -44,7 +44,7 @@ class ScoringController extends AppController {
   private function getScoringData(){
     // get a translation that the current user hasn't rated yet
     $data = $this->Translation->find('first', array(
-      'contain' => array('Post'),
+      'contain' => array('Post', 'TranslationRequest'),
       'order' => 'TO_SECONDS(Translation.created) - Translation.scoring_count*60*30 DESC',
       'joins' => array(
         array(
@@ -56,6 +56,7 @@ class ScoringController extends AppController {
           )
         )
       ),
+      'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'group' =>
         "Translation.id
           HAVING SUM(CASE
