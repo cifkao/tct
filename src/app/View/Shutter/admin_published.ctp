@@ -1,5 +1,6 @@
 <div class="manualShutter">
-	<h2><?php echo __('Published Posts'); ?></h2>
+	<h2><?php echo h(__('Manual Shutter') . ' | ' . __('Published Translations')); ?></h2>
+  <div class="actions"><?php echo $this->Html->link(__('Show Unpublished'), array('action' => 'index')); ?></div>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>

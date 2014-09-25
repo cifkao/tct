@@ -1,5 +1,6 @@
 <div class="manualShutter">
-	<h2><?php echo __('Manual Shutter'); ?></h2>
+	<h2><?php echo h(__('Manual Shutter')); ?></h2>
+  <div class="actions"><?php echo $this->Html->link(__('Show Published Translations'), array('action' => 'published')); ?></div>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
