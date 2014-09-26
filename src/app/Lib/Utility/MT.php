@@ -7,7 +7,9 @@ class MT {
 
     if($sourceLang=='uk' || $sourceLang=='ru') $sourceLang = 'ukru';
 
-    if($sourceLang=='ukru' || $sourceLang=='ar'){
+    $langPair = "$sourceLang-$targetLang";
+
+    if($langPair=='ukru-cs' || $langPair=='ar-en' || $langPair=='en-cs'){
       $url = 'http://192.168.0.46:10000/mtmonkey';
       $oldMonkey = false;
     }else{
