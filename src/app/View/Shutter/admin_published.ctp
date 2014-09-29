@@ -13,6 +13,7 @@
 			<th><?php echo h(__('Created')); ?></th>
 			<th><?php echo h(__('Posted')); ?></th>
 			<th><?php echo h(__('Avg Score')); ?></th>
+			<th><?php echo h(__('Scorings')); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -27,6 +28,7 @@
 		<td><?php echo h($tr['Translation']['created']); ?></td>
 		<td><?php echo h($tr['Translation']['TwitterTranslation']['created']); ?></td>
 		<td><?php echo h($tr['Translation']['avg_score']); ?></td>
+		<td><?php echo h($tr['Translation']['scoring_count']); ?></td>
 	</tr>
 <?php endforeach; ?>
 	</tbody>
