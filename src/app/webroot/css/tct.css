@@ -14,6 +14,21 @@ blockquote cite a.label
 	color: #ffffff;
 }
 
+blockquote ul li blockquote
+{
+  margin-bottom: 0;
+}
+
+.submit-translation textarea
+{
+  min-height: 0;
+  resize: none;
+  overflow: hidden;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s; 
+  -moz-transition: all 0.2s; 
+}
+
 a#logo
 {
 	padding: 0.38rem;

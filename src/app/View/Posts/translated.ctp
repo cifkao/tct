@@ -40,6 +40,9 @@
             ?>
           </li>
         <?php } ?>
+          <li class="submit-translation">
+            <textarea rows="1" placeholder="Sumbit your own translation…"></textarea>
+          </li>
         </ul>
 			</blockquote>
 		</li>
