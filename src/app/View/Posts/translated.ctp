@@ -41,7 +41,7 @@
           </li>
         <?php } ?>
           <li class="submit-translation">
-            <textarea rows="1" placeholder="Sumbit your own translation…"></textarea>
+            <textarea rows="1" placeholder="<?php echo __('Add your own translation into %s…', __($tgtLang['Lang']['name'])); ?>"></textarea>
           </li>
         </ul>
 			</blockquote>
