@@ -27,6 +27,11 @@ blockquote ul li blockquote
   transition: all 0.2s;
   -webkit-transition: all 0.2s; 
   -moz-transition: all 0.2s; 
+  margin-bottom: 3px;
+}
+
+.submit-translation .below-textarea{
+  display: none;
 }
 
 a#logo
