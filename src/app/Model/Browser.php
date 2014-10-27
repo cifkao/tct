@@ -22,7 +22,7 @@ class Browser extends AppModel {
   }
 
   public function getCurrentHash(){
-    return md5(env('HTTP_USER_AGENT') . env('REMOTE_ADDR'));
+    return (env('HTTP_USER_AGENT') && env('REMOTE_ADDR')) ? md5(env('HTTP_USER_AGENT') . env('REMOTE_ADDR')) : null;
   }
 
 }
