@@ -2,7 +2,7 @@
 class Translation extends AppModel {
   public $actsAs = array('Containable');
 
-  public $belongsTo = array('Post', 'TranslationRequest' => array('type' => 'INNER'), 'Translator', 'Lang');
+  public $belongsTo = array('Post', 'TranslationRequest' => array('type' => 'INNER'), 'Translator', 'Lang', 'Browser');
 
   public $hasOne = array(
     'TwitterTranslation' => array(
@@ -48,6 +48,8 @@ class Translation extends AppModel {
       }
     }
     
+    $browser = $this->Browser->current();
+    $browserId = $browser ? $browser['Browser']['id'] : null;
 
     $this->create();
     return $this->save(array(
@@ -55,7 +57,8 @@ class Translation extends AppModel {
       'post_id' => $req['Post']['id'],
       'translator_id' => $translatorId,
       'lang_id' => $req['TranslationRequest']['tgt_lang_id'],
-      'translation_request_id' => $reqId
+      'translation_request_id' => $reqId,
+      'browser_id' => $browserId
     ));
   }
 

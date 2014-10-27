@@ -31,6 +31,18 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8mb4', 'collate' => 'utf8mb4_general_ci', 'engine' => 'InnoDB')
 	);
 
+	public $browsers = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 32, 'key' => 'unique', 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
+		'user_agent' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
+		'ip_address' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 16, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'hash' => array('column' => 'hash', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8mb4', 'collate' => 'utf8mb4_general_ci', 'engine' => 'InnoDB')
+	);
+
 	public $langs = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'code' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 5, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
@@ -112,6 +124,7 @@ class AppSchema extends CakeSchema {
 		'translator_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'lang_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'translation_request_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'browser_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'avg_score' => array('type' => 'float', 'null' => true, 'default' => null, 'unsigned' => false),
 		'scoring_count' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
@@ -133,7 +146,7 @@ class AppSchema extends CakeSchema {
 
 	public $translators = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'email' => array('type' => 'string', 'null' => true, 'default' => null, 'key' => 'unique', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 50, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
 		'description' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'charset' => 'utf8mb4'),
 		'activated' => array('type' => 'boolean', 'null' => false, 'default' => '0'),

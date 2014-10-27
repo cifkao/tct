@@ -120,6 +120,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	echo $this->Html->script("foundation/foundation.topbar")."\n";
 	echo $this->Html->script("foundation/foundation.dropdown")."\n";
   echo $this->Html->script("vendor/jquery.cookie")."\n";
+  echo $this->Html->script("vendor/jquery.autosize")."\n";
+  echo $this->Html->script("submit-translations")."\n";
   echo $this->fetch('script')."\n";
   echo $this->Js->writeBuffer();
 	?>

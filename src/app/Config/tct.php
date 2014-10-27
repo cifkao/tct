@@ -28,5 +28,11 @@ $config = array(
   ),
   'AuthToken' => array(
     'timeout' => 24*60*60 /* 24 hours */
+  ),
+  'AnonymousTranslator' => array(
+    'Translator' => array(
+      'name' => 'Anonymous',
+      'activated' => true
+    )
   )
 );

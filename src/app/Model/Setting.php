@@ -25,7 +25,7 @@ class Setting extends AppModel {
 
   public function getNumber($key, $default=null){
     $str = $this->getString($key, $default);
-    if(is_null($str)) return null;
+    if(is_null($str)) return $str;
     else return $str + 0;
   }
 
