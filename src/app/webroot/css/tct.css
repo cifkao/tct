@@ -30,7 +30,7 @@ blockquote ul li blockquote
   margin-bottom: 3px;
 }
 
-.submit-translation .below-textarea{
+.submit-translation .below-textarea, .submit-translation .alerts{
   display: none;
 }
 
