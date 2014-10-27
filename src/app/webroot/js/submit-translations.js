@@ -7,15 +7,30 @@ $(function(){
     }
 
     $('.submit-translation textarea').not(this).each(function(i){
-      if($(this).val()=="" && $(this).data('expanded')){
-        $(this).data('expanded', false);
-        $(this).siblings('.below-textarea').slideUp(150);
-        $(this).trigger('autosize.destroy');
-      }
+      closeTranslationSubmission($(this));
     });
   });
 
   $('.submit-translation .submit-button').click(function(){
+    $text = $(this).closest('.submit-translation').children('textarea');
+    $.ajax({
+      url: ajaxUrl,
+      type: 'POST',
+      data: {
+        'requestId': $text.parent().attr('data-request-id'),
+        'text': $text.val()
+      }
+    });
+    $text.val("");
+    closeTranslationSubmission($text);
     return false;
   });
 });
+
+function closeTranslationSubmission($e){
+  if($e.data('expanded')){
+    $e.data('expanded', false);
+    $e.siblings('.below-textarea').slideUp(150);
+    $e.trigger('autosize.destroy');
+  }
+}

@@ -1,5 +1,9 @@
 <?php $this->set('bodyId', 'phrases'); ?>
 
+<script>
+var ajaxUrl = "<?php echo $this->Html->url(array('controller' => 'translations', 'action' => 'add.json')); ?>";
+</script>
+
 <div class="large-12 columns">
   <div class="row">
   <div class="large-5 large-centered columns">
@@ -40,13 +44,13 @@
             ?>
           </li>
         <?php } ?>
-          <li class="submit-translation">
+          <li class="submit-translation" data-request-id='<?php echo $post['Translation'][0]['translation_request_id']; ?>'>
             <textarea rows="1" placeholder="<?php echo __('Add your own translation into %s…', __($tgtLang['Lang']['name'])); ?>"></textarea>
             <div class="row below-textarea">
             <div class="small-9 columns"><div class="label secondary"><?php echo __('Translating as:'); ?> Anonymous</div></div>
-              <div class="small-3 columns">
+            <div class="small-3 columns">
               <?php echo $this->Html->link(__('Submit'), '#', array( 'class' => 'button tiny expand submit-button', 'role' => 'button') ); ?>
-              </div>
+            </div>
             </div>
           </li>
         </ul>
