@@ -43,7 +43,7 @@
           <li class="submit-translation">
             <textarea rows="1" placeholder="<?php echo __('Add your own translation into %s…', __($tgtLang['Lang']['name'])); ?>"></textarea>
             <div class="row below-textarea">
-              <div class="small-9 columns"><div class="label secondary">Translating as: Anonymous</div></div>
+            <div class="small-9 columns"><div class="label secondary"><?php echo __('Translating as:'); ?> Anonymous</div></div>
               <div class="small-3 columns">
               <?php echo $this->Html->link(__('Submit'), '#', array( 'class' => 'button tiny expand submit-button', 'role' => 'button') ); ?>
               </div>
