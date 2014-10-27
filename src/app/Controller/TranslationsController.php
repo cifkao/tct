@@ -6,7 +6,7 @@ class TranslationsController extends AppController {
 
   public $components = array('Paginator', 'RequestHandler');
 
-  public $uses = array('Translator', 'Translation', 'Setting');
+  public $uses = array('Translation', 'Translator', 'Setting');
 
   public function add(){
     if($this->request->is('post') && array_key_exists('text', $this->request->data) && array_key_exists('requestId', $this->request->data)){
