@@ -3,6 +3,10 @@
 
   <cite>
     <?php echo $this->Html->link($translator['name'], array('controller' => 'translators', 'action' => 'view', $translator['id']), array( 'class' => 'label' )); ?>
+		<?php $message = rawurlencode( $translation["text"] )."%0A%0APlease edit the preceding phrase to better translate the following post to language: ".rawurlencode($lang['name'])."%0A%0A".rawurlencode($post)."%0A%0AID: ".$hash; ?>
+
+	<?php echo $this->Html->link( '<i class="fi-pencil has-tip" data-tooltip aria-haspopup="true" title="Improve translation"></i>', 'mailto:'.Configure::read('MT.Translator.email')."?Subject=Improved%20translation&body=".$message, array('target' => '_blank', 'escape'=>false) ); ?>
+	
     <span class="secondary label"><?php echo h($translation['created']); ?></span>
     <?php if(isset($lang)){ ?>
     <span class="label"><?php echo h($lang['name']); ?></span>
