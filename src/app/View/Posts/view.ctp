@@ -20,13 +20,15 @@
 </div>
 <div class="large-12 columns">	
 	<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2">
-	<?php foreach ( $post['Translation'] as $translation ): ?>
+	<?php foreach ( $post['Translation'] as $key => $translation ): ?>
 		<li>
       <?php 
         echo $this->element('translation', array(
           'translation' => $translation,
           'translator' => $translation['Translator'],
-          'lang' => $translation['Lang']
+          'lang' => $translation['Lang'],
+          'hash' => $post['TranslationRequest'][$key]['hash'],
+          'post' => $post['Post']['text']
         ));
       ?>
 		</li>
