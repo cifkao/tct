@@ -10,13 +10,25 @@ class TranslationsController extends AppController {
 
   public function add(){
     if($this->request->is('post') && array_key_exists('text', $this->request->data) && array_key_exists('requestId', $this->request->data)){
-      $translatorId = $this->Setting->getNumber('AnonymousTranslator.id');
+      $translatorId = null;
+
+      if(array_key_exists('author', $this->request->data)){
+        $email = $this->request->data['author'];
+        $translator = $this->Translator->findByEmail($email);
+        if($translator){
+          $translatorId = $translator['Translator']['id'];
+        }
+      }
+
       if(is_null($translatorId)){
-        $this->Translator->validator()->remove('email');
-        $this->Translator->create(Configure::read('AnonymousTranslator.Translator'));
-        $this->Translator->save();
-        $translatorId = $this->Translator->id;
-        $this->Setting->put('AnonymousTranslator.id', $translatorId);
+        $translatorId = $this->Setting->getNumber('AnonymousTranslator.id');
+        if(is_null($translatorId)){
+          $this->Translator->validator()->remove('email');
+          $this->Translator->create(Configure::read('AnonymousTranslator.Translator'));
+          $this->Translator->save();
+          $translatorId = $this->Translator->id;
+          $this->Setting->put('AnonymousTranslator.id', $translatorId);
+        }
       }
 
       $tr = $this->Translation->add($this->request->data['text'], $this->request->data['requestId'], $translatorId);

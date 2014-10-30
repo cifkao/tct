@@ -30,8 +30,14 @@ blockquote ul li blockquote
   margin-bottom: 3px;
 }
 
-.submit-translation .below-textarea, .submit-translation .alerts{
+.submit-translation .below-textarea, .submit-translation .alerts, .submit-translation .below-textarea .enter-email{
   display: none;
+}
+
+.submit-translation .below-textarea .change-author .fi-pencil{
+  font-size: 160%;
+  padding-left: 3px;
+  vertical-align: middle;
 }
 
 a#logo
