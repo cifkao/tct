@@ -1,13 +1,15 @@
-var author = null;
-
 $(function(){
+  if($.cookie('translator_email')){
+    $('.submit-translation .author').text($.cookie('translator_email'));
+  }
+
   $('.submit-translation textarea').focus(function(){
     if(!$(this).data('expanded')){
       $(this).data('expanded', true);
 
       $(this).parent().find('.translating-as').show();
       $(this).parent().find('.enter-email').hide();
-      $(this).parent().find('.enter-email input:first').val("");
+      $(this).parent().find('.enter-email input:first').val($.cookie('translator_email') || "");
 
       $(this).siblings('.below-textarea').slideDown();
       $(this).autosize();
@@ -22,13 +24,14 @@ $(function(){
   $('.submit-translation .submit-button').click(function(){
     var $text = $(this).closest('.submit-translation').children('textarea');
     var $email = $text.parent().find('.enter-email input:first:visible');
-    console.log($email);
+    var email = $.cookie('translator_email');
     if($email.length>0){
-      if($.trim($email.val()).length>0){
-        author = $.trim($email.val());
-        $('.submit-translation .author').text(author);
+      email = $.trim($email.val());
+      if(isEmail(email)){
+        $.cookie('translator_email', email, { path: cookiePath });
+        $('.submit-translation .author').text(email);
       }else{
-        author = null;
+        $.removeCookie('translator_email', { path: cookiePath });
         $('.submit-translation .author').text('Anonymous');
       }
     }
@@ -37,7 +40,7 @@ $(function(){
       'requestId': $text.parent().attr('data-request-id'),
       'text': $text.val(),
     };
-    if(author) data['author'] = author;
+    if(email) data['author'] = email;
 
     $.ajax({
       url: ajaxUrl,
@@ -75,4 +78,9 @@ function translationSubmissionFailed($e){
   var $alert = $e.parent().find('.alerts');
   $alert.find('.alert-box').text(__translationSubmissionFailed);
   $alert.slideDown();
+}
+
+function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
 }

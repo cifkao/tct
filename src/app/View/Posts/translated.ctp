@@ -1,6 +1,7 @@
 <?php $this->set('bodyId', 'phrases'); ?>
 
 <script>
+var cookiePath = "<?php echo $this->Html->url('/'); ?>";
 var ajaxUrl = "<?php echo $this->Html->url(array('controller' => 'translations', 'action' => 'add.json')); ?>";
 var __translationSubmissionFailed = "<?php echo __('Failed to submit translation.'); ?>";
 </script>
