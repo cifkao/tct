@@ -1,12 +1,13 @@
 <?php
 App::uses('AppController', 'Controller');
+App::uses('Mail', 'Utility');
 
 class TranslationsController extends AppController {
   public $scaffold = 'admin';
 
   public $components = array('Paginator', 'RequestHandler');
 
-  public $uses = array('Translation', 'Translator', 'Setting');
+  public $uses = array('Translation', 'Translator', 'Setting', 'AuthToken');
 
   public function add(){
     if($this->request->is('post') && array_key_exists('text', $this->request->data) && array_key_exists('requestId', $this->request->data)){
@@ -17,6 +18,22 @@ class TranslationsController extends AppController {
         $translator = $this->Translator->findByEmail($email);
         if($translator){
           $translatorId = $translator['Translator']['id'];
+        }else{
+          $translator = $this->Translator->registerEmail($email);
+          if($translator){
+            $translatorId = $translator['Translator']['id'];
+            $tokenData = $this->AuthToken->getByTranslator($translatorId);
+
+            $Mail = new Mail();
+            $error = $Mail->send(
+              $email,
+              __("TCT Registration"),
+              __("Congratulations! You've added your first translation on TCT! " .
+              "If you'd like to sign up as a translator, please use the link below or the registration form on our website.\n" .
+              "%s",
+              Router::url(array('controller' => 'translators', 'action' => 'activate', $tokenData['AuthToken']['hash']), true)
+            ));
+          }
         }
       }
 

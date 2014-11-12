@@ -63,4 +63,13 @@ class Translator extends AppModel {
     ));
   }
 
+  /**
+   * Registers a new (inactive) translator.
+   */
+  public function registerEmail($email){
+    $this->create();
+    $this->validator()->remove('name');
+    return $this->save(array('email' => $email));
+  }
+
 }

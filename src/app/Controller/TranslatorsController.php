@@ -47,12 +47,8 @@ class TranslatorsController extends AppController {
       }
 
       $success = true;
-      if(!$tr && !$tr['Translator']['activated']){
-        $this->Translator->create();
-        $this->Translator->validator()->remove('name');
-        $success = $this->Translator->save($this->request->data, array(
-          'fieldList' => array('email')
-        ));
+      if(!$tr){
+        $success = $this->Translator->registerEmail($this->request->data['email']);
       }else{
         $this->Translator->id = $tr['Translator']['id'];
       }

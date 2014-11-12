@@ -1,3 +1,8 @@
+<?php
+if(!$translator['name'] || !$translator['activated']){
+  $translator['name'] = 'Anonymous';
+}
+?>
 <blockquote>
   <?php echo h($translation["text"]); ?>
 
