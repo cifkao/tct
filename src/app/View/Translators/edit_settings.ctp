@@ -1,6 +1,6 @@
 <div class="large-12 columns">
 <?php echo $this->Form->create('Translator'); ?>
-	<a id="start-jr" name="start-jr" onclick="$(document).foundation('joyride', 'start');" class="button tiny secondary"><?php echo __('click for Joyride'); ?></a>
+  <a id="start-jr" name="start-jr" onclick="$(document).foundation('joyride', 'start');" class="button tiny secondary"><?php echo __('Click for help'); ?></a>
 	<fieldset>
 		<legend><?php echo __('Edit your settings as a translator'); ?></legend>
 		
