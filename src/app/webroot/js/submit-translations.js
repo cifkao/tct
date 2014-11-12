@@ -1,6 +1,8 @@
 $(function(){
   if($.cookie('translator_email')){
     $('.submit-translation .author').text($.cookie('translator_email'));
+  }else{
+    $('.submit-translation .rm-author').hide();
   }
 
   $('.submit-translation textarea').focus(function(){
@@ -30,6 +32,7 @@ $(function(){
       if(isEmail(email)){
         $.cookie('translator_email', email, { path: cookiePath });
         $('.submit-translation .author').text(email);
+        $('.submit-translation .rm-author').show();
       }else{
         $.removeCookie('translator_email', { path: cookiePath });
         $('.submit-translation .author').text('Anonymous');
@@ -62,6 +65,13 @@ $(function(){
     var $parent = $(this).closest('.translating-as');
     $parent.hide();
     $parent.siblings('.enter-email').show();
+    return false;
+  });
+
+  $('.submit-translation .rm-author').click(function(){
+    $.removeCookie('translator_email', { path: cookiePath });
+    $('.submit-translation .author').text('Anonymous');
+    $('.submit-translation .rm-author').hide();
     return false;
   });
 });

@@ -53,6 +53,7 @@ var __translationSubmissionFailed = "<?php echo __('Failed to submit translation
                 <div class="label secondary translating-as">
                   <?php echo __('Translating as:'); ?> <span class="author">Anonymous</span>
                   <a href="#" class="change-author"><i class="fi-pencil"></i></a>
+                  <a href="#" class="rm-author"><i class="fi-x"></i></a>
                 </div>
                 <div class="enter-email">
                   <input type="email" placeholder="Enter your e-mail">

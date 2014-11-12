@@ -34,7 +34,7 @@ blockquote ul li blockquote
   display: none;
 }
 
-.submit-translation .below-textarea .change-author .fi-pencil{
+.submit-translation .below-textarea .change-author i, .submit-translation .below-textarea .rm-author i{
   font-size: 160%;
   padding-left: 3px;
   vertical-align: middle;
