@@ -72,6 +72,10 @@ if($_SERVER['REMOTE_ADDR'] == '192.168.0.1'){
   $_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
 
   $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+  header("HTTP/1.1 303 See Other");
+  header("Location: http://quest.ms.mff.cuni.cz/tweeslate");
+  die();
 }
 
 // for built-in server
