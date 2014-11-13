@@ -67,8 +67,12 @@ if (!defined('WWW_ROOT')) {
 }
 
 // Tweeslate redirect hack
-$_SERVER['REQUEST_URI'] = '/tweeslate' . $_SERVER['REQUEST_URI'];
-$_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
+if($_SERVER['REMOTE_ADDR'] == '192.168.0.1'){
+  $_SERVER['REQUEST_URI'] = '/tweeslate' . $_SERVER['REQUEST_URI'];
+  $_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
+
+  $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}
 
 // for built-in server
 if (php_sapi_name() === 'cli-server') {
