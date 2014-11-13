@@ -66,6 +66,10 @@ if (!defined('WWW_ROOT')) {
 	define('WWW_ROOT', dirname(__FILE__) . DS);
 }
 
+// Tweeslate redirect hack
+$_SERVER['REQUEST_URI'] = '/tweeslate' . $_SERVER['REQUEST_URI'];
+$_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
+
 // for built-in server
 if (php_sapi_name() === 'cli-server') {
 	if ($_SERVER['REQUEST_URI'] !== '/' && file_exists(WWW_ROOT . $_SERVER['PHP_SELF'])) {
