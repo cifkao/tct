@@ -1,0 +1,185 @@
+%%%%%%%%%%-------------------------------------------%%%%%%%%%%%%
+%                             File created: 9 Nov, 2011
+%
+% This beamer style file was created just for experminetation and learning.
+% The file is pretty much self-explanatory and as of 10 Nov, 2011, pretty much bug free (This is because I really don't know what "bugs" are and/or how to find them.
+% Howvere, in case you find and bugs, issues, or have any suggestions/comments, please feel free to contact me at programming-r-pro-bro.blogspot.com
+%
+%
+%
+%%%%%%%%%%-------------------------------------------%%%%%%%%%%%%
+
+
+% This style file is a combination of the four files required to create the Moo beamer theme.
+
+% 1. Inner
+% 2. Outer
+% 3. Color
+% 4. Font
+% You can directly use this file instead of the using the other theme file "beamerthemeMoo-whole.sty" and calling the 4 styles in the TeX document.
+
+
+
+
+%%% Defining the preamble
+\mode<presentation>
+\usepackage{pgfcomp-version-0-65}
+\usepackage{color}
+
+
+%%%%%%%%%%%%%%
+%%
+%% Color theme
+%%
+%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%
+% We need to define a set of colours that will be assigned to various parts of the presentation. I personally believe that Beamer already does have some great themes, so if we really want to build our own, we will have go to the tiniest of details and tweak them.
+%%%%%%
+
+
+
+
+
+%%%%%%
+% LaTeX, like R, has a huge set of colours to choose from and there are many ways we can access them.
+% Colours in LaTeX are provided by the xcolor pacakge that loads by default. However, the xcolor package by itself does not provide enough breadth in colours.
+
+
+% More colours can be called by using the "dvipsnames" options while calling beamer in the preamble of the document, e.g., \documentclass[xolor = dvipsnames]{beamer}
+
+
+
+% Other than that we can also blend differnt colours to achive the desired colour mix or simply use the RGB codes to call that particular color.
+
+
+% For blending two colours, we need to specify the two colours (Duh-uh!) and the percentage share of the two colours in the folowing format: <color1>!<percentage of color1>!<color2>
+% If percentage of color1 is specified as x%, then percentage of color2 will automatically be taken as (100 - n)%.
+
+
+
+
+% Why don't we try out a few options and see for ourselves. 
+
+
+
+
+% Here we are defining only two colours. We are primarily only going to use the first one.
+\definecolor{Ftitle}{rgb}{0, 0, 0} % (rgb - 0, 0, 0) is nothing but black
+% Here, we are using "rgb" in small case and this notation for decimal values of "rgb" ranging from 0 to 1
+
+% To specify the integer values of "RGB", ranging from 0 t0 255, we need to use the "RGB" in CAPS or UPPERCASE 
+% Also, the first curly braces include the name that we assign to the colour combination
+\definecolor{Descitem}{RGB}{0, 0, 139}
+
+\definecolor{StdTitle}{RGB}{26, 33, 141}
+\definecolor{StdBody}{RGB}{213,24,0}
+
+\definecolor{AlTitle}{RGB}{255, 190, 190}
+\definecolor{AlBody}{RGB}{213,24,0}
+
+\definecolor{ExTitle}{RGB}{201, 217, 217}
+\definecolor{ExBody}{RGB}{213,24,0}
+
+
+\definecolor{TCTgray}{RGB}{51,51,51}
+\definecolor{TCTblue}{RGB}{34,85,133}
+\definecolor{TCTsilver}{RGB}{242,242,242}
+\definecolor{TCTwhite}{RGB}{255,255,255}
+
+
+
+
+% Another color for the background canvas using the blending option
+%\definecolor{BgShade}{red!30!white}
+%%% Important note: While trying this, I found out that a colour cannot be defined this way, it can only be set or called for a particular feature using the \setbeamercolor{}{} command. We will use this below to show this.
+
+
+%%%%%%
+% Assign colours to different constitutens of the presentation as per the requriements.
+%%%%%%
+
+
+
+% This sets the colour of the title of the presentation and titles of all the slides in the presentation to black.
+\setbeamercolor{frametitle}{fg = TCTblue}
+\setbeamercolor{title}{fg = TCTblue}
+
+% In case you choose to display the Table of Contents, or the Outline slide.
+\setbeamercolor{section in toc}{fg = Ftitle}
+\setbeamercolor{section in toc shaded}{fg = Ftitle} 
+
+% The colour of all the items, subitems and and subsubitems are set to black.
+\setbeamercolor{item}{fg = TCTwhite}
+\setbeamercolor{subitem}{fg = TCTwhite}
+\setbeamercolor{subsubitem}{fg = TCTwhite}
+
+% This sets the color for each item heading of the description environment.
+\setbeamercolor{description item}{fg = TCTsilver}
+
+% NOTE: Setting the color black for all the items also sets in black for other environemnts like enumerate.
+
+% We also need to fix the colours for captions for figures and tables.
+\setbeamercolor{caption}{fg = Ftitle}
+\setbeamercolor{caption name}{fg = Ftitle}
+
+% In addition, we can also change the background colour of the slides depending on pur requirement.
+\setbeamercolor{background canvas}{bg = TCTsilver}
+% We have commented out this command because this is just for illustrative purposes and has not been used to define the background colour of the slides.
+
+
+
+
+%%%%%%
+% Now, there are three types of boxes in beamer: 
+% 1. Simple, or standard block, which can be invoked using definition or theorem
+% 2. Alert block
+% 3. Example block 
+% We will customize all these blocks based on our requirements
+
+
+% Standard block
+\setbeamercolor{block title}{fg = TCTsilver, bg = TCTblue}
+\setbeamercolor{block body}{bg = TCTblue}
+
+% Alert block
+\setbeamercolor{block title alerted}{bg = AlTitle}
+\setbeamercolor{block body alerted}{bg = AlBody!5!white}
+
+% Example block
+\setbeamercolor{block title example}{bg = ExTitle}
+\setbeamercolor{block body example}{bg = ExBody!5!white}
+
+
+
+%%%%%%
+% And one final thing, the colour of the text
+\setbeamercolor{normal text}{fg = TCTgray}
+
+
+
+
+
+
+%%%%%%%%%%%%%%
+%%
+%% Font theme
+%%
+%%%%%%%%%%%%%%
+
+
+%%%%%%
+% Here we are using default fonts
+\usefonttheme{professionalfonts}
+
+% Font for the presentation title
+\setbeamerfont{title}{size = \huge}
+
+% Font of the frame titles
+\setbeamerfont{frametitle}{size = \Large}
+
+\mode
+<all>
