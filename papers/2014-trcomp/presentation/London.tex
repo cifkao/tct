@@ -3,6 +3,7 @@
 \usetheme{TCT}
 \usecolortheme{dolphin}
 
+\usepackage[normalem]{ulem}
 \usepackage{color}
 \usepackage[utf8]{inputenc}
 \usepackage[IL2]{fontenc}
@@ -21,14 +22,15 @@
 
 \title{\textbf{Twitter Crowd Translation}}
 \author{
-Eduard \v{S}ubert\\
-Faculty of Nuclear Sciences and Physical Engineering\\
-Czech Technical University in Prague\\
-\and
-Ond\v{r}ej Bojar\\
-Institute of Formal and Applied Linguistics\\
-Faculty of Mathematics and Physics\\
-Charles University, Prague, Czech Republic
+\underline{Eduard \v{S}ubert} %\\
+%Faculty of Nuclear Sciences and Physical Engineering\\
+%Czech Technical University in Prague\\
+%\and
+and
+{Ond\v{r}ej Bojar}\\
+%Institute of Formal and Applied Linguistics\\
+%Faculty of Mathematics and Physics\\
+%Charles University, Prague, Czech Republic
 }
 
 \begin{document}
@@ -133,7 +135,7 @@ Charles University, Prague, Czech Republic
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTwhite}
 \begin{frame}
-	\frametitle{TCT - Twitter Crowd Translation}
+	\frametitle{TCT -- Twitter Crowd Translation}
 	\begin{itemize}
 		\item \textcolor{TCTsilver}{human translation of tweets}
 		\item \textcolor{TCTsilver}{scoring of translations}
@@ -250,7 +252,7 @@ Charles University, Prague, Czech Republic
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
 \begin{frame}
-	\frametitle{Best Translation}
+	\frametitle{Best Translation Published}
 	\begin{center}
 		\begin{figure}
 			\includegraphics[width=\textwidth]{tweet02}
@@ -279,10 +281,10 @@ Charles University, Prague, Czech Republic
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTwhite}
 \begin{frame}
-	\frametitle{Tweet Translation}
+	\frametitle{Tweet Translation Difficulties}
 	\begin{itemize}
 		\item \textcolor{TCTsilver}{\Large context}
-		\item \textcolor{TCTsilver}{\Large abbreviation}
+		\item \textcolor{TCTsilver}{\Large abbreviations}
 	\end{itemize}
 \end{frame}
 
@@ -290,7 +292,10 @@ Charles University, Prague, Czech Republic
 % they are military vehicles by the way
 % based on these observations we are in the process of implementing a context dictionary that could accompany the translation requests if translator would so desire
 
-%but this issue gets even worse if you consider a picture or a video accompanied tweet
+%but this issue gets even worse if you consider a picture or a video
+%accompanying a tweet
+% OB: ano, dalo se rict "a picture- or video-accompanied tweet", ale je to
+% krkolomne
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -300,8 +305,8 @@ Charles University, Prague, Czech Republic
 		\\[0.7cm]
 		Mykolaiv armored plant handed over 10 \alert<2>{APC}S  to the border guards  http://t.co/ANOtAKcUdw via $@$HromadskeTV http://t.co/mUmfbYKuwf
 	\end{center}
-	\uncover<2-> {MRLs = multiple rocket launcher\\
-	APC = armoured personnel carrier}
+	\uncover<2-> {\alert<2>{MRL} = multiple rocket launcher\\
+	\alert<2>{APC} = armoured personnel carrier}
 \end{frame}
 
 % Consider this tweet. To me it is not really understandable until I see the images that accompany the tweet
@@ -332,6 +337,9 @@ Charles University, Prague, Czech Republic
 % As you can see in previous examples tweets are often heavy on hashtags, URLs ang other user mentions. There are no guidelines on how to translate these
 % Sometimes they are presented as a part of text and you immediately run in issues with declension.
 % To make a long story short we have barely touched a tip of the iceberg and there is still tremendous amount of work to do.
+% OB: na tomhle slidu by cast toho Tveho sdeleni mela byt napsana, ne? Nebo
+% aspon zvyraznit ty hashtagy (jeden ma preklep i v originale) a pridat titulek,
+% ze neni jasne, jak to prekladat.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -349,10 +357,10 @@ Charles University, Prague, Czech Republic
 \begin{frame}
 	\frametitle{Summary}
 	\begin{itemize}
-		\item \textcolor{TCTwhite}{\Large human translation of tweets}
+		\item \textcolor{TCTwhite}{\Large device for human translation of tweets}
 		\item \textcolor{TCTwhite}{\Large translation evaluation}
-		\item \textcolor{TCTwhite}{\Large parallel corpus}
-		\item \textcolor{TCTwhite}{\Large understanding of tweet structure}
+		\item \textcolor{TCTwhite}{\Large parallel corpus as a goal}
+		\item \textcolor{TCTwhite}{\Large difficulties of tweet understanding}
 	\end{itemize}
 \end{frame}
 
