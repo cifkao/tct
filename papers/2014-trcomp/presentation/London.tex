@@ -58,9 +58,9 @@ and
 	\hfill\textcolor{TCTsilver}{https://about.twitter.com/company}
 \end{frame}
 
-% At first it seem impressive.
+% At first, it seems impressive.
 % But it is of course support only for the interface not for the content
-% So if I decide to tweet in English my mother who only speak Czech won't be able to read my tweets; which might be a good thing
+% So if I decide to tweet in English my mother who only speaks Czech won't be able to read my tweets; which might be a good thing
 % But are other situations like the one in Ukraine. Here we may wish for all the tweets concerning the topic to reach great audience without the language barrier
 % and that is precisely what we decided to do
 \setbeamercolor{background canvas}{bg=TCTsilver}
@@ -76,9 +76,10 @@ and
 	\hfill\textcolor{TCTgray}{https://about.twitter.com/company}
 \end{frame}
 
-% So what goals do we have? Broadly we want to provide translations of tweets. 
+% So what goals do we have? Broadly, we want to provide translations of tweets. 
 % Of course we want to be accurate, fast and we don't want to force users to visit our website to access translations or something like that
-% In ideal world we would deploy a machine translator and be done with it. But if you have ever tried to understand machine translated tweet
+% In an ideal world we would deploy a machine translator to do the job for us.
+% But if you have ever tried to understand a machine translated tweet
 % you know that is not the way to go. If you did not, let me show you an example
 
 \setbeamercolor{background canvas}{bg=TCTblue}
@@ -94,9 +95,11 @@ and
 	\end{itemize}
 \end{frame}
 
-% In the spirit of recent success of comet harpooning here is a tweet from the lander translated by the Moses MT from original English to Czech and back to English. 
+% In the spirit of recent success of comet harpooning, here is a tweet from the
+% lander translated by our Moses MT setup from original English to Czech and back to English. 
 % It is of course not really usable. I would like to point out that the second English translation is actually better representation of the original tweet then the Czech translation in the middle.
-% There needs to be work done on preprocessing for example to better deal with the hashtags but we find the lack of appropriate training data to be the main issue.
+% There needs to be work done on preprocessing, for example to better deal with
+% the hashtags but we find the lack of appropriate training and tuning data to be the main issue.
 \setbeamercolor{background canvas}{bg=TCTsilver}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -113,7 +116,8 @@ and
 	\end{center}
 \end{frame}
 
-% Therefore we have added additional goal. To collect human translated parallel corpus.
+% Therefore we have added an additional goal. To collect a human translated
+% parallel corpus of tweets.
 % This is the point where the TCT comes to be. It is a system for human translation and evaluation of twitter posts; tweets.
 \setbeamercolor{background canvas}{bg=TCTblue}
 \setbeamercolor{normal text}{fg = TCTsilver}
@@ -158,10 +162,13 @@ and
 	\end{center}
 \end{frame}
 
-% In case you would not know this is an example of a tweet. The interesting parts are the text of the tweet and also even though it is not visible here Twitter 
+% In case you would not know, this is an example of a tweet. The interesting
+% parts are the text of the tweet and also even though it is not visible here, Twitter 
 % automatically recognizes the language of the tweet.
-% So far we manually select Twitter profiles to follow and collect tweets from. For example now we translate handful of sources from Ukraine to provide up to date information.
-% In the future we plan to follow place specific tweets or follow a hashtag for a period of time to translate for example live events.
+% So far, we manually select Twitter profiles to follow and collect tweets from.
+% For example, now we ?are translating?translate a handful of sources from
+% Ukraine who provide up-to-date information.
+% In the future we plan to follow place-specific tweets or follow a hashtag for a period of time to translate for example live events.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -174,7 +181,8 @@ and
 	\end{center}
 \end{frame}
 
-% Once the tweet enters TCT system it is sent out by mail to capable translators. They if interested provide their translation simply as a reply.
+% Once the tweet enters TCT system, it is sent out by mail to capable
+% translators. They, if interested, provide their translation simply as a reply.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -187,7 +195,7 @@ and
 	\end{center}
 \end{frame}
 
-% Here is an example of the request for translation sent to translators. It says the target language on the top and the original tweet bellow. 
+% Here is an example of the request for translation sent to translators. It says the target language on the top and the original tweet below. 
 % And under that is a hash to help us identify replies.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
@@ -201,10 +209,11 @@ and
 	ID:51d46e56c720c0a20e98e7e628b5806a
 \end{frame}
 
-% Coming back to the diagram we see there is also an option to provide translation through TCT website. This was a request from our beta testers. 
+% Coming back to the diagram, we see there is also an option to provide translation through TCT website. This was a request from our beta testers. 
 % They wanted a way to submit a translation while browsing tweets in the database.
-% And to see the potential improvement we also let the Moses MT translate each tweet.
-% Everything meets again here at translation collection and from there we need to evaluate the best available translation. 
+% And to see the potential improvement, we also let the Moses MT translate each tweet.
+% Everything meets again here at translation collection and from here, we need
+% to pick the best available translation. 
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -217,9 +226,11 @@ and
 	\end{center}
 \end{frame}
 
-% As of now the only way to evaluate translations is to visit our website. It is the only step in the process that requires user to do so.
-% The evaluation is very basic. User is presented with a tweet one translation and is asked to select what best describes their attitude towards the translation.
-% Options are "love it", "like it", "it's OK", "dislike it", "hate it" and "skip". By choosing these phrases instead of numbers or stars we hope to solve the 
+% As of now, the only way to evaluate translations is to visit our website. It
+% is the only step in the process that requires users to do so.
+% The evaluation is very basic. The user is presented with one translation of a
+% tweet and he or she is asked to select what best describes their attitude towards the translation.
+% The options are "love it", "like it", "it's OK", "dislike it", "hate it" and "skip". By choosing these phrases instead of numbers or stars we hope to solve the 
 % question "how much is a one star?"
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
@@ -233,7 +244,7 @@ and
 	\end{center}	
 \end{frame}
 
-% And lastly we publish the best translation back to twitter.
+% And lastly, we publish the best translation back to twitter.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTgray}
@@ -246,7 +257,9 @@ and
 	\end{center}
 \end{frame}
 
-% Since the TCT retweets the tweet before and then reply with our translation this is how the end user should see product of our work.
+% Since the TCT first retweets the original tweet and then immediately replies
+% with the translation, this is how the end user should see the product of our
+% contributors' work.
 % I would like to point out that to get the translation user of Twitter only needs to follow our profile, nothing more outside or inside Twitter.
 \setbeamercolor{background canvas}{bg=TCTwhite}
 \setbeamercolor{normal text}{fg = TCTsilver}
@@ -260,8 +273,10 @@ and
 	\end{center}	
 \end{frame}
 
-% The system as I have just described it is running in it's beta version on the following address. We are hopefully soon moving to more human friendly address but for now you can find us here.
-% If we have time at the end I will gladly do a live demo but now I would like to talk about peculiarities of tweet translation we have discovered.
+% The system as I have just described it is running in it's beta version on the
+% following address. We are hopefully soon moving to a more human friendly address but for now you can find us here.
+% If we have time at the end I will gladly do a live demo but now I would like
+% to talk about peculiarities of _human_ tweet translation we have discovered.
 \setbeamercolor{background canvas}{bg=TCTblue}
 \setbeamercolor{normal text}{fg = TCTsilver}
 \setbeamercolor{frametitle}{fg = TCTwhite}
@@ -275,7 +290,8 @@ and
 	\vfill
 \end{frame}
 
-% Unlike most other media the tweets are too short too carry sufficient context. With frequent abbreviations and misspellings they may even be difficult to understand for humans.
+% Unlike most other media, tweets are too short to carry sufficient context.
+% With frequent abbreviations and misspellings, they may even be difficult to understand for humans.
 % Let's have a look at an example
 \setbeamercolor{background canvas}{bg=TCTblue}
 \setbeamercolor{normal text}{fg = TCTsilver}
@@ -288,7 +304,9 @@ and
 	\end{itemize}
 \end{frame}
 
-% Here are two tweets that we collected during the Ukraine situation and that alone is a missing context that may help you translate the abbreviations MRL and APC
+% Here are two tweets that we collected during the Ukraine situation and that
+% alone is a part of the missing context that may help you translate the
+% abbreviations MRL and APC.
 % they are military vehicles by the way
 % based on these observations we are in the process of implementing a context dictionary that could accompany the translation requests if translator would so desire
 
