@@ -22,7 +22,7 @@ class ShutterController extends AppController {
       'conditions' => array('TranslationRequest.accepted_translation_id' => null),
       'fields' => array('id', 'TranslationRequest.post_id', 'TranslationRequest.tgt_lang_id', 'TranslationRequest.id'),
       'order' => array('TranslationRequest.created' => 'DESC'),
-      'group' => 'TranslationRequest.id HAVING SUM(Translation.scoring_count) >= 2 AND COUNT(Translation.id) >= 2'
+      'group' => 'TranslationRequest.id HAVING SUM(Translation.scoring_count) >= 0 AND COUNT(Translation.id) >= 2'
     );
     $reqIds = array_map(function($value){
       return $value['TranslationRequest']['id'];
@@ -54,8 +54,8 @@ class ShutterController extends AppController {
 
       $best = $this->Translation->find('first', array(
         'conditions' => array(
-          'Translation.translation_request_id' => $req['TranslationRequest']['id'],
-          'Translation.scoring_count > 0'
+          'Translation.translation_request_id' => $req['TranslationRequest']['id']/*,
+          'Translation.scoring_count > 0'*/
         ),
         'order' => 'Translation.avg_score DESC'
       ));
