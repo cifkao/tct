@@ -48,7 +48,7 @@ class TranslatorsController extends AppController {
 
       $success = true;
       if(!$tr){
-        $success = $this->Translator->registerEmail($this->request->data['email']);
+        $success = $this->Translator->registerEmail($this->request->data['Translator']['email']);
       }else{
         $this->Translator->id = $tr['Translator']['id'];
       }
