@@ -3,6 +3,10 @@ App::uses('Twitter', 'Utility');
 App::uses('Mail', 'Utility');
 App::uses('CakeTime', 'Utility');
 App::uses('Setting', 'Model');
+App::import('Vendor', 'Twitter_Extraction',
+  array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Extraction.php'));
+App::import('Vendor', 'Twitter_Validation',
+  array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Validation.php'));
 
 class TwitterTranslation extends AppModel {
   public $useTable = 'translations_twitter';
@@ -33,8 +37,24 @@ class TwitterTranslation extends AppModel {
       $twitter = new Twitter();
 
       $text = '.@' . $data['Post']['TwitterPost']['author_screen_name'] .' '. $data['Translation']['text'];
-      if(mb_strlen($text, 'UTF-8')>140)
-        $text = mb_substr($text, 0, 140-1) . '…';
+
+      // truncate to 140 characters
+      $validator = new Twitter_Validation();
+      $extractor = new Twitter_Extractor();
+      $truncated = false;
+      while($validator->getTweetLength($text)>140){
+        $truncated = true;
+        $urls = $extractor->extractURLsWithIndices($text);
+        if(empty($urls)){
+          $text = mb_substr($text, 0, 140-1);
+          break;
+        }else{
+          $text = trim(mb_substr($text, 0, end($urls)['indices'][0]));
+        }
+      }
+      if($truncated && $validator->getTweetLength($text)<=140-1){
+        $text .= '…';
+      }
 
       // retweet
       if($data['Post']['TwitterPost']['my_retweet_id'] == null){
