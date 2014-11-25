@@ -1,4 +1,7 @@
 <?php
+App::import('Vendor', 'Twitter_Extractor',
+  array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Extractor.php'));
+
 class Translation extends AppModel {
   public $actsAs = array('Containable');
 
@@ -25,28 +28,20 @@ class Translation extends AppModel {
     if(!$req || !$req['Post']) return null;
 
     // Reject outright garbage (too short or too long)
-    $len = strlen($text);
-    $postLen = strlen($req['Post']['text']);
+    $len = mb_strlen($text);
+    $postLen = mb_strlen($req['Post']['text']);
     if($len<$postLen/3 || $len>3*($postLen+3)){
       $tr = $this->Translator->findById($translatorId);
       $this->log('Rejecting translation of Post ' . $req['Post']['id'] . ' by ' . ($tr ? $tr['Translator']['email'] : $translatorId) . '.', 'debug');
       return null;
     }
 
-    // Check for URL at the end of the post
-    if(preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/", $req['Post']['text'], $postUrl)){
-      preg_match_all("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $text, $textUrls);
-      $found = false;
-      foreach($textUrls as $url){
-        if($url && $url[0] == $postUrl[0]){
-          $found = true; break;
-        }
-      }
-
-      if(!$found){
-        $text .= " " . $postUrl[0];
-      }
-    }
+    // Check for URLs, add if needed
+    $extractor = new Twitter_Extractor();
+    $postUrls = $extractor->extractURLs($req['Post']['text']);
+    $textUrls = $extractor->extractURLs($text);
+    $missingUrls = array_diff($postUrls, $textUrls);
+    $text .= ' ' . implode(' ', $missingUrls);
     
     $browser = $this->Browser->current();
     $browserId = $browser ? $browser['Browser']['id'] : null;
