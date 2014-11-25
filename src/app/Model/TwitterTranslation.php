@@ -33,7 +33,7 @@ class TwitterTranslation extends AppModel {
       $twitter = new Twitter();
 
       $text = '.@' . $data['Post']['TwitterPost']['author_screen_name'] .' '. $data['Translation']['text'];
-      if(mb_strlen($text)>140)
+      if(mb_strlen($text, 'UTF-8')>140)
         $text = mb_substr($text, 0, 140-1) . '…';
 
       // retweet
