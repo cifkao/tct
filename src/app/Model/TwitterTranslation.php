@@ -3,8 +3,8 @@ App::uses('Twitter', 'Utility');
 App::uses('Mail', 'Utility');
 App::uses('CakeTime', 'Utility');
 App::uses('Setting', 'Model');
-App::import('Vendor', 'Twitter_Extraction',
-  array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Extraction.php'));
+App::import('Vendor', 'Twitter_Extractor',
+  array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Extractor.php'));
 App::import('Vendor', 'Twitter_Validation',
   array('file' => 'twitter-text-php'.DS.'lib'.DS.'Twitter'.DS.'Validation.php'));
 
