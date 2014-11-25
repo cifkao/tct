@@ -77,7 +77,7 @@ $(function(){
 });
 
 function closeTranslationSubmission($e){
-  if($e.data('expanded')){
+  if($e.data('expanded') && $.trim($e.val()).length == 0){
     $e.data('expanded', false);
     $e.siblings('.below-textarea').slideUp(150);
     $e.trigger('autosize.destroy');
