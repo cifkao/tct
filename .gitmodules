@@ -10,3 +10,6 @@
 [submodule "src/app/Vendor/EmailReplyParser"]
 	path = src/app/Vendor/EmailReplyParser
 	url = https://github.com/willdurand/EmailReplyParser
+[submodule "src/app/Vendor/twitter-text-php"]
+	path = src/app/Vendor/twitter-text-php
+	url = https://github.com/nojimage/twitter-text-php.git
