@@ -72,7 +72,7 @@ if(array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
   $_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
 
   $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
+}else if($_SERVER['SERVER_ADDR'] != '127.0.0.1'){
   header("HTTP/1.1 303 See Other");
   header("Location: http://quest.ms.mff.cuni.cz/tweeslate");
   die();
