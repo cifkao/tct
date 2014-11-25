@@ -67,7 +67,7 @@ if (!defined('WWW_ROOT')) {
 }
 
 // Tweeslate redirect hack
-if($_SERVER['REMOTE_ADDR'] == '192.168.0.1'){
+if(array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
   $_SERVER['REQUEST_URI'] = '/tweeslate' . $_SERVER['REQUEST_URI'];
   $_SERVER['PHP_SELF'] = '/tweeslate/' . basename(__FILE__);
 
