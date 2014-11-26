@@ -111,8 +111,10 @@ class TwitterShell extends AppShell {
           'no-spam' => array('short' => 'n', 'help' => 'Don\'t notify translators.', 'boolean' => true)
         )
       )
+    ))->addSubcommand('updateConfiguration', array(
+      'help' => 'Fetch configuration from Twitter API.'
     ))->addSubcommand('get', array(
-      'help' => 'Send an arbitrary GET request and show the result.',
+      'help' => 'Send an arbitrary GET request and show the result.'
     ));
     return $parser;
   }
