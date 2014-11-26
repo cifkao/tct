@@ -76,7 +76,10 @@ class Twitter {
       $res = $this->API->setGetfield($getfield);
     $res = $this->API->buildOauth($this->apiUrl . $url, 'GET')
                      ->performRequest();
-    return json_decode($res, $assoc=true);
+    if($res)
+      return json_decode($res, $assoc=true);
+    else
+      return null;
   }
 
 }

@@ -1,5 +1,6 @@
 <?php
 App::uses('Twitter', 'Utility');
+
 class TwitterShell extends AppShell {
 
   public $uses = array('Setting', 'TwitterPost', 'Post', 'TranslationRequest');
@@ -69,6 +70,12 @@ class TwitterShell extends AppShell {
           "Tweet $tweet[id_str] (lang:$tweet[lang],user:{$tweet['user']['screen_name']}) has not been added.");
       }
     }
+  }
+
+  public function updateConfiguration(){
+    $config = $this->Twitter->get('help/configuration.json');
+    if($config)
+      $this->Setting->put('Twitter.configuration', json_encode($config));
   }
 
 
