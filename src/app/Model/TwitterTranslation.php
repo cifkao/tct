@@ -41,6 +41,8 @@ class TwitterTranslation extends AppModel {
       // truncate to 140 characters
       $validator = new Twitter_Validation();
       $extractor = new Twitter_Extractor();
+      $twitterConfig = json_decode($Setting->getString('Twitter.configuration', '{}'), true);
+      $validator->setConfiguration($twitterConfig);
       $truncated = false;
       while($validator->getTweetLength($text)>140){
         $truncated = true;
