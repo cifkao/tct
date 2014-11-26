@@ -41,12 +41,21 @@
 	</tr>
 	<?php foreach ($translations as $translation): ?>
 		<tr>
-			<td><?php echo $translation['Translation']['id']; ?></td>
-			<td><?php echo $translation['Translation']['text']; ?></td>
-			<td><?php echo $translation['Translation']['avg_score']; ?></td>
-			<td><?php echo $translation['Translation']['created']; ?></td>
+      <td>
+<?php
+echo $this->Html->link($translation['Translation']['id'],
+  array('controller' => 'translations', 'action' => 'view', $translation['Translation']['id']));
+?>
+      </td>
+			<td><?php echo h($translation['Translation']['text']); ?></td>
+			<td><?php echo h($translation['Translation']['avg_score']); ?></td>
+			<td><?php echo h($translation['Translation']['created']); ?></td>
 			<td class="actions">
-        <?php echo $this->Html->link(__('Publish'), array('action' => 'publish', $translation['Translation']['id'])); ?>
+<?php
+echo $this->Html->link(__('Edit'),
+  array('controller' => 'translations', 'action' => 'edit', $translation['Translation']['id']));
+echo $this->Html->link(__('Publish'), array('action' => 'publish', $translation['Translation']['id']));
+?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
