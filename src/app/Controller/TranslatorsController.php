@@ -10,10 +10,12 @@ class TranslatorsController extends AppController {
 
 
   public function index() {
-    $this->Translator->recursive = 1;
     $this->Paginator->settings = array(
       'conditions' => array(
         'activated' => true
+      ),
+      'contain' => array(
+        'SrcLang', 'TgtLang'
       )
     );
     $this->set('translators', $this->Paginator->paginate());
