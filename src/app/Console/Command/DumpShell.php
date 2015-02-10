@@ -13,9 +13,11 @@ class DumpShell extends AppShell {
   public function parallel(){
     $srcLangId = $this->Lang->toId($this->args[0]);
     $tgtLangId = $this->Lang->toId($this->args[1]);
+
+    $mt = $this->Translator->findByEmail(Configure::read('MT.Translator.email'));
     
     $data = $this->TranslationRequest->find('all', array(
-      'contain' => array('Translation'),
+      'fields' => array('TranslationRequest.*', 'Post.lang_id', 'Translation.*'),
       'conditions' => array(
         'TranslationRequest.tgt_lang_id' => $tgtLangId,
       ),
@@ -28,24 +30,32 @@ class DumpShell extends AppShell {
             'Post.lang_id' => $srcLangId
           ),
           'type' => 'INNER'
+        ),
+        array(
+          'table' => 'translations',
+          'alias' => 'Translation',
+          'conditions' => array(
+            'Translation.translation_request_id = TranslationRequest.id',
+            'not' => array('Translation.translator_id' => $mt['Translator']['id'])
+          ),
+          'type' => 'INNER'
         )
       )
     ));
 
-    $mt = $this->Translator->findByEmail(Configure::read('MT.Translator.email'));
-
     foreach($data as $d){
       $post = $this->Post->findById($d['TranslationRequest']['post_id']);
-      foreach($d['Translation'] as $tr){
-        if($tr['translator_id'] != $mt['Translator']['id']){
+      //foreach($d['Translation'] as $tr){
+      $tr = $d['Translation'];
+        //if($tr['translator_id'] != $mt['Translator']['id']){
           $this->out(
             $post['Post']['id'] ."\t".
             preg_replace('/\s+/', ' ', $post['Post']['text']) ."\t".
             $tr['id'] ."\t". preg_replace('/\s+/', ' ', $tr['text']) ."\t".
             $tr['avg_score']
           );
-        }
-      }
+        //}
+      //}
     }
   }
 
