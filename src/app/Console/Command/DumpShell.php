@@ -42,7 +42,7 @@ class DumpShell extends AppShell {
             $post['Post']['id'] ."\t".
             preg_replace('/\s+/', ' ', $post['Post']['text']) ."\t".
             $tr['id'] ."\t". preg_replace('/\s+/', ' ', $tr['text']) ."\t".
-            $tr['score']
+            $tr['avg_score']
           );
         }
       }
