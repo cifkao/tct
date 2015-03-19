@@ -61,7 +61,7 @@ class DumpShell extends AppShell {
 
   public function translations(){
     $data = $this->Translation->find('all', array(
-      'contain' => array('Post' => array('Lang'), 'Lang'),
+      'contain' => array('Post' => array('Lang'), 'Lang', 'TranslationRequest.accepted_translation_id'),
       'order' => 'Translation.created ASC'
     ));
 
@@ -70,7 +70,7 @@ class DumpShell extends AppShell {
 
   public function dailyTranslations(){
     $data = $this->Translation->find('all', array(
-      'contain' => array('Post' => array('Lang'), 'Lang'),
+      'contain' => array('Post' => array('Lang'), 'Lang', 'TranslationRequest.accepted_translation_id'),
       'order' => 'Translation.created ASC',
       'conditions' => array('Translation.created > NOW() - INTERVAL 24 HOUR')
     ));
@@ -79,9 +79,13 @@ class DumpShell extends AppShell {
   }
 
   private function dumpTranslations($data){
+    // dump format: src id <tab> src lang <tab> src text <tab> tgt id <tab> tgt lang <tab> tgt text <tab> accepted
     $mt = $this->Translator->findByEmail(Configure::read('MT.Translator.email'));
     foreach($data as $d){
       $tr = $d['Translation'];
+      $accepted = "0";
+      if($d['TranslationRequest']['accepted_translation_id']===$tr['id'])
+        $accepted = "1";
       if($tr['translator_id'] != $mt['Translator']['id']){
         $this->out(
           $d['Post']['id'] ."\t".
@@ -89,7 +93,8 @@ class DumpShell extends AppShell {
           preg_replace('/\s+/', ' ', $d['Post']['text']) ."\t".
           $tr['id'] ."\t".
           $d['Lang']['code'] ."\t".
-          preg_replace('/\s+/', ' ', $tr['text']) ."\t"
+          preg_replace('/\s+/', ' ', $tr['text']) ."\t".
+          $accepted
         );
       }
     }
